@@ -1,0 +1,28 @@
+<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="42%" r="70%">
+      <stop offset="0%" stop-color="#B8341F"/>
+      <stop offset="100%" stop-color="#8A2116"/>
+    </radialGradient>
+  </defs>
+
+  <!-- background -->
+  <circle cx="256" cy="256" r="256" fill="url(#bg)"/>
+
+  <!-- mesob-inspired concentric rings -->
+  <circle cx="256" cy="256" r="196" fill="none" stroke="#F6EFE0" stroke-width="6" opacity="0.16"/>
+  <circle cx="256" cy="256" r="158" fill="none" stroke="#F6EFE0" stroke-width="6" stroke-dasharray="2 14" opacity="0.55"/>
+  <circle cx="256" cy="256" r="120" fill="none" stroke="#E8A33D" stroke-width="7" opacity="0.9"/>
+  <circle cx="256" cy="256" r="82" fill="none" stroke="#F6EFE0" stroke-width="6" stroke-dasharray="2 14" opacity="0.65"/>
+
+  <!-- center mark: steam over a bowl, standing in for "cooking" -->
+  <g transform="translate(256,268)">
+    <path d="M -54 20 Q -54 62 0 62 Q 54 62 54 20 Z" fill="#F6EFE0"/>
+    <path d="M -60 20 L 60 20 L 54 20 Q 54 62 0 62 Q -54 62 -54 20 Z" fill="#F6EFE0"/>
+    <ellipse cx="0" cy="18" rx="60" ry="10" fill="#FBF3E3"/>
+
+    <path d="M -22 -18 C -30 -34 -14 -40 -18 -58" stroke="#F6EFE0" stroke-width="7" fill="none" stroke-linecap="round" opacity="0.85"/>
+    <path d="M 0 -18 C -8 -36 8 -42 2 -62" stroke="#F6EFE0" stroke-width="7" fill="none" stroke-linecap="round"/>
+    <path d="M 22 -18 C 14 -34 30 -40 20 -58" stroke="#F6EFE0" stroke-width="7" fill="none" stroke-linecap="round" opacity="0.85"/>
+  </g>
+</svg>
