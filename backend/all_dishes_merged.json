@@ -3315,9 +3315,7 @@
         "pecorino romano",
         "black pepper"
       ],
-      "steps": [
-        "Roman pasta dish with a creamy egg-and-cheese sauce, no cream used traditionally."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -3375,9 +3373,7 @@
         "basil",
         "olive oil"
       ],
-      "steps": [
-        "Classic Neapolitan pizza topped simply with tomato, mozzarella, and basil."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -3435,9 +3431,7 @@
         "parmesan",
         "white wine"
       ],
-      "steps": [
-        "Creamy saffron-infused rice dish from Milan."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -3502,9 +3496,7 @@
         "onion",
         "cilantro"
       ],
-      "steps": [
-        "Marinated, spit-roasted pork tacos with a touch of sweet pineapple."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -3562,9 +3554,7 @@
         "spices",
         "tortilla"
       ],
-      "steps": [
-        "Rich, complex sauce blending chiles and chocolate, served over chicken."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -3615,9 +3605,7 @@
         "egg batter",
         "tomato sauce"
       ],
-      "steps": [
-        "Stuffed, battered, and fried peppers in a light tomato sauce."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -3675,9 +3663,7 @@
         "cream",
         "garam masala"
       ],
-      "steps": [
-        "Creamy tomato-based curry, mild and rich."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -3735,9 +3721,7 @@
         "garam masala",
         "ginger"
       ],
-      "steps": [
-        "Spiced chickpea curry, a staple vegetarian dish."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -3795,9 +3779,7 @@
         "spices",
         "yogurt"
       ],
-      "steps": [
-        "Layered, fragrant spiced rice dish, cooked with meat or vegetables."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -3855,9 +3837,7 @@
         "ghee",
         "turmeric"
       ],
-      "steps": [
-        "Simple, comforting lentil dish tempered with spiced ghee."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -3915,9 +3895,7 @@
         "sichuan peppercorn",
         "soy sauce"
       ],
-      "steps": [
-        "Sichuan stir-fry balancing spicy, savory, and nutty flavors."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -3968,9 +3946,7 @@
         "doubanjiang",
         "sichuan peppercorn"
       ],
-      "steps": [
-        "Spicy, numbing tofu dish from Sichuan cuisine."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -4014,9 +3990,7 @@
         "wheat starch dough",
         "bamboo shoots"
       ],
-      "steps": [
-        "Steamed translucent dumplings filled with shrimp, a Cantonese classic."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -4067,9 +4041,7 @@
         "wasabi",
         "soy sauce"
       ],
-      "steps": [
-        "Hand-pressed rice topped with a slice of fresh fish."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -4127,9 +4099,7 @@
         "soft egg",
         "scallion"
       ],
-      "steps": [
-        "Noodle soup with rich broth, a Japanese comfort food staple."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -4187,9 +4157,7 @@
         "okonomiyaki sauce",
         "bonito flakes"
       ],
-      "steps": [
-        "Savory grilled pancake, customizable with various toppings."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -4247,9 +4215,7 @@
         "fried egg",
         "beef (optional)"
       ],
-      "steps": [
-        "Mixed rice bowl with vegetables, egg, and spicy chili paste."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -4300,9 +4266,7 @@
         "gochugaru",
         "scallion"
       ],
-      "steps": [
-        "Spicy fermented cabbage stew, a Korean home-cooking staple."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -4360,9 +4324,7 @@
         "garlic",
         "sesame oil"
       ],
-      "steps": [
-        "Sweet-savory marinated grilled beef."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -4427,9 +4389,7 @@
         "peanuts",
         "bean sprouts"
       ],
-      "steps": [
-        "Sweet-sour-savory stir-fried noodle dish."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -4487,9 +4447,7 @@
         "thai basil",
         "eggplant"
       ],
-      "steps": [
-        "Fragrant, spicy coconut-based curry."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -4547,9 +4505,7 @@
         "chili",
         "lime juice"
       ],
-      "steps": [
-        "Hot and sour Thai shrimp soup."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -4607,9 +4563,7 @@
         "herbs",
         "bean sprouts"
       ],
-      "steps": [
-        "Aromatic Vietnamese noodle soup, often eaten for breakfast."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -4667,9 +4621,7 @@
         "cilantro",
         "chili"
       ],
-      "steps": [
-        "Vietnamese baguette sandwich blending French and local flavors."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -4727,9 +4679,7 @@
         "egg",
         "chicken"
       ],
-      "steps": [
-        "Indonesian fried rice, sweet and savory with a fried egg on top."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -4787,9 +4737,7 @@
         "galangal",
         "chili paste"
       ],
-      "steps": [
-        "Slow-cooked, deeply spiced dry beef curry from Sumatra."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -4847,9 +4795,7 @@
         "garlic",
         "olive oil"
       ],
-      "steps": [
-        "Smooth chickpea and tahini dip, a Levantine staple."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -4907,9 +4853,7 @@
         "mint",
         "lemon juice"
       ],
-      "steps": [
-        "Herb-heavy bulgur salad, light and refreshing."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -4960,9 +4904,7 @@
         "pita",
         "pickles"
       ],
-      "steps": [
-        "Marinated meat roasted on a vertical spit, served wrapped or plated."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -5013,9 +4955,7 @@
         "onion",
         "yogurt sauce"
       ],
-      "steps": [
-        "Skewered grilled meat, a Turkish grilling staple."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -5066,9 +5006,7 @@
         "honey syrup",
         "butter"
       ],
-      "steps": [
-        "Layered pastry dessert soaked in sweet syrup."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -5112,9 +5050,7 @@
         "walnuts",
         "pomegranate molasses"
       ],
-      "steps": [
-        "Sweet-tart Persian stew with ground walnuts and pomegranate."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -5172,9 +5108,7 @@
         "ras el hanout",
         "onion"
       ],
-      "steps": [
-        "Slow-cooked stew named after the conical clay pot it's cooked in."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -5232,9 +5166,7 @@
         "merguez sausage",
         "vegetables"
       ],
-      "steps": [
-        "Festive steamed semolina dish with mixed meats and vegetables."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -5292,9 +5224,7 @@
         "tomato sauce",
         "crispy fried onions"
       ],
-      "steps": [
-        "Layered carb-heavy street food, Egypt's national dish."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -5352,9 +5282,7 @@
         "onion",
         "spices"
       ],
-      "steps": [
-        "One-pot spiced tomato rice dish, a West African staple with friendly national rivalry."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -5405,9 +5333,7 @@
         "palm oil",
         "meat or fish"
       ],
-      "steps": [
-        "Thick soup made from ground melon seeds, eaten with pounded yam or fufu."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -5458,9 +5384,7 @@
         "suya spice (yaji)",
         "onion"
       ],
-      "steps": [
-        "Spicy skewered grilled beef coated in a peanut-based spice mix."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -5518,9 +5442,7 @@
         "stew",
         "gari"
       ],
-      "steps": [
-        "Rice and beans dish colored naturally by dried sorghum leaves."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -5564,9 +5486,7 @@
         "salt",
         "grilled over open flame"
       ],
-      "steps": [
-        "Simply seasoned grilled meat, a social centerpiece dish in Kenya."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -5603,9 +5523,7 @@
         "maize flour",
         "water"
       ],
-      "steps": [
-        "Stiff maize porridge, a staple starch across East Africa."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -5656,9 +5574,7 @@
         "dried fruit",
         "egg custard topping"
       ],
-      "steps": [
-        "Spiced baked minced meat dish topped with an egg custard layer."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -5716,9 +5632,7 @@
         "rice",
         "orange slices"
       ],
-      "steps": [
-        "Hearty black bean and pork stew, Brazil's national dish."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -5769,9 +5683,7 @@
         "onion",
         "spices"
       ],
-      "steps": [
-        "Baked or fried stuffed pastry, common across Latin America."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -5829,9 +5741,7 @@
         "chili",
         "cilantro"
       ],
-      "steps": [
-        "Fish 'cooked' in citrus juice, Peru's signature dish."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -5875,9 +5785,7 @@
         "water",
         "salt"
       ],
-      "steps": [
-        "Grilled or fried corn cakes, often split and stuffed with fillings."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -5928,9 +5836,7 @@
         "seafood or chicken",
         "green beans"
       ],
-      "steps": [
-        "Iconic saffron rice dish from Valencia."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -5988,9 +5894,7 @@
         "olive oil",
         "bread"
       ],
-      "steps": [
-        "Chilled raw vegetable soup, popular in hot Andalusian summers."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -6041,9 +5945,7 @@
         "bechamel sauce",
         "tomato"
       ],
-      "steps": [
-        "Layered baked eggplant and spiced meat casserole."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -6094,9 +5996,7 @@
         "tzatziki",
         "onion"
       ],
-      "steps": [
-        "Grilled meat skewers, a Greek street food staple."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -6154,9 +6054,7 @@
         "pearl onions",
         "bacon"
       ],
-      "steps": [
-        "Classic French braise of chicken in red wine."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -6214,9 +6112,7 @@
         "tomato",
         "herbes de provence"
       ],
-      "steps": [
-        "Provençal stewed vegetable dish."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -6274,9 +6170,7 @@
         "mushrooms",
         "pearl onions"
       ],
-      "steps": [
-        "Slow-braised beef in Burgundy red wine."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -6334,9 +6228,7 @@
         "flour",
         "lemon"
       ],
-      "steps": [
-        "Thin breaded and fried cutlet, an Austrian classic."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -6380,9 +6272,7 @@
         "potato and cheese or meat filling",
         "onion"
       ],
-      "steps": [
-        "Filled dumplings, boiled or pan-fried, a Polish staple."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -6433,9 +6323,7 @@
         "potato",
         "sour cream"
       ],
-      "steps": [
-        "Beet-based soup, served hot or cold, deep red in color."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -6486,9 +6374,7 @@
         "puff pastry",
         "prosciutto"
       ],
-      "steps": [
-        "Beef tenderloin wrapped in mushroom paste and puff pastry."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -6539,9 +6425,7 @@
         "potatoes",
         "malt vinegar"
       ],
-      "steps": [
-        "Battered fried fish with chunky fried potatoes."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -6592,9 +6476,7 @@
         "allspice",
         "thyme"
       ],
-      "steps": [
-        "Spicy marinated, smoke-grilled chicken."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -6645,9 +6527,7 @@
         "sausage or seafood",
         "the trinity (onion, celery, pepper)"
       ],
-      "steps": [
-        "Louisiana Creole stew with a deep roux base."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -6691,9 +6571,7 @@
         "cheese curds",
         "gravy"
       ],
-      "steps": [
-        "Fries topped with cheese curds and hot gravy, a Quebec classic."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -6744,9 +6622,7 @@
         "yeast",
         "butter"
       ],
-      "steps": [
-        "Soft leavened flatbread cooked in a tandoor."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -6790,9 +6666,7 @@
         "nihari masala",
         "flour (for thickening)"
       ],
-      "steps": [
-        "Slow-cooked, richly spiced meat stew, often a breakfast dish."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -7348,9 +7222,7 @@
         "mozzarella",
         "parmesan"
       ],
-      "steps": [
-        "Layered baked pasta dish with meat sauce, cheese, and bechamel."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -7408,9 +7280,7 @@
         "cocoa powder",
         "eggs"
       ],
-      "steps": [
-        "Coffee-soaked layered dessert with mascarpone cream."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -7468,9 +7338,7 @@
         "cheese",
         "onion"
       ],
-      "steps": [
-        "Rolled tortillas filled with meat and covered in chili sauce."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -7528,9 +7396,7 @@
         "cilantro",
         "jalapeño"
       ],
-      "steps": [
-        "Mashed avocado dip, a Mexican staple."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -7588,9 +7454,7 @@
         "cumin",
         "garam masala"
       ],
-      "steps": [
-        "Fried pastry filled with spiced potatoes and peas."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -7648,9 +7512,7 @@
         "ginger",
         "garam masala"
       ],
-      "steps": [
-        "Creamy spinach curry with cubes of fresh cheese."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -7701,9 +7563,7 @@
         "tandoori masala",
         "lemon juice"
       ],
-      "steps": [
-        "Yogurt-marinated chicken roasted at high heat, traditionally in a tandoor."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -7754,9 +7614,7 @@
         "mustard seeds",
         "curry leaves"
       ],
-      "steps": [
-        "Crispy fermented rice-lentil crepe filled with spiced potato."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -7814,9 +7672,7 @@
         "thin pancakes",
         "cucumber"
       ],
-      "steps": [
-        "Roasted duck with crisp skin, served wrapped in thin pancakes."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -7874,9 +7730,7 @@
         "vinegar",
         "sugar"
       ],
-      "steps": [
-        "Battered fried pork in a tangy sweet-sour sauce."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -7934,9 +7788,7 @@
         "vinegar",
         "white pepper"
       ],
-      "steps": [
-        "Tangy, peppery soup balancing heat and sourness."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -7987,9 +7839,7 @@
         "dumpling wrapper",
         "ginger"
       ],
-      "steps": [
-        "Steamed dumplings that burst with hot broth inside."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -8033,9 +7883,7 @@
         "tempura batter",
         "dipping sauce"
       ],
-      "steps": [
-        "Lightly battered and fried seafood or vegetables."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -8086,9 +7934,7 @@
         "tonkatsu sauce",
         "cabbage"
       ],
-      "steps": [
-        "Breaded, deep-fried pork cutlet, a Japanese comfort food."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -8139,9 +7985,7 @@
         "seaweed",
         "dashi stock"
       ],
-      "steps": [
-        "Simple fermented soybean paste soup, a daily staple."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -8199,9 +8043,7 @@
         "bonito flakes",
         "mayonnaise"
       ],
-      "steps": [
-        "Ball-shaped savory snack filled with diced octopus."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -8259,9 +8101,7 @@
         "sesame oil",
         "beef"
       ],
-      "steps": [
-        "Stir-fried glass noodles with vegetables, sweet and savory."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -8312,9 +8152,7 @@
         "fish cake",
         "scallion"
       ],
-      "steps": [
-        "Chewy rice cakes in a spicy-sweet sauce, popular street food."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -8372,9 +8210,7 @@
         "potato",
         "peanuts"
       ],
-      "steps": [
-        "Mild, rich curry with Persian and Indian influences."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -8432,9 +8268,7 @@
         "chili",
         "peanuts"
       ],
-      "steps": [
-        "Spicy-sour shredded green papaya salad."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -8485,9 +8319,7 @@
         "fish sauce dipping broth",
         "herbs"
       ],
-      "steps": [
-        "Grilled pork served with rice noodles and herbs in dipping broth."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -8538,9 +8370,7 @@
         "tempeh",
         "peanut sauce"
       ],
-      "steps": [
-        "Indonesian salad with a rich peanut dressing."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -8591,9 +8421,7 @@
         "turmeric",
         "lemongrass"
       ],
-      "steps": [
-        "Grilled skewered meat served with peanut dipping sauce."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -8651,9 +8479,7 @@
         "cumin",
         "coriander"
       ],
-      "steps": [
-        "Fried chickpea patties, a Levantine staple often served in pita."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -8711,9 +8537,7 @@
         "tomato",
         "cucumber"
       ],
-      "steps": [
-        "Crisp salad topped with toasted or fried pita chips."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -8764,9 +8588,7 @@
         "caramelized onion",
         "cumin"
       ],
-      "steps": [
-        "Simple lentil and rice dish topped with crispy onions."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -8817,9 +8639,7 @@
         "green pepper",
         "onion"
       ],
-      "steps": [
-        "Turkish scrambled eggs cooked with tomato and peppers."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -8877,9 +8697,7 @@
         "parsley",
         "onion"
       ],
-      "steps": [
-        "Thin, crispy flatbread topped with spiced minced meat."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -8930,9 +8748,7 @@
         "yogurt",
         "butter"
       ],
-      "steps": [
-        "Persian rice with a coveted crispy golden crust."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -8983,9 +8799,7 @@
         "sumac",
         "grilled on skewers"
       ],
-      "steps": [
-        "Seasoned ground meat kebabs, a Persian grilling classic."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -9043,9 +8857,7 @@
         "lamb",
         "cilantro"
       ],
-      "steps": [
-        "Hearty tomato-based soup, traditionally eaten to break the Ramadan fast."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -9103,9 +8915,7 @@
         "cinnamon",
         "sugar"
       ],
-      "steps": [
-        "Sweet-savory pie layering spiced meat and almonds in flaky pastry."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -9156,9 +8966,7 @@
         "scotch bonnet",
         "onion"
       ],
-      "steps": [
-        "Light, fiery peppery broth, often used as a warming remedy."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -9209,9 +9017,7 @@
         "onion",
         "palm oil"
       ],
-      "steps": [
-        "Steamed bean pudding, often wrapped in leaves or foil."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -9248,9 +9054,7 @@
         "fermented corn and cassava dough",
         "water"
       ],
-      "steps": [
-        "Fermented, cooked dough staple, eaten with soup or stew."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -9301,9 +9105,7 @@
         "chili",
         "cloves"
       ],
-      "steps": [
-        "Spiced, fried plantain cubes, a popular Ghanaian street snack."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -9354,9 +9156,7 @@
         "tomato",
         "oil"
       ],
-      "steps": [
-        "Simple sautéed greens, a daily staple across East Africa."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -9407,9 +9207,7 @@
         "coriander seed",
         "salt"
       ],
-      "steps": [
-        "Air-dried, cured meat snack, similar to jerky but distinct in seasoning."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -9460,9 +9258,7 @@
         "butter",
         "chocolate sprinkles"
       ],
-      "steps": [
-        "Fudgy chocolate truffle, a staple at Brazilian celebrations."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -9513,9 +9309,7 @@
         "eggs",
         "milk"
       ],
-      "steps": [
-        "Chewy, cheesy baked bread rolls."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -9573,9 +9367,7 @@
         "tomato",
         "pepper"
       ],
-      "steps": [
-        "Brazilian fish stew simmered in coconut milk and palm oil."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -9619,9 +9411,7 @@
         "salt",
         "chimichurri"
       ],
-      "steps": [
-        "Argentine barbecue tradition centered on slow-grilled meats."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -9679,9 +9469,7 @@
         "onion",
         "french fries"
       ],
-      "steps": [
-        "Peruvian stir-fry blending Chinese and Latin American technique."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -9732,9 +9520,7 @@
         "onion",
         "olive oil"
       ],
-      "steps": [
-        "Thick Spanish potato and egg omelette."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -9778,9 +9564,7 @@
         "cinnamon sugar",
         "chocolate dipping sauce"
       ],
-      "steps": [
-        "Fried dough pastry, crisp outside and soft inside."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -9831,9 +9615,7 @@
         "phyllo dough",
         "dill"
       ],
-      "steps": [
-        "Flaky pastry filled with spinach and feta."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -9891,9 +9673,7 @@
         "bacon",
         "gruyere"
       ],
-      "steps": [
-        "Savory egg custard tart with bacon and cheese."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -9937,9 +9717,7 @@
         "butter",
         "yeast"
       ],
-      "steps": [
-        "Flaky, buttery layered pastry, a French breakfast staple."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -9990,9 +9768,7 @@
         "juniper berries",
         "gingersnap gravy"
       ],
-      "steps": [
-        "Marinated pot roast, Germany's traditional sour braised beef."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -10036,9 +9812,7 @@
         "curry ketchup",
         "curry powder"
       ],
-      "steps": [
-        "Sliced sausage doused in curry-spiced ketchup, a Berlin street food icon."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -10089,9 +9863,7 @@
         "onion",
         "sour cream"
       ],
-      "steps": [
-        "Small boiled dumplings filled with seasoned meat."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -10142,9 +9914,7 @@
         "mushroom",
         "onion"
       ],
-      "steps": [
-        "Sautéed beef in a creamy mushroom sauce, served over noodles or rice."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -10195,9 +9965,7 @@
         "carrot",
         "peas"
       ],
-      "steps": [
-        "Baked minced meat topped with mashed potato."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -10248,9 +10016,7 @@
         "milk",
         "butter"
       ],
-      "steps": [
-        "Creamy baked or stovetop pasta and cheese classic."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -10301,9 +10067,7 @@
         "butter",
         "blue cheese dip"
       ],
-      "steps": [
-        "Fried chicken wings tossed in spicy butter sauce."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -10361,9 +10125,7 @@
         "garlic",
         "bay leaf"
       ],
-      "steps": [
-        "Braised chicken in soy sauce and vinegar, the Philippines' de facto national dish."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -10414,9 +10176,7 @@
         "shrimp or chicken",
         "tofu puffs"
       ],
-      "steps": [
-        "Spicy coconut curry noodle soup blending Chinese and Malay flavors."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -10467,9 +10227,7 @@
         "ginger-scallion sauce",
         "chili sauce"
       ],
-      "steps": [
-        "Poached chicken served with rice cooked in chicken fat and broth."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -10520,9 +10278,7 @@
         "breadcrumbs",
         "ragu"
       ],
-      "steps": [
-        "Fried, breaded risotto balls, a Sicilian street food staple."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -10573,9 +10329,7 @@
         "rosemary",
         "salt"
       ],
-      "steps": [
-        "Flat oven-baked Italian bread, dimpled and drizzled with olive oil."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -10626,9 +10380,7 @@
         "basil",
         "olive oil"
       ],
-      "steps": [
-        "Tuscan bread and tomato salad, a way to use up day-old bread."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -10679,9 +10431,7 @@
         "basil",
         "olive oil"
       ],
-      "steps": [
-        "Simple sliced tomato and mozzarella salad in the colors of the Italian flag."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -10739,9 +10489,7 @@
         "garlic",
         "olive oil"
       ],
-      "steps": [
-        "Bright, herby sauce from Liguria, traditionally pounded in a mortar."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -10792,9 +10540,7 @@
         "sausage",
         "pork"
       ],
-      "steps": [
-        "Slow-cooked white bean casserole from southwestern France."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -10845,9 +10591,7 @@
         "fennel",
         "tomato"
       ],
-      "steps": [
-        "Provençal fish stew from the port city of Marseille."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -10898,9 +10642,7 @@
         "bread",
         "bechamel"
       ],
-      "steps": [
-        "Grilled ham and cheese sandwich topped with bechamel sauce."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -10958,9 +10700,7 @@
         "egg",
         "tomato"
       ],
-      "steps": [
-        "Composed salad from Nice with tuna, olives, and hard-boiled egg."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -11011,9 +10751,7 @@
         "gruyere",
         "baguette"
       ],
-      "steps": [
-        "Rich onion soup topped with melted cheese over toasted bread."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -11064,9 +10802,7 @@
         "garlic",
         "thyme"
       ],
-      "steps": [
-        "Duck slow-cooked and preserved in its own fat until tender."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -11110,9 +10846,7 @@
         "spicy tomato sauce",
         "aioli"
       ],
-      "steps": [
-        "Fried potato cubes served with a spicy sauce, a classic Spanish tapa."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -11163,9 +10897,7 @@
         "tomato",
         "onion"
       ],
-      "steps": [
-        "Spanish vegetable medley similar to ratatouille, often topped with a fried egg."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -11216,9 +10948,7 @@
         "morcilla",
         "pork"
       ],
-      "steps": [
-        "Hearty bean stew from Asturias with cured meats."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -11269,9 +10999,7 @@
         "egg",
         "onion"
       ],
-      "steps": [
-        "Shredded salt cod scrambled with potato straws and egg."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -11322,9 +11050,7 @@
         "chorizo",
         "olive oil"
       ],
-      "steps": [
-        "Portuguese green soup with shredded kale and sliced sausage."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -11368,9 +11094,7 @@
         "puff pastry",
         "cinnamon"
       ],
-      "steps": [
-        "Portuguese custard tart with a flaky, caramelized top."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -11428,9 +11152,7 @@
         "melted cheese",
         "beer sauce"
       ],
-      "steps": [
-        "Porto's indulgent layered sandwich smothered in a spicy tomato-beer sauce."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -11474,9 +11196,7 @@
         "mustard",
         "bread roll"
       ],
-      "steps": [
-        "Grilled German sausage, often served with mustard and a roll."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -11527,9 +11247,7 @@
         "lye or baking soda",
         "coarse salt"
       ],
-      "steps": [
-        "Chewy, knot-shaped German bread with a distinctive dark crust."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -11580,9 +11298,7 @@
         "onion",
         "mustard"
       ],
-      "steps": [
-        "German potato salad, served warm with a tangy vinegar dressing."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -11633,9 +11349,7 @@
         "whipped cream",
         "kirsch"
       ],
-      "steps": [
-        "Layered chocolate cake with cherries and cream, named after the Black Forest region."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -11686,9 +11400,7 @@
         "carrot",
         "onion"
       ],
-      "steps": [
-        "Simple, hearty lamb and root vegetable stew."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -11739,9 +11451,7 @@
         "onion",
         "spices"
       ],
-      "steps": [
-        "Scotland's savory pudding of seasoned offal and oats, traditionally served with neeps and tatties."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -11785,9 +11495,7 @@
         "mashed potato",
         "onion gravy"
       ],
-      "steps": [
-        "British comfort food pairing sausages with mashed potato and gravy."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -11824,9 +11532,7 @@
         "waffle dough",
         "caramel syrup"
       ],
-      "steps": [
-        "Thin waffle cookies sandwiched with a caramel filling."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -11877,9 +11583,7 @@
         "fries",
         "garlic"
       ],
-      "steps": [
-        "Steamed mussels served with a side of crispy fries, Belgium's signature dish."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -11923,9 +11627,7 @@
         "breadcrumbs",
         "mustard"
       ],
-      "steps": [
-        "Deep-fried Dutch meat croquettes, a popular bar snack."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -11976,9 +11678,7 @@
         "white wine",
         "bread"
       ],
-      "steps": [
-        "Melted cheese shared communally, eaten by dipping bread on long forks."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -12022,9 +11722,7 @@
         "potato",
         "pickles"
       ],
-      "steps": [
-        "Melted cheese scraped over potatoes and accompaniments, both a dish and a social meal."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -12068,9 +11766,7 @@
         "apricot jam",
         "chocolate glaze"
       ],
-      "steps": [
-        "Dense Viennese chocolate cake with a thin layer of apricot jam."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -12121,9 +11817,7 @@
         "tzatziki",
         "tomato"
       ],
-      "steps": [
-        "Greek wrapped sandwich of spiced meat, similar in spirit to shawarma and doner."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -12174,9 +11868,7 @@
         "feta",
         "olives"
       ],
-      "steps": [
-        "Simple salad of tomato, cucumber, olives, and feta, no lettuce involved."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -12220,9 +11912,7 @@
         "onion",
         "flatbread"
       ],
-      "steps": [
-        "Grilled minced meat fingers popular across the former Yugoslavia."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -12259,9 +11949,7 @@
         "phyllo dough",
         "meat or cheese filling"
       ],
-      "steps": [
-        "Flaky spiral or layered pastry filled with meat, cheese, or spinach."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -12305,9 +11993,7 @@
         "ground pork",
         "rice"
       ],
-      "steps": [
-        "Romanian cabbage rolls stuffed with spiced meat and rice."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -12358,9 +12044,7 @@
         "onion",
         "potato"
       ],
-      "steps": [
-        "Hungarian paprika-spiced beef and vegetable stew."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -12411,9 +12095,7 @@
         "cheese",
         "garlic"
       ],
-      "steps": [
-        "Deep-fried Hungarian flatbread, often topped with sour cream and cheese."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -12450,9 +12132,7 @@
         "sweet dough",
         "cinnamon sugar"
       ],
-      "steps": [
-        "Spit-rolled pastry dough coated in cinnamon sugar, popular street food."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -12496,9 +12176,7 @@
         "garlic",
         "marjoram"
       ],
-      "steps": [
-        "Smoked Polish sausage eaten on its own or in stews."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -12542,9 +12220,7 @@
         "fish or meat toppings",
         "pickles"
       ],
-      "steps": [
-        "Open-faced Danish sandwich, artfully topped with fish, meat, or cheese."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -12588,9 +12264,7 @@
         "cream sauce",
         "lingonberry jam"
       ],
-      "steps": [
-        "Swedish meatballs served with a creamy sauce and tart lingonberry jam."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -12641,9 +12315,7 @@
         "salt",
         "sugar"
       ],
-      "steps": [
-        "Cured raw salmon flavored with dill, salt, and sugar."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -12680,9 +12352,7 @@
         "dried whitefish",
         "lye"
       ],
-      "steps": [
-        "Traditional Norwegian dish of whitefish preserved and rehydrated with lye."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -12733,9 +12403,7 @@
         "bell pepper",
         "cumin"
       ],
-      "steps": [
-        "Eggs poached in a spiced tomato and pepper sauce."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -12786,9 +12454,7 @@
         "pita",
         "tahini"
       ],
-      "steps": [
-        "Israeli pita sandwich built around fried eggplant and egg."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -12839,9 +12505,7 @@
         "chicken or lamb",
         "cauliflower"
       ],
-      "steps": [
-        "Layered rice and meat dish flipped upside down for serving, its name means 'upside-down'."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -12885,9 +12549,7 @@
         "fermented dried yogurt (jameed)",
         "rice"
       ],
-      "steps": [
-        "Jordan's national dish: lamb cooked in a tangy fermented yogurt sauce over rice."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -12938,9 +12600,7 @@
         "onion",
         "pine nuts"
       ],
-      "steps": [
-        "Torpedo-shaped fried croquettes of bulgur and spiced minced meat."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -12991,9 +12651,7 @@
         "mixed spices",
         "tomato"
       ],
-      "steps": [
-        "Saudi Arabia's spiced rice and meat dish, similar to biryani."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -13037,9 +12695,7 @@
         "lamb or chicken",
         "smoke-cooked in a pit"
       ],
-      "steps": [
-        "Yemeni rice and meat dish traditionally slow-cooked in an underground pit."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -13090,9 +12746,7 @@
         "dried lime",
         "baharat spice"
       ],
-      "steps": [
-        "Spiced rice dish common across the Gulf, similar to biryani and kabsa."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -13143,9 +12797,7 @@
         "yogurt",
         "pita"
       ],
-      "steps": [
-        "Sliced doner meat over pita, topped with tomato sauce, butter, and yogurt."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -13189,9 +12841,7 @@
         "cheese or meat topping",
         "egg"
       ],
-      "steps": [
-        "Turkish flatbread shaped like a boat, topped and baked until crisp."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -13235,9 +12885,7 @@
         "walnuts",
         "pomegranate molasses"
       ],
-      "steps": [
-        "Spicy-sweet Syrian dip of roasted peppers and walnuts."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -13288,9 +12936,7 @@
         "tuna or meat",
         "harissa"
       ],
-      "steps": [
-        "Tunisian fried pastry filled with egg, tuna, and spices, eaten by biting carefully."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -13341,9 +12987,7 @@
         "harissa",
         "stale bread"
       ],
-      "steps": [
-        "Tunisian chickpea soup poured over torn bread and topped with harissa."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -13394,9 +13038,7 @@
         "egg",
         "harissa"
       ],
-      "steps": [
-        "North African cousin of shakshuka, eggs poached in spiced vegetables."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -13440,9 +13082,7 @@
         "cumin",
         "salt"
       ],
-      "steps": [
-        "Whole lamb slow-roasted until falling off the bone, served at celebrations."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -13493,9 +13133,7 @@
         "nuts",
         "raisins"
       ],
-      "steps": [
-        "Egyptian bread pudding baked with milk, nuts, and raisins."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -13546,9 +13184,7 @@
         "tomato",
         "vegetables"
       ],
-      "steps": [
-        "Senegal's national dish of fish and rice cooked in a rich tomato sauce."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -13599,9 +13235,7 @@
         "lemon",
         "mustard"
       ],
-      "steps": [
-        "Tangy Senegalese dish of marinated chicken or fish with caramelized onions."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -13638,9 +13272,7 @@
         "cassava or plantain",
         "water"
       ],
-      "steps": [
-        "Starchy, stretchy dough pounded from cassava or plantain, eaten with soups and stews."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -13677,9 +13309,7 @@
         "fermented cassava",
         "couscous-like texture"
       ],
-      "steps": [
-        "Fermented, granulated cassava staple, similar in texture to couscous."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -13730,9 +13360,7 @@
         "pepper",
         "slow-simmered in a sealed pot"
       ],
-      "steps": [
-        "Slow-simmered chicken stew cooked in a sealed clay pot for concentrated flavor."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -13776,9 +13404,7 @@
         "chicken or beef",
         "tomato"
       ],
-      "steps": [
-        "Rich, nutty stew found across West Africa, built on a peanut paste base."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -13822,9 +13448,7 @@
         "onion",
         "pepper"
       ],
-      "steps": [
-        "Deep-fried bean fritters, a popular Nigerian breakfast food."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -13875,9 +13499,7 @@
         "pepper",
         "assorted meat"
       ],
-      "steps": [
-        "Rich Yoruba vegetable soup made with leafy greens and palm oil."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -13921,9 +13543,7 @@
         "groundnuts",
         "fish or beef"
       ],
-      "steps": [
-        "Cameroon's national dish, combining bitter leaves with a nutty peanut sauce."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -13974,9 +13594,7 @@
         "tomato",
         "vegetables"
       ],
-      "steps": [
-        "West African peanut stew, hearty and slightly sweet from the groundnut base."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -14013,9 +13631,7 @@
         "maize flour",
         "water"
       ],
-      "steps": [
-        "Stiff maize porridge, Zambia's staple starch, eaten with relishes."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -14052,9 +13668,7 @@
         "maize flour",
         "water"
       ],
-      "steps": [
-        "Zimbabwe's staple maize porridge, similar to ugali and nshima."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -14098,9 +13712,7 @@
         "palm nut sauce",
         "chili"
       ],
-      "steps": [
-        "Chicken stewed in a rich palm nut sauce, widely considered a Congolese national dish."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -14151,9 +13763,7 @@
         "coconut milk",
         "seafood"
       ],
-      "steps": [
-        "Mozambican stew of cassava leaves cooked with ground peanuts and coconut milk."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -14197,9 +13807,7 @@
         "vegetables",
         "slow-cooked in a cast iron pot"
       ],
-      "steps": [
-        "South African stew slow-cooked over coals in a three-legged cast iron pot."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -14236,9 +13844,7 @@
         "fried dough",
         "mince or jam filling"
       ],
-      "steps": [
-        "South African fried dough bread, often stuffed with spiced mince or jam."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -14275,9 +13881,7 @@
         "green banana",
         "steamed and mashed"
       ],
-      "steps": [
-        "Steamed and mashed green bananas, a staple across the African Great Lakes region."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -14321,9 +13925,7 @@
         "groundnut sauce",
         "steamed in banana leaves"
       ],
-      "steps": [
-        "Ugandan stew steamed inside banana leaves for a distinct aroma."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -14367,9 +13969,7 @@
         "meat",
         "pilau spice blend"
       ],
-      "steps": [
-        "Fragrant spiced rice dish from the East African coast, influenced by Indian and Arab trade."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -14420,9 +14020,7 @@
         "cardamom",
         "sugar"
       ],
-      "steps": [
-        "Lightly sweet East African fried bread, similar to a doughnut."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -14473,9 +14071,7 @@
         "chili",
         "lime"
       ],
-      "steps": [
-        "Fresh, tangy tomato and onion salad served alongside grilled meats."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -14519,9 +14115,7 @@
         "coconut milk",
         "egg"
       ],
-      "steps": [
-        "Bowl-shaped fermented rice pancakes, often with an egg cooked in the center."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -14572,9 +14166,7 @@
         "egg",
         "curry sauce"
       ],
-      "steps": [
-        "Sri Lankan street food of chopped roti stir-fried with vegetables and curry."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -14618,9 +14210,7 @@
         "meat or vegetable filling",
         "achar dipping sauce"
       ],
-      "steps": [
-        "Steamed or fried dumplings popular across Nepal and the Himalayas."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -14671,9 +14261,7 @@
         "vegetable curry",
         "pickle"
       ],
-      "steps": [
-        "Nepal's everyday meal of lentil soup, rice, and vegetables."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -14724,9 +14312,7 @@
         "kashmiri chili",
         "aromatic spices"
       ],
-      "steps": [
-        "Deep red, aromatic Kashmiri lamb curry."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -14777,9 +14363,7 @@
         "chili",
         "garlic"
       ],
-      "steps": [
-        "Fiery, tangy Goan curry with Portuguese roots."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -14823,9 +14407,7 @@
         "fermented batter",
         "mustard seed tempering"
       ],
-      "steps": [
-        "Steamed, spongy savory cake from Gujarat."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -14869,9 +14451,7 @@
         "butter",
         "soft bread rolls"
       ],
-      "steps": [
-        "Buttery mashed vegetable curry served with soft bread rolls, a Mumbai street food icon."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -14908,9 +14488,7 @@
         "chickpea curry",
         "fried bread"
       ],
-      "steps": [
-        "Spiced chickpeas served with fluffy deep-fried bread."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -14954,9 +14532,7 @@
         "lentil vegetable stew",
         "coconut chutney"
       ],
-      "steps": [
-        "Soft steamed rice cakes served with a tangy lentil stew, a South Indian breakfast staple."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -15007,9 +14583,7 @@
         "turmeric",
         "cumin"
       ],
-      "steps": [
-        "Simple, popular dry-spiced potato and cauliflower dish."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -15053,9 +14627,7 @@
         "vegetables",
         "soy sauce"
       ],
-      "steps": [
-        "Crispy or soft stir-fried noodles with vegetables and often meat."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -15099,9 +14671,7 @@
         "water",
         "toppings vary"
       ],
-      "steps": [
-        "Comforting rice porridge, eaten across East Asia with savory toppings."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -15138,9 +14708,7 @@
         "dumpling wrapper",
         "pork or vegetable filling"
       ],
-      "steps": [
-        "Boiled, steamed, or pan-fried dumplings, essential to Lunar New Year meals."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -15184,9 +14752,7 @@
         "vegetables or meat",
         "fried until crisp"
       ],
-      "steps": [
-        "Crispy fried rolls filled with vegetables or meat."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -15230,9 +14796,7 @@
         "mutton or beef",
         "onion"
       ],
-      "steps": [
-        "Mongolian steamed meat dumplings, traditionally eaten during Lunar New Year."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -15276,9 +14840,7 @@
         "hot stones",
         "root vegetables"
       ],
-      "steps": [
-        "Mongolian barbecue where meat is cooked with hot stones in a sealed pot."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -15329,9 +14891,7 @@
         "soy braising broth",
         "star anise"
       ],
-      "steps": [
-        "Rich, soy-braised beef broth over hand-pulled noodles."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -15375,9 +14935,7 @@
         "braised pork belly",
         "pickled mustard greens"
       ],
-      "steps": [
-        "Fluffy steamed bun folded around braised pork belly."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -15414,9 +14972,7 @@
         "egg custard",
         "flaky or shortcrust pastry"
       ],
-      "steps": [
-        "Hong Kong's take on the Portuguese egg tart, with a lighter custard."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -15467,9 +15023,7 @@
         "kroeung spice paste",
         "banana leaf"
       ],
-      "steps": [
-        "Cambodia's national dish: fish steamed in coconut curry inside a banana leaf."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -15520,9 +15074,7 @@
         "lettuce",
         "tomato"
       ],
-      "steps": [
-        "Stir-fried marinated beef cubes served over salad with a tangy dipping sauce."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -15573,9 +15125,7 @@
         "toasted rice powder",
         "herbs"
       ],
-      "steps": [
-        "Spicy, herby minced meat salad, considered Laos' national dish."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -15626,9 +15176,7 @@
         "lemongrass",
         "banana stem"
       ],
-      "steps": [
-        "Myanmar's beloved breakfast fish noodle soup."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -15679,9 +15227,7 @@
         "fried beans",
         "tomato"
       ],
-      "steps": [
-        "Distinctive Burmese salad built on fermented tea leaves."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -15732,9 +15278,7 @@
         "anchovies",
         "egg"
       ],
-      "steps": [
-        "Malaysia's national dish: fragrant coconut rice with spicy sambal and sides."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -15785,9 +15329,7 @@
         "egg",
         "soy sauce"
       ],
-      "steps": [
-        "Smoky wok-fried flat noodles, a hawker classic."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -15824,9 +15366,7 @@
         "layered flatbread",
         "dhal or curry dipping sauce"
       ],
-      "steps": [
-        "Flaky, layered flatbread griddled fresh, usually served with curry."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -15870,9 +15410,7 @@
         "vegetables",
         "meat or shrimp"
       ],
-      "steps": [
-        "Filipino noodle dish traditionally served at birthdays for long life."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -15916,9 +15454,7 @@
         "pork or shrimp",
         "vegetables"
       ],
-      "steps": [
-        "Sour tamarind-based Filipino soup, a comfort food staple."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -15962,9 +15498,7 @@
         "lemongrass",
         "garlic"
       ],
-      "steps": [
-        "Whole spit-roasted pig with crackling skin, centerpiece of Filipino celebrations."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -16015,9 +15549,7 @@
         "sweet beans",
         "ube"
       ],
-      "steps": [
-        "Layered shaved ice dessert loaded with sweet toppings and ube ice cream."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -16068,9 +15600,7 @@
         "herbs",
         "vermicelli"
       ],
-      "steps": [
-        "Fresh, unfried rice paper rolls filled with herbs, shrimp, and noodles."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -16114,9 +15644,7 @@
         "coconut curry broth",
         "crispy noodle topping"
       ],
-      "steps": [
-        "Northern Thai curry noodle soup topped with crispy fried noodles."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -16160,9 +15688,7 @@
         "gravy",
         "pastry crust"
       ],
-      "steps": [
-        "Individual-sized savory pie filled with minced meat and gravy, an Australian icon."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -16206,9 +15732,7 @@
         "whipped cream",
         "fresh fruit"
       ],
-      "steps": [
-        "Crisp-shelled, marshmallowy meringue dessert topped with fruit and cream."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -16245,9 +15769,7 @@
         "yeast extract spread",
         "buttered toast"
       ],
-      "steps": [
-        "Simple Australian breakfast built on the famously polarizing yeast spread."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -16291,9 +15813,7 @@
         "vegetables",
         "cooked in an earth oven"
       ],
-      "steps": [
-        "Māori method of cooking food in a pit oven with heated stones."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -16344,9 +15864,7 @@
         "sesame oil",
         "seaweed"
       ],
-      "steps": [
-        "Diced raw fish salad, a Hawaiian staple now popular worldwide."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -16390,9 +15908,7 @@
         "banana leaves",
         "cooked in an underground oven"
       ],
-      "steps": [
-        "Whole pig slow-roasted in an underground imu oven, a luau centerpiece."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -16443,9 +15959,7 @@
         "rice",
         "fried plantain"
       ],
-      "steps": [
-        "Venezuela's national dish combining shredded beef, beans, rice, and plantain."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -16489,9 +16003,7 @@
         "cheese",
         "griddled like a pancake"
       ],
-      "steps": [
-        "Sweet corn pancake, often folded around soft cheese."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -16549,9 +16061,7 @@
         "chorizo",
         "fried egg"
       ],
-      "steps": [
-        "Massive Colombian platter combining beans, rice, meats, and egg."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -16602,9 +16112,7 @@
         "corn",
         "guasca herb"
       ],
-      "steps": [
-        "Bogotá's hearty chicken and potato soup, made with a native Andean herb."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -16648,9 +16156,7 @@
         "cheese",
         "griddled patties"
       ],
-      "steps": [
-        "Cheese-stuffed potato patties, a staple of Ecuadorian cuisine."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -16694,9 +16200,7 @@
         "cassava",
         "pickled red onion"
       ],
-      "steps": [
-        "Ecuadorian fish and cassava soup, popular as a hangover cure."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -16747,9 +16251,7 @@
         "olives",
         "raisins"
       ],
-      "steps": [
-        "Bolivian baked empanada-like pastry filled with juicy, slightly sweet stew."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -16793,9 +16295,7 @@
         "chorizo",
         "salt"
       ],
-      "steps": [
-        "Uruguay's version of the South American barbecue tradition."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -16853,9 +16353,7 @@
         "egg",
         "bread"
       ],
-      "steps": [
-        "Loaded Uruguayan steak sandwich piled with toppings."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -16906,9 +16404,7 @@
         "bell pepper",
         "onion"
       ],
-      "steps": [
-        "Cuba's national dish of slow-cooked shredded beef in tomato sauce."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -16959,9 +16455,7 @@
         "garlic",
         "cumin"
       ],
-      "steps": [
-        "Cuban black beans and rice cooked together, named for their contrasting colors."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -16998,9 +16492,7 @@
         "mashed plantain",
         "sautéed onion"
       ],
-      "steps": [
-        "Mashed boiled plantains, a Dominican breakfast staple."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -17044,9 +16536,7 @@
         "root vegetables",
         "corn"
       ],
-      "steps": [
-        "Hearty root vegetable and meat stew found in many Latin American countries, with regional variations."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -17090,9 +16580,7 @@
         "toasted seeds and chilies",
         "vegetables"
       ],
-      "steps": [
-        "Guatemala's national dish, a stew thickened with toasted spices and seeds."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -17143,9 +16631,7 @@
         "cheese",
         "cream"
       ],
-      "steps": [
-        "Simple, beloved Honduran folded tortilla with beans and cheese."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -17196,9 +16682,7 @@
         "onion",
         "cilantro"
       ],
-      "steps": [
-        "Central American breakfast staple of rice and beans cooked together."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -17256,9 +16740,7 @@
         "meat",
         "salad"
       ],
-      "steps": [
-        "Costa Rican combination plate, literally 'married' rice, beans, and sides."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -17302,9 +16784,7 @@
         "sour orange marinade",
         "pikliz"
       ],
-      "steps": [
-        "Haitian fried pork, marinated in citrus and served with spicy pickled slaw."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -17355,9 +16835,7 @@
         "scotch bonnet pepper",
         "vinegar"
       ],
-      "steps": [
-        "Fiery Haitian pickled cabbage relish, served alongside fried dishes."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -17408,9 +16886,7 @@
         "olives",
         "egg"
       ],
-      "steps": [
-        "Chilean corn pie layered over a savory beef filling."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -17461,9 +16937,7 @@
         "potato",
         "cooked in an earth pit"
       ],
-      "steps": [
-        "Traditional Chilote dish of seafood and meat slow-cooked underground."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -17514,9 +16988,7 @@
         "olive",
         "hard boiled egg"
       ],
-      "steps": [
-        "Chile's baked empanada filled with spiced beef, olives, and egg."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -17553,9 +17025,7 @@
         "fried flatbread",
         "curried chickpeas"
       ],
-      "steps": [
-        "Trinidad's beloved street food of curried chickpeas sandwiched in fried bread."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -17592,9 +17062,7 @@
         "flatbread",
         "curried meat or vegetables"
       ],
-      "steps": [
-        "Soft flatbread wrapped around curry, reflecting Trinidad's Indian heritage."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -17638,9 +17106,7 @@
         "okra",
         "steamed flying fish"
       ],
-      "steps": [
-        "Barbados' national dish pairing a cornmeal-okra mash with steamed fish."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -17691,9 +17157,7 @@
         "onion",
         "pepper"
       ],
-      "steps": [
-        "Jamaica's national dish, combining a unique local fruit with salted fish."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -17744,9 +17208,7 @@
         "scotch bonnet",
         "potato"
       ],
-      "steps": [
-        "Jamaican slow-cooked curried goat, a centerpiece of celebrations."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -17797,9 +17259,7 @@
         "chicken or shrimp",
         "the trinity"
       ],
-      "steps": [
-        "Louisiana Creole rice dish loaded with meat and the holy trinity of vegetables."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -17843,9 +17303,7 @@
         "mayonnaise or butter",
         "split bun"
       ],
-      "steps": [
-        "Chilled or buttered lobster meat served in a toasted split-top bun."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -17896,9 +17354,7 @@
         "hoagie roll",
         "onion"
       ],
-      "steps": [
-        "Philadelphia's iconic sandwich of griddled beef and cheese."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -17942,9 +17398,7 @@
         "cheese",
         "chunky tomato sauce"
       ],
-      "steps": [
-        "Pizza baked in a deep pan with cheese under a chunky tomato sauce."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -17995,9 +17449,7 @@
         "onion",
         "tortillas"
       ],
-      "steps": [
-        "Sizzling grilled meat and pepper strips wrapped in warm tortillas."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -18041,9 +17493,7 @@
         "dry rub",
         "smoked low and slow"
       ],
-      "steps": [
-        "Slow-smoked beef brisket, the centerpiece of Texas barbecue."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -18094,9 +17544,7 @@
         "butter",
         "cheese"
       ],
-      "steps": [
-        "Creamy corn grits topped with seasoned shrimp, a Southern breakfast classic."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -18147,9 +17595,7 @@
         "egg",
         "pastry shell"
       ],
-      "steps": [
-        "Small, gooey Canadian pastry tart with a caramel-like filling."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -18200,9 +17646,7 @@
         "spices",
         "pie crust"
       ],
-      "steps": [
-        "Québécois meat pie traditionally served during the winter holidays."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -18253,9 +17697,7 @@
         "carrot",
         "cumin"
       ],
-      "steps": [
-        "Uzbekistan's national rice pilaf, cooked with lamb and carrots in one pot."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -18299,9 +17741,7 @@
         "minced lamb or beef",
         "onion"
       ],
-      "steps": [
-        "Steamed dumplings found across Central Asia and Turkey, served with yogurt."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -18345,9 +17785,7 @@
         "beef or lamb",
         "vegetables"
       ],
-      "steps": [
-        "Hand-pulled noodle dish with a spiced meat and vegetable topping."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -18391,9 +17829,7 @@
         "flat noodles",
         "onion broth"
       ],
-      "steps": [
-        "Central Asian dish of boiled meat over noodles, traditionally eaten by hand."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -18437,9 +17873,7 @@
         "cheese filling",
         "egg"
       ],
-      "steps": [
-        "Georgian cheese-filled bread, the boat-shaped version topped with a raw egg."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -18476,9 +17910,7 @@
         "dumpling dough",
         "spiced meat broth filling"
       ],
-      "steps": [
-        "Georgian soup dumplings, twisted at the top and held by the knot while eaten."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -18529,9 +17961,7 @@
         "herbs",
         "spices"
       ],
-      "steps": [
-        "Georgian spiced bean stew, often flavored with walnuts and coriander."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -18575,9 +18005,7 @@
         "rice",
         "minced meat"
       ],
-      "steps": [
-        "Stuffed grape leaves or vegetables, a staple across the Caucasus and Armenian diaspora."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -18621,9 +18049,7 @@
         "water",
         "salt"
       ],
-      "steps": [
-        "Thin, soft flatbread central to Armenian cuisine, baked in a clay oven."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -18674,9 +18100,7 @@
         "cardamom",
         "ginger"
       ],
-      "steps": [
-        "Spiced milk tea, brewed strong and simmered with warming spices."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -18720,9 +18144,7 @@
         "water or milk",
         "sugar or salt"
       ],
-      "steps": [
-        "Chilled yogurt drink, served sweet, salty, or fruit-flavored."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -18773,9 +18195,7 @@
         "tapioca pearls",
         "sugar"
       ],
-      "steps": [
-        "Taiwanese tea drink with chewy tapioca pearls, now a global phenomenon."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -18819,9 +18239,7 @@
         "lime",
         "sugar"
       ],
-      "steps": [
-        "Brazil's national cocktail, muddled lime and sugar cane spirit."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -18865,9 +18283,7 @@
         "hot water",
         "gourd and straw"
       ],
-      "steps": [
-        "Traditional caffeinated infusion shared communally through a metal straw."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -18911,9 +18327,7 @@
         "water",
         "salt"
       ],
-      "steps": [
-        "Savory, salted yogurt drink popular across Turkey and the Balkans."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -18957,9 +18371,7 @@
         "water",
         "yeast"
       ],
-      "steps": [
-        "Mildly alcoholic fermented rye bread beverage, a Slavic staple."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -19010,9 +18422,7 @@
         "sugar",
         "milk"
       ],
-      "steps": [
-        "Sweet, milky rice and cinnamon drink served chilled."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -19056,9 +18466,7 @@
         "water",
         "sugar (optional)"
       ],
-      "steps": [
-        "Unfiltered coffee brewed slowly in a small pot, served with the grounds settled at the bottom."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -19102,9 +18510,7 @@
         "fresh mint",
         "sugar"
       ],
-      "steps": [
-        "Sweet green tea steeped with fresh mint, poured from height to create froth."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -19155,9 +18561,7 @@
         "egg white",
         "sugar"
       ],
-      "steps": [
-        "Frothy South American cocktail built on grape brandy."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -19208,9 +18612,7 @@
         "hot sauce",
         "salt rim"
       ],
-      "steps": [
-        "Spicy, savory beer cocktail popular as a hangover cure."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -19247,9 +18649,7 @@
         "rooibos leaves",
         "hot water"
       ],
-      "steps": [
-        "Naturally caffeine-free red tea native to South Africa."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -19300,9 +18700,7 @@
         "cinnamon",
         "clove"
       ],
-      "steps": [
-        "Sweet, spiced Peruvian drink made from purple corn."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -19346,9 +18744,7 @@
         "seaweed wrap",
         "filling (salmon, plum, tuna)"
       ],
-      "steps": [
-        "Hand-formed rice balls wrapped in seaweed, a Japanese lunchbox staple."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -19392,9 +18788,7 @@
         "assorted sashimi",
         "garnishes"
       ],
-      "steps": [
-        "Bowl of sushi rice scattered with an assortment of fresh sashimi."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -19445,9 +18839,7 @@
         "cabbage",
         "yakisoba sauce"
       ],
-      "steps": [
-        "Stir-fried wheat noodles in a tangy-sweet sauce, popular festival food."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -19498,9 +18890,7 @@
         "onion",
         "rice"
       ],
-      "steps": [
-        "Chicken and egg simmered together over rice; name means 'parent and child bowl'."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -19544,9 +18934,7 @@
         "grilled tableside",
         "lettuce wraps"
       ],
-      "steps": [
-        "Thick-cut pork belly grilled at the table and wrapped in lettuce."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -19597,9 +18985,7 @@
         "seafood or pork",
         "egg"
       ],
-      "steps": [
-        "Bubbling, spicy soft tofu stew served in a stone pot."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -19650,9 +19036,7 @@
         "vegetables",
         "tofu"
       ],
-      "steps": [
-        "Communal simmering pot of fiery, numbing broth for cooking meat and vegetables tableside."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -19703,9 +19087,7 @@
         "chili flakes",
         "grilled on skewers"
       ],
-      "steps": [
-        "Cumin-and-chili-crusted grilled lamb skewers from China's Xinjiang region."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -19749,9 +19131,7 @@
         "five-spice",
         "maltose glaze"
       ],
-      "steps": [
-        "Crackling-skinned roast goose, a Cantonese specialty."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -19802,9 +19182,7 @@
         "turmeric",
         "potato"
       ],
-      "steps": [
-        "Bengali light fish curry, a staple of everyday Bengali meals."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -19848,9 +19226,7 @@
         "sattu filling",
         "mashed eggplant and potato"
       ],
-      "steps": [
-        "Bihar's rustic dish of roasted stuffed wheat balls with mashed vegetables."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -19894,9 +19270,7 @@
         "spinach",
         "makki di roti (corn bread)"
       ],
-      "steps": [
-        "Punjabi mustard greens curry, classically paired with cornbread."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -19947,9 +19321,7 @@
         "black pepper",
         "curry leaves"
       ],
-      "steps": [
-        "Thin, peppery South Indian soup often eaten with rice."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -20000,9 +19372,7 @@
         "jaggery or sugar",
         "cardamom"
       ],
-      "steps": [
-        "South Indian sweet milk pudding, served at festivals."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -20053,9 +19423,7 @@
         "pork",
         "bean sprouts"
       ],
-      "steps": [
-        "Crispy Vietnamese savory crepe folded around shrimp and pork."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -20099,9 +19467,7 @@
         "pork",
         "local greens"
       ],
-      "steps": [
-        "Regional Vietnamese noodle dish unique to the town of Hoi An."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -20145,9 +19511,7 @@
         "coconut milk",
         "fresh mango"
       ],
-      "steps": [
-        "Sweet coconut sticky rice served with ripe mango slices."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -20198,9 +19562,7 @@
         "galangal",
         "lemongrass"
       ],
-      "steps": [
-        "Creamy, tangy coconut chicken soup, milder than tom yum."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -20251,9 +19613,7 @@
         "vermicelli",
         "boiled egg"
       ],
-      "steps": [
-        "Indonesian turmeric-spiced chicken soup."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -20297,9 +19657,7 @@
         "black keluak nut",
         "tamarind"
       ],
-      "steps": [
-        "Dark, earthy East Javanese beef stew colored by black nuts."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -20350,9 +19708,7 @@
         "chili",
         "shrimp paste"
       ],
-      "steps": [
-        "Spicy Filipino pork stew named after a train route, cooked in coconut milk."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -20396,9 +19752,7 @@
         "garlic rice",
         "fried egg"
       ],
-      "steps": [
-        "Filipino breakfast combo of cured beef, fried rice, and egg."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -20449,9 +19803,7 @@
         "garlic",
         "lemon"
       ],
-      "steps": [
-        "Smoky roasted eggplant dip, a Levantine mezze staple."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -20495,9 +19847,7 @@
         "za'atar",
         "olive oil"
       ],
-      "steps": [
-        "Lebanese flatbread topped with za'atar and olive oil, eaten for breakfast."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -20548,9 +19898,7 @@
         "syrup",
         "pistachio"
       ],
-      "steps": [
-        "Warm, syrup-soaked cheese pastry topped with crushed pistachios."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -20601,9 +19949,7 @@
         "milk",
         "basil seeds"
       ],
-      "steps": [
-        "Layered rose-flavored milk dessert with vermicelli and basil seeds."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -20647,9 +19993,7 @@
         "water",
         "pounded until stretchy"
       ],
-      "steps": [
-        "Smooth, stretchy staple made by pounding boiled yam, eaten with soup."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -20693,9 +20037,7 @@
         "palm oil",
         "fried plantain"
       ],
-      "steps": [
-        "Ghanaian bean stew named for its red palm oil color, served with fried plantain."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -20732,9 +20074,7 @@
         "fermented flatbread",
         "sorghum or flour"
       ],
-      "steps": [
-        "Somali spongy fermented flatbread, similar in spirit to injera."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -20778,9 +20118,7 @@
         "meat",
         "xawaash spice blend"
       ],
-      "steps": [
-        "Somali spiced rice dish, often served at gatherings."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -20824,9 +20162,7 @@
         "meat filling",
         "bacon and sour cream"
       ],
-      "steps": [
-        "Zeppelin-shaped Lithuanian potato dumplings stuffed with meat."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -20863,9 +20199,7 @@
         "cultured skim milk",
         "strained like yogurt"
       ],
-      "steps": [
-        "Thick, protein-rich Icelandic cultured dairy product."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -20909,9 +20243,7 @@
         "rice porridge filling",
         "boiled egg butter"
       ],
-      "steps": [
-        "Karelian rice pastry with a thin rye crust, a Finnish breakfast classic."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -20962,9 +20294,7 @@
         "walnuts",
         "cheese"
       ],
-      "steps": [
-        "Creamy Peruvian chicken stew colored and spiced by yellow chili."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -21008,9 +20338,7 @@
         "lime and aji amarillo",
         "chicken or tuna filling"
       ],
-      "steps": [
-        "Layered chilled potato dish, molded and filled, from Lima."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -21054,9 +20382,7 @@
         "aji panca marinade",
         "grilled skewers"
       ],
-      "steps": [
-        "Peruvian grilled skewers, traditionally made from marinated beef heart."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -21093,9 +20419,7 @@
         "breaded beef cutlet",
         "fried until crisp"
       ],
-      "steps": [
-        "Argentine breaded and fried cutlet, similar to schnitzel."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -21139,9 +20463,7 @@
         "oregano",
         "grilled until melted"
       ],
-      "steps": [
-        "Grilled provolone cheese, a classic starter at an Argentine asado."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -21192,9 +20514,7 @@
         "chili sauce",
         "cabbage"
       ],
-      "steps": [
-        "Traditional Mexican hominy soup, festive and deeply regional."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -21238,9 +20558,7 @@
         "dried chilies",
         "consommé for dipping"
       ],
-      "steps": [
-        "Rich, chili-braised meat stew, often served with tortillas for dipping tacos."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -21291,9 +20609,7 @@
         "cotija cheese",
         "chili powder"
       ],
-      "steps": [
-        "Grilled Mexican street corn slathered in creamy, spiced toppings."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -21344,9 +20660,7 @@
         "cheese",
         "egg"
       ],
-      "steps": [
-        "Mexican breakfast of fried tortilla chips simmered in salsa."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -21397,9 +20711,7 @@
         "wrapped in corn husk",
         "steamed"
       ],
-      "steps": [
-        "Steamed corn dough parcels filled with meat, cheese, or chilies."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -21443,9 +20755,7 @@
         "garlic",
         "pork cracklings"
       ],
-      "steps": [
-        "Mashed fried plantain dish, a Puerto Rican signature."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -21489,9 +20799,7 @@
         "pigeon peas",
         "sofrito"
       ],
-      "steps": [
-        "Puerto Rico's classic rice and pigeon pea dish."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -21542,9 +20850,7 @@
         "batter",
         "fried"
       ],
-      "steps": [
-        "Deep-fried fritters made from local conch, a Bahamian favorite."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -21595,9 +20901,7 @@
         "lime juice",
         "chili"
       ],
-      "steps": [
-        "Fijian version of ceviche, fish cured in citrus and coconut milk."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -21641,9 +20945,7 @@
         "coconut cream",
         "onion"
       ],
-      "steps": [
-        "Taro leaves baked with coconut cream, a Samoan staple."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -21680,9 +20982,7 @@
         "fried dough",
         "powdered sugar"
       ],
-      "steps": [
-        "Square, pillowy fried dough dusted heavily with powdered sugar."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -21733,9 +21033,7 @@
         "crema",
         "corn tortilla"
       ],
-      "steps": [
-        "Crispy battered fish tacos, a Baja California classic adopted widely in the US."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -21793,9 +21091,7 @@
         "blue cheese",
         "avocado"
       ],
-      "steps": [
-        "Composed American salad with rows of chopped toppings."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -21839,9 +21135,7 @@
         "cinnamon",
         "pie crust"
       ],
-      "steps": [
-        "Classic American baked pie, a cultural symbol as much as a dessert."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -21878,9 +21172,7 @@
         "buttermilk biscuits",
         "sausage gravy"
       ],
-      "steps": [
-        "Southern breakfast of flaky biscuits smothered in peppery sausage gravy."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -21924,9 +21216,7 @@
         "flour",
         "buttermilk"
       ],
-      "steps": [
-        "Slightly sweet, crumbly baked bread made from cornmeal."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -21970,9 +21260,7 @@
         "water or broth",
         "butter"
       ],
-      "steps": [
-        "Creamy or firm cornmeal porridge, a staple of Northern Italian cuisine."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -22016,9 +21304,7 @@
         "white wine",
         "gremolata"
       ],
-      "steps": [
-        "Braised veal shanks, traditionally finished with a lemon-herb gremolata."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -22062,9 +21348,7 @@
         "tare sauce",
         "grilled over charcoal"
       ],
-      "steps": [
-        "Grilled skewered chicken, glazed with a sweet-savory sauce."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -22108,9 +21392,7 @@
         "sweet soy glaze",
         "rice"
       ],
-      "steps": [
-        "Glazed grilled eel served over a bowl of rice."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -22154,9 +21436,7 @@
         "vanilla",
         "caramelized sugar crust"
       ],
-      "steps": [
-        "Rich custard dessert topped with a brittle layer of caramelized sugar."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -22200,9 +21480,7 @@
         "cream filling",
         "chocolate sauce"
       ],
-      "steps": [
-        "Cream-filled pastry puffs drizzled with warm chocolate sauce."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -22253,9 +21531,7 @@
         "gelatin",
         "vanilla"
       ],
-      "steps": [
-        "Silky Italian set cream dessert, often served with fruit or caramel."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -22299,9 +21575,7 @@
         "sweet ricotta filling",
         "pistachio"
       ],
-      "steps": [
-        "Sicilian fried pastry tubes filled with sweetened ricotta."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -22352,9 +21626,7 @@
         "flavorings",
         "less air than ice cream"
       ],
-      "steps": [
-        "Dense, intensely flavored Italian frozen dessert."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -22398,9 +21670,7 @@
         "egg white meringue",
         "buttercream filling"
       ],
-      "steps": [
-        "Delicate almond meringue sandwich cookies in bright colors."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -22451,9 +21721,7 @@
         "whipped cream",
         "biscuit base"
       ],
-      "steps": [
-        "British pie layering banana, toffee, and cream over a biscuit crust."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -22490,9 +21758,7 @@
         "date sponge cake",
         "toffee sauce"
       ],
-      "steps": [
-        "Moist date cake soaked in a rich toffee sauce, a British classic."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -22529,9 +21795,7 @@
         "glutinous rice",
         "sweet filling"
       ],
-      "steps": [
-        "Chewy pounded rice cakes, often filled with sweet bean paste or ice cream."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -22568,9 +21832,7 @@
         "pancake-like sponge",
         "sweet red bean filling"
       ],
-      "steps": [
-        "Two small pancakes sandwiching a sweet red bean filling."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -22614,9 +21876,7 @@
         "fried",
         "rose-cardamom syrup"
       ],
-      "steps": [
-        "Deep-fried milk dumplings soaked in fragrant sugar syrup."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -22653,9 +21913,7 @@
         "chenna cheese",
         "sugar syrup"
       ],
-      "steps": [
-        "Spongy Bengali cheese balls soaked in light syrup."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -22706,9 +21964,7 @@
         "sugar",
         "cardamom"
       ],
-      "steps": [
-        "North Indian rice pudding, fragrant with cardamom and nuts."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -22752,9 +22008,7 @@
         "rosewater",
         "powdered sugar"
       ],
-      "steps": [
-        "Chewy, fragrant gel-based confection dusted with powdered sugar."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -22791,9 +22045,7 @@
         "tahini or semolina",
         "sugar syrup"
       ],
-      "steps": [
-        "Dense, sweet confection found across the Middle East, made from tahini or semolina."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -22837,9 +22089,7 @@
         "sugar syrup",
         "coconut"
       ],
-      "steps": [
-        "Sweet semolina cake soaked in syrup, popular across the Arab world."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -22876,9 +22126,7 @@
         "egg custard",
         "caramel sauce"
       ],
-      "steps": [
-        "Silky caramel custard popular across Spain and Latin America."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -22922,9 +22170,7 @@
         "three kinds of milk",
         "whipped cream"
       ],
-      "steps": [
-        "Sponge cake soaked in a blend of three milks until fully saturated."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -22968,9 +22214,7 @@
         "sugar",
         "slow-cooked until caramelized"
       ],
-      "steps": [
-        "Thick, caramelized milk spread, central to Argentine desserts."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -23007,9 +22251,7 @@
         "braided fried dough",
         "cold sugar syrup"
       ],
-      "steps": [
-        "Braided fried dough soaked in cold syrup for a crisp, sticky finish."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -23060,9 +22302,7 @@
         "canadian bacon",
         "hollandaise"
       ],
-      "steps": [
-        "Poached eggs over muffin and ham, topped with buttery hollandaise sauce."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -23113,9 +22353,7 @@
         "egg",
         "maple syrup"
       ],
-      "steps": [
-        "Fluffy stacked griddle cakes, usually served with butter and syrup."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -23166,9 +22404,7 @@
         "milk",
         "cinnamon"
       ],
-      "steps": [
-        "Bread soaked in egg custard and pan-fried until golden."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -23219,9 +22455,7 @@
         "salsa ranchera",
         "beans"
       ],
-      "steps": [
-        "Fried eggs served over tortillas with a spiced tomato sauce."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -23265,9 +22499,7 @@
         "water or milk",
         "salt"
       ],
-      "steps": [
-        "Simple, traditional Scottish oatmeal, often eaten with just a pinch of salt."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -23318,9 +22550,7 @@
         "nuts",
         "milk or yogurt"
       ],
-      "steps": [
-        "Raw oat and fruit breakfast cereal, developed by a Swiss physician."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -23371,9 +22601,7 @@
         "jalapeño",
         "salsa"
       ],
-      "steps": [
-        "Tortilla chips loaded with melted cheese and toppings, a Tex-Mex bar staple."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -23424,9 +22652,7 @@
         "spices",
         "fried"
       ],
-      "steps": [
-        "Crispy fried onion fritters, a popular Indian snack."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -23470,9 +22696,7 @@
         "chickpea flour batter",
         "fried"
       ],
-      "steps": [
-        "Battered and deep-fried vegetable fritters."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -23509,9 +22733,7 @@
         "fried pastry",
         "spiced lentil or pea filling"
       ],
-      "steps": [
-        "Flaky fried pastry stuffed with spiced lentils or peas."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -23555,9 +22777,7 @@
         "bread bun",
         "chutneys"
       ],
-      "steps": [
-        "Mumbai's iconic potato fritter sandwich, sometimes called the Indian burger."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -23608,9 +22828,7 @@
         "vegetables",
         "sev"
       ],
-      "steps": [
-        "Tangy, crunchy puffed rice snack mixed with chutneys and vegetables."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -23654,9 +22872,7 @@
         "spiced tamarind water",
         "potato filling"
       ],
-      "steps": [
-        "Crisp hollow shells filled with spiced tangy water, eaten in one bite."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -23700,9 +22916,7 @@
         "spices",
         "fried"
       ],
-      "steps": [
-        "Crisp spiced potato patties, often served with chutneys."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -23746,9 +22960,7 @@
         "fermented soybean paste",
         "ground pork"
       ],
-      "steps": [
-        "Northern Chinese noodles tossed in a savory fermented soybean paste sauce."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -23799,9 +23011,7 @@
         "preserved vegetables",
         "ground pork"
       ],
-      "steps": [
-        "Sichuan noodles in a spicy, numbing chili and sesame sauce."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -23852,9 +23062,7 @@
         "scallion",
         "soy sauce"
       ],
-      "steps": [
-        "Simple wok-fried rice with egg, a foundational Chinese home dish."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -23891,9 +23099,7 @@
         "steamed bun",
         "meat or vegetable filling"
       ],
-      "steps": [
-        "Fluffy steamed buns filled with savory or sweet fillings."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -23930,9 +23136,7 @@
         "fried dough stick",
         "eaten with soy milk or congee"
       ],
-      "steps": [
-        "Long, airy fried dough stick, a classic Chinese breakfast food."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -23976,9 +23180,7 @@
         "scallion",
         "pan-fried until layered and crisp"
       ],
-      "steps": [
-        "Flaky, layered savory pancake studded with scallions."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -24029,9 +23231,7 @@
         "vegetables and meat",
         "rolled"
       ],
-      "steps": [
-        "Korean seaweed rice rolls, similar to sushi but seasoned differently."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -24075,9 +23275,7 @@
         "double-fried",
         "sweet-spicy glaze"
       ],
-      "steps": [
-        "Extra-crispy double-fried chicken, often coated in a sweet-spicy glaze."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -24128,9 +23326,7 @@
         "cucumber",
         "egg"
       ],
-      "steps": [
-        "Chilled buckwheat noodles in icy broth, a refreshing summer dish."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -24174,9 +23370,7 @@
         "ground pork",
         "mushroom"
       ],
-      "steps": [
-        "Delicate steamed rice rolls filled with seasoned pork and mushroom."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -24220,9 +23414,7 @@
         "grilled pork chop",
         "fish sauce"
       ],
-      "steps": [
-        "Broken rice served with grilled pork, a beloved Saigon dish."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -24266,9 +23458,7 @@
         "sugar",
         "nutmeg"
       ],
-      "steps": [
-        "Crunchy, lightly sweet fried dough snack, common at Nigerian celebrations."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -24312,9 +23502,7 @@
         "yeast",
         "sugar"
       ],
-      "steps": [
-        "Fluffy, deep-fried sweet dough balls found across West Africa."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -24365,9 +23553,7 @@
         "peas",
         "greens"
       ],
-      "steps": [
-        "Kenyan mashed dish of potatoes, corn, peas, and greens."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -24404,9 +23590,7 @@
         "hollowed bread loaf",
         "curry filling"
       ],
-      "steps": [
-        "Durban curry served inside a hollowed-out loaf of bread."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -24457,9 +23641,7 @@
         "caramelized onion",
         "flatbread"
       ],
-      "steps": [
-        "Palestine's national dish of sumac-spiced chicken over flatbread."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -24510,9 +23692,7 @@
         "cream",
         "salt pork"
       ],
-      "steps": [
-        "Creamy chowder loaded with clams and potatoes, a New England classic."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -24556,9 +23736,7 @@
         "condensed milk",
         "graham cracker crust"
       ],
-      "steps": [
-        "Tart, creamy pie made from small Florida key limes."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -24602,9 +23780,7 @@
         "marshmallow",
         "chocolate"
       ],
-      "steps": [
-        "Campfire treat of toasted marshmallow and chocolate between graham crackers."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -24648,9 +23824,7 @@
         "cinnamon",
         "pearl sugar"
       ],
-      "steps": [
-        "Swedish cinnamon bun, celebrated with its own national day."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -24694,9 +23868,7 @@
         "deep pockets",
         "toppings vary"
       ],
-      "steps": [
-        "Light, deep-pocketed waffles, a Belgian specialty distinct from American versions."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -24740,9 +23912,7 @@
         "fried twice",
         "salt"
       ],
-      "steps": [
-        "Twice-fried green plantain slices, crispy outside and soft within."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -24793,9 +23963,7 @@
         "vinegar",
         "olive oil"
       ],
-      "steps": [
-        "Bright, herby sauce essential to Argentine grilled meats."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -24839,9 +24007,7 @@
         "rice",
         "seaweed wrap"
       ],
-      "steps": [
-        "Hawaiian snack of grilled spam over rice, wrapped in seaweed like sushi."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -24878,9 +24044,7 @@
         "snails",
         "garlic herb butter"
       ],
-      "steps": [
-        "Snails baked in garlic and parsley butter, a classic French starter."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -24917,9 +24081,7 @@
         "egg noodle dough",
         "butter or cheese"
       ],
-      "steps": [
-        "Soft, irregular egg noodles, a Southern German staple."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -24963,9 +24125,7 @@
         "oats",
         "spices"
       ],
-      "steps": [
-        "Savory blood sausage, a traditional part of a full breakfast."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -25016,9 +24176,7 @@
         "potato",
         "swede"
       ],
-      "steps": [
-        "Hand-held pastry parcel of meat and vegetables, originally miners' lunch food."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -25069,9 +24227,7 @@
         "ale",
         "toast"
       ],
-      "steps": [
-        "Savory cheese sauce spiked with mustard and ale, poured over toast."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -25115,9 +24271,7 @@
         "butter",
         "sugar or nutella"
       ],
-      "steps": [
-        "Thin, delicate French pancakes, sweet or savory depending on the filling."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -25154,9 +24308,7 @@
         "laminated dough",
         "chocolate batons"
       ],
-      "steps": [
-        "Buttery, flaky pastry wrapped around a strip of chocolate."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -25207,9 +24359,7 @@
         "cucumber",
         "egg"
       ],
-      "steps": [
-        "Cold spicy noodles tossed in a tangy gochujang dressing."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -25260,9 +24410,7 @@
         "vegetables",
         "dipping sauces"
       ],
-      "steps": [
-        "Communal simmering pot popular for gatherings, milder than Sichuan style."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -25306,9 +24454,7 @@
         "spices",
         "tomato"
       ],
-      "steps": [
-        "Fragrant, deeply spiced curry reflecting South Africa's Indian community heritage."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -25352,9 +24498,7 @@
         "black-eyed peas",
         "millet leaves"
       ],
-      "steps": [
-        "Everyday Ghanaian staple, rice and beans cooked together and colored naturally."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -25405,9 +24549,7 @@
         "sour orange",
         "banana leaf"
       ],
-      "steps": [
-        "Yucatán slow-roasted pork marinated in citrus and annatto."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -25458,9 +24600,7 @@
         "spices",
         "chicken"
       ],
-      "steps": [
-        "Oaxaca's dark, complex mole sauce, deeper and smokier than mole poblano."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -25511,9 +24651,7 @@
         "sour cream",
         "onion"
       ],
-      "steps": [
-        "Creamy Hungarian paprika chicken stew, often served with dumplings."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -25564,9 +24702,7 @@
         "cheese",
         "ketchup"
       ],
-      "steps": [
-        "Polish open-faced baguette snack topped with mushrooms and melted cheese."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -25610,9 +24746,7 @@
         "meat, potato, or cabbage filling",
         "fried or baked"
       ],
-      "steps": [
-        "Small stuffed buns, fried or baked, filled with savory or sweet fillings."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
@@ -25663,9 +24797,7 @@
         "carrot",
         "onion"
       ],
-      "steps": [
-        "Traditional Russian cabbage soup, one of the country's oldest dishes."
-      ],
+      "steps": [],
       "substitutions": {},
       "serves": 4,
       "prep_time_minutes": null,
