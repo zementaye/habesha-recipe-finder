@@ -15,6 +15,25 @@ app.use(express.json());
 const DATA_PATH = path.join(__dirname, "all_dishes_merged.json");
 const DISHES = JSON.parse(fs.readFileSync(DATA_PATH, "utf8")).dishes;
 
+/* ---------- ingredient list (built once at startup) ---------- */
+// Raw ingredient names in the dataset carry prep notes like
+// "onion, diced" or "beans (optional)" — strip those down to a clean,
+// display-friendly, deduplicated name for autocomplete purposes.
+function cleanIngredientName(raw) {
+  return raw
+    .split(",")[0]
+    .replace(/\([^)]*\)/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+const INGREDIENTS = Array.from(
+  new Set(
+    DISHES.flatMap((d) => (d.ingredients || []).map((i) => cleanIngredientName(i.name)))
+      .filter(Boolean)
+      .map((n) => n.toLowerCase())
+  )
+).sort((a, b) => a.localeCompare(b));
+
 /* ---------- matching logic (same as matcher.js) ---------- */
 function normalize(str) {
   return str.toLowerCase().trim().replace(/[^a-z0-9\s]/g, "").replace(/s$/, "");
@@ -90,6 +109,14 @@ app.post("/api/match", (req, res) => {
   });
 
   res.json({ count: results.length, results });
+});
+
+// GET /api/ingredients?q=oni  -> all known ingredient names, optionally filtered
+// (used to power the autocomplete/typeahead in the ingredient search bar)
+app.get("/api/ingredients", (req, res) => {
+  const q = normalize(req.query.q || "");
+  const results = q ? INGREDIENTS.filter((i) => normalize(i).includes(q)) : INGREDIENTS;
+  res.json({ count: results.length, ingredients: results });
 });
 
 // GET /api/search?q=wat  -> name search
