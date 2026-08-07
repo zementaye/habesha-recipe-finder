@@ -42,7 +42,7 @@ git push -u origin main
    - **Instance Type**: Free
 5. Click **Create Web Service**. Render will build and deploy — takes a couple minutes.
 6. Once live, copy your backend URL (looks like `https://your-app-name.onrender.com`).
-7. Test it: visit `https://your-app-name.onrender.com/api/dishes` in your browser — you should see JSON with 120 dishes.
+7. Test it: visit `https://your-app-name.onrender.com/api/dishes` in your browser — you should see JSON with 500 dishes.
 
 **Note:** Free Render services spin down after inactivity and take ~30–50 seconds to wake up on the next request. That's normal for the free tier — worth mentioning if a recruiter tries it and it's briefly slow to load.
 
