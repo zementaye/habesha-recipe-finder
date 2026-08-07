@@ -34,18 +34,119 @@ const INGREDIENTS = Array.from(
   )
 ).sort((a, b) => a.localeCompare(b));
 
-/* ---------- matching logic (same as matcher.js) ---------- */
+/* ---------- matching logic (kept identical in frontend/src/RecipeFinder.jsx —
+   see that file's matching section if you change anything here) ---------- */
 function normalize(str) {
   return str.toLowerCase().trim().replace(/[^a-z0-9\s]/g, "").replace(/s$/, "");
 }
-function ingredientMatches(userIngredient, dishIngredient) {
-  const u = normalize(userIngredient);
-  const d = normalize(dishIngredient);
-  return d.includes(u) || u.includes(d);
+
+// Dependency-free Levenshtein distance, used only for short-string typo
+// tolerance (e.g. "chiken" -> "chicken"). Keeping this hand-rolled avoids
+// pulling in a package for what's a small, well-understood algorithm.
+function levenshtein(a, b) {
+  const m = a.length, n = b.length;
+  if (m === 0) return n;
+  if (n === 0) return m;
+  let prev = new Array(n + 1);
+  for (let j = 0; j <= n; j++) prev[j] = j;
+  for (let i = 1; i <= m; i++) {
+    const cur = [i];
+    for (let j = 1; j <= n; j++) {
+      cur[j] = a[i - 1] === b[j - 1]
+        ? prev[j - 1]
+        : 1 + Math.min(prev[j - 1], prev[j], cur[j - 1]);
+    }
+    prev = cur;
+  }
+  return prev[n];
 }
+function fuzzyHit(u, target) {
+  if (!target || u.length < 4 || target.length < 4) return false;
+  const dist = levenshtein(u, target);
+  return dist <= 1 || dist / Math.max(u.length, target.length) <= 0.25;
+}
+
+// Scores how well a single user-typed ingredient matches a single dish
+// ingredient, from 0 (no match) to 1 (exact match), in tiers:
+//   1.0  exact match on the ingredient's core name (prep notes stripped,
+//        e.g. "onion" vs "onion, diced")
+//   0.7  whole-word match against the ingredient's core or full name
+//        (e.g. "onion" inside "green onion", "pickled onion", "onion powder" —
+//        real hits, but weaker than having exactly that ingredient)
+//   0.45 substring match that isn't a whole word
+//   0.4  fuzzy match for likely typos (e.g. "chiken" -> "chicken")
+//   0    no match
+function matchScore(userIngredient, dishIngredientRaw) {
+  const u = normalize(userIngredient);
+  if (!u) return 0;
+
+  const core = normalize(cleanIngredientName(dishIngredientRaw));
+  const full = normalize(dishIngredientRaw);
+  if (!core && !full) return 0;
+
+  if (u === core) return 1.0;
+
+  const coreWords = core ? core.split(/\s+/).filter(Boolean) : [];
+  const fullWords = full ? full.split(/\s+/).filter(Boolean) : [];
+  if (coreWords.includes(u) || fullWords.includes(u)) return 0.7;
+
+  if ((core && (core.includes(u) || u.includes(core))) || (full && (full.includes(u) || u.includes(full)))) {
+    return 0.45;
+  }
+
+  if (fuzzyHit(u, core) || fuzzyHit(u, full)) return 0.4;
+  for (const w of coreWords.length ? coreWords : fullWords) {
+    if (fuzzyHit(u, w)) return 0.4;
+  }
+
+  return 0;
+}
+function ingredientMatches(userIngredient, dishIngredient) {
+  return matchScore(userIngredient, dishIngredient) > 0;
+}
+
+// Scores a dish against the user's ingredient list. Ingredients earlier in
+// a dish's list are weighted more heavily than later ones — the dataset
+// consistently lists the core/protein ingredients first and garnishes or
+// optional extras last (see doro_tibs, jollof_rice, etc.), so this is a
+// reasonable proxy for "core" vs "minor" without needing extra metadata.
+// The final percent blends match-tier strength (a whole-word hit counts for
+// less than an exact one) with that positional weighting, so missing a
+// core ingredient hurts more than missing a garnish, and a fuzzy/partial
+// hit counts for less than a clean match.
+function scoreDish(dishIngredientNames, userIngredients) {
+  const n = dishIngredientNames.length;
+  const matched = [];
+  const missing = [];
+  let weightedScore = 0;
+  let weightedTotal = 0;
+
+  dishIngredientNames.forEach((ing, idx) => {
+    const weight = n - idx; // earlier ingredients weigh more
+    weightedTotal += weight;
+    let best = 0;
+    for (const u of userIngredients) {
+      const s = matchScore(u, ing);
+      if (s > best) best = s;
+      if (best === 1) break;
+    }
+    if (best > 0) {
+      matched.push(ing);
+      weightedScore += weight * best;
+    } else {
+      missing.push(ing);
+    }
+  });
+
+  return {
+    matched,
+    missing,
+    matchPercent: weightedTotal ? Math.round((weightedScore / weightedTotal) * 100) : 0,
+  };
+}
+
 function findMatches(dishes, userIngredients, options = {}) {
   const { cuisine = "all", category = "all", maxMissing = 999 } = options;
-  const userSet = userIngredients.map(normalize);
 
   let pool = dishes;
   if (cuisine !== "all") pool = pool.filter((d) => d.cuisine === cuisine);
@@ -53,21 +154,14 @@ function findMatches(dishes, userIngredients, options = {}) {
 
   const results = pool.map((dish) => {
     const dishIngredients = dish.ingredient_names || [];
-    const matched = [];
-    const missing = [];
-    dishIngredients.forEach((ing) => {
-      const isMatched = userSet.some((u) => ingredientMatches(u, ing));
-      (isMatched ? matched : missing).push(ing);
-    });
+    const { matched, missing, matchPercent } = scoreDish(dishIngredients, userIngredients);
     return {
       dish,
       matchedCount: matched.length,
       missingCount: missing.length,
       matchedIngredients: matched,
       missingIngredients: missing,
-      matchPercent: dishIngredients.length
-        ? Math.round((matched.length / dishIngredients.length) * 100)
-        : 0,
+      matchPercent,
     };
   });
 
