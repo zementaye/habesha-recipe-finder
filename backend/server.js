@@ -13,7 +13,17 @@ app.use(cors(FRONTEND_URL ? { origin: FRONTEND_URL } : {}));
 app.use(express.json());
 
 const DATA_PATH = path.join(__dirname, "all_dishes_merged.json");
-const DISHES = JSON.parse(fs.readFileSync(DATA_PATH, "utf8")).dishes;
+let DISHES;
+try {
+  const parsed = JSON.parse(fs.readFileSync(DATA_PATH, "utf8"));
+  DISHES = parsed.dishes;
+  if (!Array.isArray(DISHES) || DISHES.length === 0) {
+    throw new Error("all_dishes_merged.json has no dishes array");
+  }
+} catch (err) {
+  console.error(`Failed to load dish data from ${DATA_PATH}:`, err.message);
+  process.exit(1);
+}
 
 /* ---------- ingredient list (built once at startup) ---------- */
 // Raw ingredient names in the dataset carry prep notes like
@@ -37,7 +47,18 @@ const INGREDIENTS = Array.from(
 /* ---------- matching logic (kept identical in frontend/src/RecipeFinder.jsx —
    see that file's matching section if you change anything here) ---------- */
 function normalize(str) {
-  return str.toLowerCase().trim().replace(/[^a-z0-9\s]/g, "").replace(/s$/, "");
+  let s = str.toLowerCase().trim().replace(/[^a-z0-9\s]/g, "");
+  // Crude plural stripping. A bare `s$` strip mishandles "-oes"/"-shes"/etc.
+  // plurals — e.g. "tomatoes" -> "tomatoe" instead of "tomato" — which
+  // silently broke exact matches on common ingredients like tomato/potato.
+  // Note: this still doesn't handle "-ies" plurals (e.g. "chilies"), which
+  // would need real stemming to fix properly.
+  if (/[^aeiou]oes$/.test(s) || /(ch|sh|x|z|s)es$/.test(s)) {
+    s = s.replace(/es$/, "");
+  } else {
+    s = s.replace(/s$/, "");
+  }
+  return s;
 }
 
 // Dependency-free Levenshtein distance, used only for short-string typo
@@ -172,6 +193,11 @@ function findMatches(dishes, userIngredients, options = {}) {
 
 /* ---------------------- routes ---------------------- */
 
+// GET /api/health -> simple liveness/readiness check
+app.get("/api/health", (req, res) => {
+  res.json({ status: "ok", dishCount: DISHES.length });
+});
+
 // GET /api/dishes  -> full dataset (optionally filtered by cuisine/category)
 app.get("/api/dishes", (req, res) => {
   const { cuisine, category } = req.query;
@@ -195,8 +221,14 @@ app.post("/api/match", (req, res) => {
   if (!Array.isArray(ingredients) || ingredients.length === 0) {
     return res.status(400).json({ error: "ingredients must be a non-empty array" });
   }
+  // Guard against non-string entries (e.g. numbers, null) which would
+  // otherwise throw inside normalize()/matchScore().
+  const cleanIngredients = ingredients.filter((i) => typeof i === "string" && i.trim().length > 0);
+  if (cleanIngredients.length === 0) {
+    return res.status(400).json({ error: "ingredients must contain at least one non-empty string" });
+  }
 
-  const results = findMatches(DISHES, ingredients, {
+  const results = findMatches(DISHES, cleanIngredients, {
     cuisine,
     category,
     maxMissing: exactOnly ? 0 : maxMissing,
