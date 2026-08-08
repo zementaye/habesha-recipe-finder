@@ -1,10 +1,15 @@
 import React, { useState, useMemo, useRef, useEffect } from "react";
-import { Plus, X, Search, Flame, Leaf, ChefHat, Clock, Users, SlidersHorizontal, WifiOff, ArrowLeft } from "lucide-react";
+import { Plus, X, Search, Flame, Leaf, ChefHat, Clock, Users, SlidersHorizontal, WifiOff, ArrowLeft, Flag, Send, CheckCircle2 } from "lucide-react";
 
 // Points at your deployed backend in production (set VITE_API_URL in your
 // hosting provider's env vars), falls back to localhost for local dev, and
 // falls back further to the embedded full dataset if neither is reachable.
 const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:3001";
+
+// Optional: set VITE_TELEGRAM_BOT_USERNAME (without the @) to show a
+// "message our Telegram bot instead" link in the feedback form — handy as
+// a fallback when the web form can't reach the API.
+const TELEGRAM_BOT_USERNAME = import.meta.env.VITE_TELEGRAM_BOT_USERNAME || "";
 
 /* ---------------------------------------------------------
    Full dataset (all 500 dishes), embedded so the app works
@@ -220,7 +225,7 @@ function HeroSpiral() {
    Detail modal — shown on card click, works regardless of
    how many ingredients the user has (full steps always shown).
 --------------------------------------------------------- */
-function DishModal({ entry, onClose }) {
+function DishModal({ entry, onClose, onReport }) {
   const { dish, have, missing, percent } = entry;
   const accent = dish.cuisine === "habesha" ? "#9E2B1B" : "#C98A2C";
   const haveSet = new Set(have);
@@ -359,6 +364,160 @@ function DishModal({ entry, onClose }) {
             </div>
           )}
         </div>
+
+        <button
+          onClick={() => onReport(dish.name)}
+          className="rf-btn rf-focus"
+          style={{ display: "flex", alignItems: "center", gap: 6, background: "none", border: "none", color: "#9C8D74", fontSize: 12.5, padding: 0, marginTop: 22, cursor: "pointer" }}
+        >
+          <Flag size={13} /> Something look off with this recipe? Report it
+        </button>
+      </div>
+    </div>
+  );
+}
+
+/* ---------------------------------------------------------
+   Feedback form — "this recipe looks wrong" / bug reports.
+   Opened either from inside a dish (dishName prefilled) or from the
+   page footer (dishName empty). Posts to the backend, which stores it
+   and — if the deployer has configured a Telegram bot — forwards it
+   there too. If the API can't be reached, we point people at the
+   Telegram bot directly instead, since that's a second live channel.
+--------------------------------------------------------- */
+function FeedbackModal({ dishName, onClose }) {
+  const [message, setMessage] = useState("");
+  const [dish, setDish] = useState(dishName || "");
+  const [contact, setContact] = useState("");
+  const [status, setStatus] = useState("idle"); // idle | sending | sent | error
+  const textareaRef = useRef(null);
+
+  useEffect(() => {
+    const onKeyDown = (e) => { if (e.key === "Escape") onClose(); };
+    document.addEventListener("keydown", onKeyDown);
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    textareaRef.current?.focus();
+    return () => {
+      document.removeEventListener("keydown", onKeyDown);
+      document.body.style.overflow = prevOverflow;
+    };
+  }, [onClose]);
+
+  const submit = (e) => {
+    e.preventDefault();
+    if (!message.trim() || status === "sending") return;
+    setStatus("sending");
+    fetch(`${API_BASE}/api/feedback`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ message: message.trim(), dishName: dish.trim() || null, contact: contact.trim() || null }),
+    })
+      .then((res) => { if (!res.ok) throw new Error("request failed"); return res.json(); })
+      .then(() => setStatus("sent"))
+      .catch(() => setStatus("error"));
+  };
+
+  return (
+    <div
+      onClick={onClose}
+      style={{ position: "fixed", inset: 0, background: "rgba(42,27,18,0.5)", display: "flex", alignItems: "center", justifyContent: "center", padding: 16, zIndex: 60 }}
+    >
+      <div
+        onClick={(e) => e.stopPropagation()}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Send feedback"
+        style={{ background: "#FFFDF7", borderRadius: 18, maxWidth: 440, width: "100%", padding: 24, border: "1px solid #E7DAB8" }}
+      >
+        {status === "sent" ? (
+          <div style={{ textAlign: "center", padding: "12px 0" }}>
+            <CheckCircle2 size={32} color="#4B6B3A" style={{ marginBottom: 10 }} />
+            <div className="rf-display" style={{ fontSize: 17, fontWeight: 600, marginBottom: 6 }}>Thanks — we got it!</div>
+            <div style={{ fontSize: 13, color: "#7A6A54", marginBottom: 18 }}>We'll take a look. If you left contact info, we may follow up.</div>
+            <button onClick={onClose} className="rf-btn rf-focus" style={{ background: "#2A1B12", color: "#FFFDF7", border: "none", borderRadius: 10, padding: "9px 18px", fontSize: 13.5, fontWeight: 600, cursor: "pointer" }}>
+              Close
+            </button>
+          </div>
+        ) : (
+          <form onSubmit={submit}>
+            <div className="rf-display" style={{ fontSize: 17, fontWeight: 600, marginBottom: 4 }}>Report a problem</div>
+            <div style={{ fontSize: 13, color: "#7A6A54", marginBottom: 16 }}>
+              Found a wrong ingredient, a confusing step, a typo — anything? Let us know.
+            </div>
+
+            <label style={{ display: "block", fontSize: 12.5, fontWeight: 600, color: "#5A4A3A", marginBottom: 4 }}>
+              Dish (optional)
+              <input
+                value={dish}
+                onChange={(e) => setDish(e.target.value)}
+                placeholder="Which recipe is this about?"
+                style={{ display: "block", width: "100%", marginTop: 4, padding: "9px 12px", borderRadius: 10, border: "1px solid #DCCFB0", background: "#FFFDF7", fontSize: 13.5, fontWeight: 400, color: "#2A1B12", boxSizing: "border-box" }}
+              />
+            </label>
+
+            <label style={{ display: "block", fontSize: 12.5, fontWeight: 600, color: "#5A4A3A", marginTop: 12, marginBottom: 4 }}>
+              What's wrong? *
+              <textarea
+                ref={textareaRef}
+                required
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+                placeholder="Tell us what looked off..."
+                rows={4}
+                style={{ display: "block", width: "100%", marginTop: 4, padding: "9px 12px", borderRadius: 10, border: "1px solid #DCCFB0", background: "#FFFDF7", fontSize: 13.5, fontWeight: 400, color: "#2A1B12", resize: "vertical", boxSizing: "border-box", fontFamily: "inherit" }}
+              />
+            </label>
+
+            <label style={{ display: "block", fontSize: 12.5, fontWeight: 600, color: "#5A4A3A", marginTop: 12, marginBottom: 4 }}>
+              Email or Telegram (optional, if you'd like a reply)
+              <input
+                value={contact}
+                onChange={(e) => setContact(e.target.value)}
+                placeholder="you@example.com"
+                style={{ display: "block", width: "100%", marginTop: 4, padding: "9px 12px", borderRadius: 10, border: "1px solid #DCCFB0", background: "#FFFDF7", fontSize: 13.5, fontWeight: 400, color: "#2A1B12", boxSizing: "border-box" }}
+              />
+            </label>
+
+            {status === "error" && (
+              <div style={{ fontSize: 12.5, color: "#9E2B1B", marginTop: 12 }}>
+                Couldn't send that — please check your connection and try again.
+                {TELEGRAM_BOT_USERNAME && (
+                  <> Or message{" "}
+                    <a href={`https://t.me/${TELEGRAM_BOT_USERNAME}`} target="_blank" rel="noopener noreferrer" style={{ color: "#9E2B1B" }}>
+                      @{TELEGRAM_BOT_USERNAME}
+                    </a>{" "}
+                    on Telegram instead.
+                  </>
+                )}
+              </div>
+            )}
+
+            <div style={{ display: "flex", gap: 10, marginTop: 18, alignItems: "center" }}>
+              <button
+                type="submit"
+                disabled={!message.trim() || status === "sending"}
+                className="rf-btn rf-focus"
+                style={{ display: "flex", alignItems: "center", gap: 6, background: "#2A1B12", color: "#FFFDF7", border: "none", borderRadius: 10, padding: "9px 18px", fontSize: 13.5, fontWeight: 600, cursor: message.trim() ? "pointer" : "not-allowed", opacity: message.trim() ? 1 : 0.5 }}
+              >
+                <Send size={14} /> {status === "sending" ? "Sending…" : "Send feedback"}
+              </button>
+              <button type="button" onClick={onClose} className="rf-btn rf-focus" style={{ background: "none", border: "none", color: "#7A6A54", fontSize: 13.5, cursor: "pointer" }}>
+                Cancel
+              </button>
+            </div>
+
+            {TELEGRAM_BOT_USERNAME && status !== "error" && (
+              <div style={{ fontSize: 11.5, color: "#9C8D74", marginTop: 14 }}>
+                Prefer Telegram? Message{" "}
+                <a href={`https://t.me/${TELEGRAM_BOT_USERNAME}`} target="_blank" rel="noopener noreferrer" style={{ color: "#7A6A54" }}>
+                  @{TELEGRAM_BOT_USERNAME}
+                </a>{" "}
+                and just type your feedback.
+              </div>
+            )}
+          </form>
+        )}
       </div>
     </div>
   );
@@ -377,6 +536,7 @@ export default function RecipeFinder() {
   const [usingFallback, setUsingFallback] = useState(false);
   const [isSearching, setIsSearching] = useState(false);
   const [selectedEntry, setSelectedEntry] = useState(null);
+  const [feedback, setFeedback] = useState(null); // null | { dishName: string }
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [highlightedIndex, setHighlightedIndex] = useState(-1);
   const inputRef = useRef(null);
@@ -646,9 +806,26 @@ export default function RecipeFinder() {
             </>
           )}
         </div>
+
+        <div style={{ marginTop: 40, paddingTop: 20, borderTop: "1px solid #E7DAB8", textAlign: "center" }}>
+          <button
+            onClick={() => setFeedback({ dishName: "" })}
+            className="rf-btn rf-focus"
+            style={{ display: "inline-flex", alignItems: "center", gap: 6, background: "none", border: "none", color: "#9C8D74", fontSize: 12.5, cursor: "pointer", padding: 0 }}
+          >
+            <Flag size={13} /> Something wrong? Send feedback
+          </button>
+        </div>
       </div>
 
-      {selectedEntry && <DishModal entry={selectedEntry} onClose={() => setSelectedEntry(null)} />}
+      {selectedEntry && (
+        <DishModal
+          entry={selectedEntry}
+          onClose={() => setSelectedEntry(null)}
+          onReport={(dishName) => setFeedback({ dishName })}
+        />
+      )}
+      {feedback && <FeedbackModal dishName={feedback.dishName} onClose={() => setFeedback(null)} />}
     </div>
   );
 }
