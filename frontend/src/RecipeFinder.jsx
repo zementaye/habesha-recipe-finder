@@ -64,7 +64,18 @@ function normalizeDish(d) {
    that file's matching section if you change anything here)
 --------------------------------------------------------- */
 function normalize(str) {
-  return str.toLowerCase().trim().replace(/[^a-z0-9\s]/g, "").replace(/s$/, "");
+  let s = str.toLowerCase().trim().replace(/[^a-z0-9\s]/g, "");
+  // Crude plural stripping. A bare `s$` strip mishandles "-oes"/"-shes"/etc.
+  // plurals — e.g. "tomatoes" -> "tomatoe" instead of "tomato" — which
+  // silently broke exact matches on common ingredients like tomato/potato.
+  // Note: this still doesn't handle "-ies" plurals (e.g. "chilies"), which
+  // would need real stemming to fix properly.
+  if (/[^aeiou]oes$/.test(s) || /(ch|sh|x|z|s)es$/.test(s)) {
+    s = s.replace(/es$/, "");
+  } else {
+    s = s.replace(/s$/, "");
+  }
+  return s;
 }
 
 // Dependency-free Levenshtein distance, used only for short-string typo
@@ -213,6 +224,21 @@ function DishModal({ entry, onClose }) {
   const { dish, have, missing, percent } = entry;
   const accent = dish.cuisine === "habesha" ? "#9E2B1B" : "#C98A2C";
   const haveSet = new Set(have);
+  const closeButtonRef = useRef(null);
+
+  // Close on Escape, lock background scroll while open, and move focus
+  // into the dialog so keyboard/screen-reader users land somewhere sensible.
+  useEffect(() => {
+    const onKeyDown = (e) => { if (e.key === "Escape") onClose(); };
+    document.addEventListener("keydown", onKeyDown);
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    closeButtonRef.current?.focus();
+    return () => {
+      document.removeEventListener("keydown", onKeyDown);
+      document.body.style.overflow = prevOverflow;
+    };
+  }, [onClose]);
 
   return (
     <div
@@ -221,9 +247,12 @@ function DishModal({ entry, onClose }) {
     >
       <div
         onClick={(e) => e.stopPropagation()}
+        role="dialog"
+        aria-modal="true"
+        aria-label={dish.name}
         style={{ background: "#FFFDF7", borderRadius: 18, maxWidth: 560, width: "100%", maxHeight: "88vh", overflowY: "auto", padding: 24, border: "1px solid #E7DAB8" }}
       >
-        <button onClick={onClose} className="rf-btn rf-focus" style={{ display: "flex", alignItems: "center", gap: 6, background: "none", border: "none", color: "#7A6A54", fontSize: 13, padding: 0, marginBottom: 14, cursor: "pointer" }}>
+        <button ref={closeButtonRef} onClick={onClose} className="rf-btn rf-focus" style={{ display: "flex", alignItems: "center", gap: 6, background: "none", border: "none", color: "#7A6A54", fontSize: 13, padding: 0, marginBottom: 14, cursor: "pointer" }}>
           <ArrowLeft size={15} /> Back to results
         </button>
 
@@ -346,6 +375,7 @@ export default function RecipeFinder() {
   const [exactOnly, setExactOnly] = useState(false);
   const [apiResults, setApiResults] = useState(null);
   const [usingFallback, setUsingFallback] = useState(false);
+  const [isSearching, setIsSearching] = useState(false);
   const [selectedEntry, setSelectedEntry] = useState(null);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [highlightedIndex, setHighlightedIndex] = useState(-1);
@@ -375,7 +405,10 @@ export default function RecipeFinder() {
   const addIngredient = (raw) => {
     const val = raw.trim().toLowerCase();
     if (!val) return;
-    if (!ingredients.includes(val)) setIngredients([...ingredients, val]);
+    // Compare on the normalized form (strips punctuation/plurals) so
+    // "tomato" and "tomatoes" don't end up as two near-identical chips.
+    const alreadyAdded = ingredients.some((i) => normalize(i) === normalize(val));
+    if (!alreadyAdded) setIngredients([...ingredients, val]);
     setInputValue("");
     setShowSuggestions(false);
     setHighlightedIndex(-1);
@@ -388,8 +421,12 @@ export default function RecipeFinder() {
   useEffect(() => {
     if (ingredients.length === 0) {
       setApiResults(null);
+      setUsingFallback(false);
+      setIsSearching(false);
       return;
     }
+    let cancelled = false;
+    setIsSearching(true);
     const timer = setTimeout(() => {
       fetch(`${API_BASE}/api/match`, {
         method: "POST",
@@ -403,6 +440,7 @@ export default function RecipeFinder() {
       })
         .then((res) => { if (!res.ok) throw new Error("API error"); return res.json(); })
         .then((data) => {
+          if (cancelled) return; // a newer request has since superseded this one
           setApiResults(
             data.results.map((r) => ({
               dish: normalizeDish(r.dish),
@@ -413,9 +451,10 @@ export default function RecipeFinder() {
           );
           setUsingFallback(false);
         })
-        .catch(() => { setApiResults(null); setUsingFallback(true); });
+        .catch(() => { if (!cancelled) { setApiResults(null); setUsingFallback(true); } })
+        .finally(() => { if (!cancelled) setIsSearching(false); });
     }, 350);
-    return () => clearTimeout(timer);
+    return () => { cancelled = true; clearTimeout(timer); };
   }, [ingredients, cuisineFilter, categoryFilter, exactOnly]);
 
   const localResults = useMemo(() => {
@@ -474,6 +513,7 @@ export default function RecipeFinder() {
               <Search size={16} color="#9C8D74" style={{ position: "absolute", left: 12, top: "50%", transform: "translateY(-50%)" }} />
               <input
                 ref={inputRef}
+                aria-label="Add an ingredient you have on hand"
                 value={inputValue}
                 onChange={(e) => { setInputValue(e.target.value); setShowSuggestions(true); setHighlightedIndex(-1); }}
                 onFocus={() => setShowSuggestions(true)}
@@ -542,7 +582,15 @@ export default function RecipeFinder() {
               {ingredients.map((ing) => (
                 <span key={ing} className="rf-chip" style={{ borderColor: "#E9C9A8", background: "#FBF0E1" }}>
                   {ing}
-                  <X size={13} className="rf-btn" style={{ cursor: "pointer" }} onClick={() => removeIngredient(ing)} />
+                  <button
+                    type="button"
+                    onClick={() => removeIngredient(ing)}
+                    aria-label={`Remove ${ing}`}
+                    className="rf-btn rf-focus"
+                    style={{ display: "flex", background: "none", border: "none", padding: 2, margin: 0, cursor: "pointer", color: "inherit" }}
+                  >
+                    <X size={13} />
+                  </button>
                 </span>
               ))}
             </div>
@@ -568,14 +616,19 @@ export default function RecipeFinder() {
           <button onClick={() => setExactOnly(!exactOnly)} className="rf-btn" style={{ display: "flex", alignItems: "center", gap: 6, border: "1px solid #E7DAB8", borderRadius: 999, padding: "6px 12px", fontSize: 13, fontWeight: 500, cursor: "pointer", background: exactOnly ? "#4B6B3A" : "#FFFDF7", color: exactOnly ? "#F6EFE0" : "#5A4A3A" }}>
             <Leaf size={13} /> Ready to cook now
           </button>
-          {usingFallback && (
-            <span style={{ display: "flex", alignItems: "center", gap: 5, fontSize: 12, color: "#9C8D74", marginLeft: "auto" }}>
+          {isSearching && (
+            <span className="rf-mono" style={{ display: "flex", alignItems: "center", gap: 5, fontSize: 12, color: "#7A6A54", marginLeft: "auto" }} aria-live="polite">
+              Searching…
+            </span>
+          )}
+          {!isSearching && usingFallback && (
+            <span style={{ display: "flex", alignItems: "center", gap: 5, fontSize: 12, color: "#7A6A54", marginLeft: "auto" }}>
               <WifiOff size={13} /> API unreachable — showing embedded data
             </span>
           )}
         </div>
 
-        <div style={{ marginTop: 24 }}>
+        <div style={{ marginTop: 24 }} aria-live="polite">
           {ingredients.length === 0 ? (
             <EmptyState text="Add a few ingredients above to see what you can cook." />
           ) : results.length === 0 ? (
