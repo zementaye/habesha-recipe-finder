@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const fs = require("fs");
 const path = require("path");
+const crypto = require("crypto");
 
 const app = express();
 
@@ -23,6 +24,54 @@ try {
 } catch (err) {
   console.error(`Failed to load dish data from ${DATA_PATH}:`, err.message);
   process.exit(1);
+}
+
+/* ---------- feedback storage ---------- */
+// User-submitted "this looks wrong" / bug reports get appended to a local
+// JSON file. That file isn't committed (see .gitignore) — on most hosts
+// (e.g. Render's free tier) local disk doesn't persist across deploys, so
+// treat this as a lightweight inbox, not permanent storage. If BOT_TOKEN
+// and FEEDBACK_CHAT_ID are set, each report is also forwarded to Telegram
+// in real time, which is the more durable path in production.
+const FEEDBACK_PATH = path.join(__dirname, "feedback.json");
+const MAX_FEEDBACK_LEN = 2000;
+const MAX_FIELD_LEN = 200;
+
+function readFeedback() {
+  try {
+    return JSON.parse(fs.readFileSync(FEEDBACK_PATH, "utf8"));
+  } catch (err) {
+    if (err.code === "ENOENT") return [];
+    console.error("Failed to read feedback.json:", err.message);
+    return [];
+  }
+}
+
+function appendFeedback(entry) {
+  const all = readFeedback();
+  all.push(entry);
+  fs.writeFileSync(FEEDBACK_PATH, JSON.stringify(all, null, 2));
+}
+
+// Best-effort forward to Telegram; never throws, never blocks the response.
+async function forwardFeedbackToTelegram(entry) {
+  const { BOT_TOKEN, FEEDBACK_CHAT_ID } = process.env;
+  if (!BOT_TOKEN || !FEEDBACK_CHAT_ID) return;
+  try {
+    const lines = [
+      "🐞 New feedback (web form)",
+      entry.dishName ? `Dish: ${entry.dishName}` : null,
+      `Message: ${entry.message}`,
+      entry.contact ? `Contact: ${entry.contact}` : null,
+    ].filter(Boolean);
+    await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ chat_id: FEEDBACK_CHAT_ID, text: lines.join("\n") }),
+    });
+  } catch (err) {
+    console.error("Failed to forward feedback to Telegram:", err.message);
+  }
 }
 
 /* ---------- ingredient list (built once at startup) ---------- */
@@ -196,6 +245,55 @@ function findMatches(dishes, userIngredients, options = {}) {
 // GET /api/health -> simple liveness/readiness check
 app.get("/api/health", (req, res) => {
   res.json({ status: "ok", dishCount: DISHES.length });
+});
+
+// POST /api/feedback -> "this recipe looks wrong" / bug reports from the app
+// Body: { message: string (required), dishName?: string, contact?: string }
+app.post("/api/feedback", async (req, res) => {
+  const { message, dishName, contact } = req.body || {};
+
+  if (typeof message !== "string" || !message.trim()) {
+    return res.status(400).json({ error: "message is required" });
+  }
+  if (dishName != null && typeof dishName !== "string") {
+    return res.status(400).json({ error: "dishName must be a string" });
+  }
+  if (contact != null && typeof contact !== "string") {
+    return res.status(400).json({ error: "contact must be a string" });
+  }
+
+  const entry = {
+    id: crypto.randomUUID(),
+    dishName: dishName ? dishName.trim().slice(0, MAX_FIELD_LEN) : null,
+    message: message.trim().slice(0, MAX_FEEDBACK_LEN),
+    contact: contact ? contact.trim().slice(0, MAX_FIELD_LEN) : null,
+    source: "web",
+    createdAt: new Date().toISOString(),
+  };
+
+  // Forward to Telegram (if configured) even if the local write below fails —
+  // the two paths are independent, so one being unavailable shouldn't sink the other.
+  forwardFeedbackToTelegram(entry);
+
+  try {
+    appendFeedback(entry);
+  } catch (err) {
+    console.error("Failed to save feedback:", err.message);
+    return res.status(500).json({ error: "Could not save feedback right now — please try again shortly." });
+  }
+
+  res.status(201).json({ success: true });
+});
+
+// GET /api/feedback?key=... -> lets you review submitted feedback.
+// Gated behind ADMIN_KEY so it isn't publicly readable; unset ADMIN_KEY
+// disables the route entirely rather than defaulting to open.
+app.get("/api/feedback", (req, res) => {
+  const { ADMIN_KEY } = process.env;
+  if (!ADMIN_KEY || req.query.key !== ADMIN_KEY) {
+    return res.status(404).end();
+  }
+  res.json({ feedback: readFeedback() });
 });
 
 // GET /api/dishes  -> full dataset (optionally filtered by cuisine/category)
