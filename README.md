@@ -38,4 +38,8 @@ Yes — the app is designed to work on both desktop and mobile. There's also a T
 The database covers Habesha (Ethiopian and Eritrean) cuisine alongside dishes from South Asia, East Asia, Southeast Asia, the Middle East, Africa, Europe, and the Americas.
 
 **I found a bug or a recipe that looks wrong — what do I do?**
-Please flag it! Include the dish name and what looked off, so it can be fixed.
+You've got two easy options:
+- **In the app:** click "Something wrong? Send feedback" at the bottom of the page — or, if it's about a specific dish, open that dish's recipe and click "Something look off with this recipe? Report it" near the bottom. Fill in what looked off and send it.
+- **On Telegram:** message the bot and either send `/feedback` or tap the "📝 Report a problem" button, then just type what you noticed.
+
+Either way, include the dish name and what looked off (wrong ingredient, missing step, typo — anything) so it can be fixed.

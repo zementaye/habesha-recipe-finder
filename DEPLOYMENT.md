@@ -94,7 +94,24 @@ The server code already reads `FRONTEND_URL` and restricts CORS to it when set �
 
 ---
 
-## 5. Local development
+## 5. Feedback / bug reports (optional)
+
+The app has a "Report a problem" form, and the Telegram bot accepts feedback too (via `/feedback` or its inline button). Both write to `backend/feedback.json` (or `telegram-bot/feedback.json` for the bot) by default — fine for local use, but **on Render's free tier the local disk doesn't persist across deploys/restarts**, so treat that file as a lightweight inbox, not permanent storage. For anything durable, wire up the Telegram forwarding below.
+
+**To have feedback forwarded to Telegram in real time:**
+1. On Render, add environment variables to your backend service:
+   - `BOT_TOKEN` — the same token your Telegram bot uses (from @BotFather)
+   - `FEEDBACK_CHAT_ID` — the chat ID that should receive reports (your own DM with the bot, or a group). Get your ID from [@userinfobot](https://t.me/userinfobot).
+2. For the bot itself (wherever you run `telegram-bot/bot.js`), set `ADMIN_CHAT_ID` to the same value.
+3. To review feedback via the API without exposing it publicly, set `ADMIN_KEY` on the backend to a long random string, then visit `https://your-app-name.onrender.com/api/feedback?key=YOUR_ADMIN_KEY`.
+
+**To show a "message us on Telegram instead" link in the web form**, set `VITE_TELEGRAM_BOT_USERNAME` on Vercel to your bot's username (without the `@`).
+
+None of this is required — without it, feedback just lands in the local JSON file and the in-app form's Telegram fallback link is hidden.
+
+---
+
+## 6. Local development
 
 **Backend:**
 ```bash
