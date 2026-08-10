@@ -2,6 +2,7 @@ import React, { useState, useMemo, useRef, useEffect } from "react";
 import { Plus, X, Search, Flame, Leaf, ChefHat, Clock, Users, SlidersHorizontal, WifiOff, ArrowLeft } from "lucide-react";
 import { INGREDIENT_NAMES } from "./ingredient-names";
 import { scoreDish as sharedScoreDish } from "./matching";
+import { getDishImage } from "./dish-images";
 
 // Points at your deployed backend in production (set VITE_API_URL in your
 // hosting provider's env vars), falls back to localhost for local dev, and
@@ -41,6 +42,7 @@ function normalizeDish(d) {
     steps: d.steps || [],
     description: d.description || null,
     nutrition: d.nutrition || null,
+    image: getDishImage(d.id),
   };
 }
 
@@ -97,6 +99,121 @@ function HeroSpiral() {
    Detail modal — shown on card click, works regardless of
    how many ingredients the user has (full steps always shown).
 --------------------------------------------------------- */
+/* ---------------------------------------------------------
+   TiltPhoto: a real dish photo that responds to pointer
+   movement (or a finger drag on touch) with a perspective
+   tilt + moving highlight, so it reads as a physical object
+   you're turning in your hands rather than a flat picture.
+--------------------------------------------------------- */
+function TiltPhoto({ image, alt, accent }) {
+  const frameRef = useRef(null);
+  const [tilt, setTilt] = useState({ rx: 0, ry: 0, mx: 50, my: 50 });
+  const [active, setActive] = useState(false);
+  const [imgError, setImgError] = useState(false);
+
+  const updateFromPoint = (clientX, clientY) => {
+    const el = frameRef.current;
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    const px = (clientX - rect.left) / rect.width; // 0..1
+    const py = (clientY - rect.top) / rect.height; // 0..1
+    const clampedX = Math.min(1, Math.max(0, px));
+    const clampedY = Math.min(1, Math.max(0, py));
+    const maxDeg = 14;
+    setTilt({
+      rx: (0.5 - clampedY) * maxDeg * 2,
+      ry: (clampedX - 0.5) * maxDeg * 2,
+      mx: clampedX * 100,
+      my: clampedY * 100,
+    });
+  };
+
+  const reset = () => {
+    setActive(false);
+    setTilt({ rx: 0, ry: 0, mx: 50, my: 50 });
+  };
+
+  if (!image || imgError) {
+    // No sourced photo yet for this dish — a calm placeholder instead
+    // of a broken image or an empty gap.
+    return (
+      <div
+        style={{
+          height: 160,
+          borderRadius: 14,
+          marginBottom: 4,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          background: `linear-gradient(135deg, ${accent}22, #FBF3E3)`,
+          border: "1px solid #EFE6D0",
+          color: "#B9AB8E",
+          fontSize: 12.5,
+        }}
+      >
+        Photo coming soon
+      </div>
+    );
+  }
+
+  return (
+    <div style={{ marginBottom: 6 }}>
+      <div
+        ref={frameRef}
+        onMouseMove={(e) => { setActive(true); updateFromPoint(e.clientX, e.clientY); }}
+        onMouseLeave={reset}
+        onTouchMove={(e) => {
+          if (e.touches[0]) { setActive(true); updateFromPoint(e.touches[0].clientX, e.touches[0].clientY); }
+        }}
+        onTouchEnd={reset}
+        style={{ perspective: 900, height: 190, borderRadius: 14, cursor: "grab" }}
+      >
+        <div
+          style={{
+            width: "100%",
+            height: "100%",
+            borderRadius: 14,
+            position: "relative",
+            overflow: "hidden",
+            transform: `rotateX(${tilt.rx}deg) rotateY(${tilt.ry}deg) scale(${active ? 1.02 : 1})`,
+            transition: active ? "transform 60ms linear" : "transform 350ms ease-out",
+            boxShadow: active
+              ? `0 20px 30px -12px rgba(42,27,18,0.35)`
+              : `0 8px 18px -8px rgba(42,27,18,0.25)`,
+            border: "1px solid #EFE6D0",
+          }}
+        >
+          <img
+            src={image.url}
+            alt={alt}
+            onError={() => setImgError(true)}
+            style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+          />
+          {/* moving glare to sell the depth/rotation */}
+          <div
+            style={{
+              position: "absolute",
+              inset: 0,
+              pointerEvents: "none",
+              background: `radial-gradient(circle at ${tilt.mx}% ${tilt.my}%, rgba(255,255,255,0.35), rgba(255,255,255,0) 45%)`,
+              opacity: active ? 1 : 0.5,
+              transition: "opacity 200ms ease-out",
+            }}
+          />
+        </div>
+      </div>
+      {image.credit && (
+        <div style={{ fontSize: 10, color: "#B9AB8E", marginTop: 4, textAlign: "right" }}>
+          Photo:{" "}
+          <a href={image.creditUrl} target="_blank" rel="noreferrer" style={{ color: "#B9AB8E" }}>
+            {image.credit}
+          </a>
+        </div>
+      )}
+    </div>
+  );
+}
+
 function DishModal({ entry, onClose, isFavorite, onToggleFavorite }) {
   const { dish, have, missing, percent } = entry;
   const accent = dish.cuisine === "habesha" ? "#9E2B1B" : "#C98A2C";
@@ -139,6 +256,10 @@ function DishModal({ entry, onClose, isFavorite, onToggleFavorite }) {
           {(dish.prep || dish.cook) && <span className="rf-mono" style={{ display: "flex", alignItems: "center", gap: 4 }}><Clock size={13} />{(dish.prep || 0) + (dish.cook || 0)}m</span>}
           {dish.serves && <span className="rf-mono" style={{ display: "flex", alignItems: "center", gap: 4 }}><Users size={13} />{dish.serves}</span>}
           <span style={{ textTransform: "capitalize" }}>{dish.category}</span>
+        </div>
+
+        <div style={{ marginTop: 16 }}>
+          <TiltPhoto image={dish.image} alt={dish.name} accent={accent} />
         </div>
 
         <div style={{ marginTop: 20 }}>
