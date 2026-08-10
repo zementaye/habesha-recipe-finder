@@ -37,6 +37,7 @@ app.use(limiter);
 
 const DATA_PATH = path.join(__dirname, "all_dishes_merged.json");
 const DISHES = JSON.parse(fs.readFileSync(DATA_PATH, "utf8")).dishes;
+const DISHES_BY_ID = new Map(DISHES.map((d) => [d.id, d]));
 
 /* ---------- ingredient list (built once at startup) ---------- */
 // cleanIngredientName comes from shared/matching.js; used here to build a
@@ -79,6 +80,93 @@ function findMatches(dishes, userIngredients, options = {}) {
     .filter((r) => r.missingCount <= maxMissing && r.matchedCount > 0)
     .sort((a, b) => b.matchPercent - a.matchPercent || a.missingCount - b.missingCount);
 }
+
+/* ---------------------------------------------------------
+   Dish photos, sourced on demand from the Pexels API and
+   cached to disk (backend/image-cache.json) so we only ever
+   pay for one lookup per dish, ever — not per request.
+
+   Requires a free Pexels API key (https://www.pexels.com/api/)
+   set as PEXELS_API_KEY. Without one, the endpoint below
+   responds 501 and the frontend just shows its placeholder —
+   nothing else breaks.
+
+   Pexels' terms let you hotlink the returned photo URL
+   directly and don't require attribution, but we store and
+   surface the photographer credit anyway as a courtesy.
+--------------------------------------------------------- */
+const PEXELS_API_KEY = process.env.PEXELS_API_KEY;
+const IMAGE_CACHE_PATH = path.join(__dirname, "image-cache.json");
+// How long a "no photo found" result is cached before we're willing to
+// retry — Pexels' library grows over time, so a miss today isn't
+// necessarily a miss forever. Successful hits are cached indefinitely.
+const NEGATIVE_CACHE_MS = 30 * 24 * 60 * 60 * 1000; // 30 days
+
+let imageCache = {};
+try {
+  imageCache = JSON.parse(fs.readFileSync(IMAGE_CACHE_PATH, "utf8"));
+} catch {
+  imageCache = {}; // no cache file yet — first run, or it was deleted
+}
+
+let cacheWriteTimer = null;
+function saveImageCacheSoon() {
+  // Debounce writes so a burst of concurrent lookups (e.g. someone
+  // paging through many dishes fast) doesn't hammer the filesystem.
+  clearTimeout(cacheWriteTimer);
+  cacheWriteTimer = setTimeout(() => {
+    fs.writeFile(IMAGE_CACHE_PATH, JSON.stringify(imageCache, null, 2), () => {});
+  }, 500);
+}
+
+async function fetchDishPhoto(dish) {
+  const query = [dish.name, dish.country, "food dish"].filter(Boolean).join(" ");
+  const res = await fetch(
+    `https://api.pexels.com/v1/search?query=${encodeURIComponent(query)}&per_page=1&orientation=landscape`,
+    { headers: { Authorization: PEXELS_API_KEY } }
+  );
+  if (!res.ok) throw new Error(`Pexels API error (${res.status})`);
+  const data = await res.json();
+  const photo = data.photos && data.photos[0];
+  if (!photo) return null;
+  return {
+    url: photo.src.large,
+    width: photo.width,
+    height: photo.height,
+    credit: photo.photographer,
+    creditUrl: photo.photographer_url,
+    sourceUrl: photo.url,
+    source: "pexels",
+  };
+}
+
+// GET /api/dish-image/:id -> { image: {...} } | { image: null }
+app.get("/api/dish-image/:id", async (req, res) => {
+  const dish = DISHES_BY_ID.get(req.params.id);
+  if (!dish) return res.status(404).json({ error: "Dish not found" });
+
+  if (!PEXELS_API_KEY) {
+    return res.status(501).json({ error: "Image lookup isn't configured (missing PEXELS_API_KEY)." });
+  }
+
+  const cached = imageCache[dish.id];
+  const cacheIsFreshEnough = cached && (cached.found || Date.now() - cached.cachedAt < NEGATIVE_CACHE_MS);
+  if (cacheIsFreshEnough) {
+    return res.json({ image: cached.found ? cached.image : null });
+  }
+
+  try {
+    const image = await fetchDishPhoto(dish);
+    imageCache[dish.id] = { found: !!image, image: image || null, cachedAt: Date.now() };
+    saveImageCacheSoon();
+    res.json({ image });
+  } catch (err) {
+    console.error(`Dish photo lookup failed for ${dish.id}:`, err.message);
+    // Don't cache transient failures (rate limits, network blips) — only
+    // cache genuine "no photo exists for this dish" results.
+    res.status(502).json({ error: "Image lookup failed, try again later." });
+  }
+});
 
 /* ---------------------- routes ---------------------- */
 

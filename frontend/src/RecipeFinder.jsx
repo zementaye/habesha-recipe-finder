@@ -100,12 +100,52 @@ function HeroSpiral() {
    how many ingredients the user has (full steps always shown).
 --------------------------------------------------------- */
 /* ---------------------------------------------------------
+   Lazy photo lookup for dishes that don't have a curated
+   image in dish-images.js. Hits the backend's Pexels-backed
+   /api/dish-image/:id, which does its own disk caching — this
+   in-memory cache just avoids refetching within the same
+   session (e.g. closing and reopening the same dish).
+--------------------------------------------------------- */
+const photoLookupCache = new Map(); // dish id -> image object | null
+
+function useDishPhoto(dish) {
+  const [state, setState] = useState(() => {
+    if (dish.image) return { image: dish.image, loading: false };
+    if (photoLookupCache.has(dish.id)) return { image: photoLookupCache.get(dish.id), loading: false };
+    return { image: null, loading: true };
+  });
+
+  useEffect(() => {
+    if (dish.image) { setState({ image: dish.image, loading: false }); return; }
+    if (photoLookupCache.has(dish.id)) { setState({ image: photoLookupCache.get(dish.id), loading: false }); return; }
+
+    let cancelled = false;
+    setState({ image: null, loading: true });
+    fetch(`${API_BASE}/api/dish-image/${dish.id}`)
+      .then((res) => (res.ok ? res.json() : { image: null }))
+      .then((data) => {
+        photoLookupCache.set(dish.id, data.image || null);
+        if (!cancelled) setState({ image: data.image || null, loading: false });
+      })
+      .catch(() => {
+        // Backend unreachable, or the lookup isn't configured (no
+        // PEXELS_API_KEY) — either way, just fall back to the
+        // placeholder rather than surfacing an error.
+        if (!cancelled) setState({ image: null, loading: false });
+      });
+    return () => { cancelled = true; };
+  }, [dish.id, dish.image]);
+
+  return state;
+}
+
+/* ---------------------------------------------------------
    TiltPhoto: a real dish photo that responds to pointer
    movement (or a finger drag on touch) with a perspective
    tilt + moving highlight, so it reads as a physical object
    you're turning in your hands rather than a flat picture.
 --------------------------------------------------------- */
-function TiltPhoto({ image, alt, accent }) {
+function TiltPhoto({ image, loading, alt, accent }) {
   const frameRef = useRef(null);
   const [tilt, setTilt] = useState({ rx: 0, ry: 0, mx: 50, my: 50 });
   const [active, setActive] = useState(false);
@@ -134,24 +174,28 @@ function TiltPhoto({ image, alt, accent }) {
   };
 
   if (!image || imgError) {
-    // No sourced photo yet for this dish — a calm placeholder instead
-    // of a broken image or an empty gap.
+    // No sourced photo yet — a calm placeholder (or a soft shimmer while
+    // we're still asking the backend) instead of a broken image or gap.
     return (
       <div
         style={{
-          height: 160,
+          height: 320,
           borderRadius: 14,
           marginBottom: 4,
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          background: `linear-gradient(135deg, ${accent}22, #FBF3E3)`,
+          background: loading
+            ? `linear-gradient(100deg, #FBF3E3 30%, ${accent}18 50%, #FBF3E3 70%)`
+            : `linear-gradient(135deg, ${accent}22, #FBF3E3)`,
+          backgroundSize: loading ? "200% 100%" : undefined,
+          animation: loading ? "rf-shimmer 1.4s ease-in-out infinite" : undefined,
           border: "1px solid #EFE6D0",
           color: "#B9AB8E",
           fontSize: 12.5,
         }}
       >
-        Photo coming soon
+        {loading ? "Finding a photo…" : "Photo coming soon"}
       </div>
     );
   }
@@ -166,7 +210,7 @@ function TiltPhoto({ image, alt, accent }) {
           if (e.touches[0]) { setActive(true); updateFromPoint(e.touches[0].clientX, e.touches[0].clientY); }
         }}
         onTouchEnd={reset}
-        style={{ perspective: 900, height: 190, borderRadius: 14, cursor: "grab" }}
+        style={{ perspective: 900, height: 320, borderRadius: 14, cursor: "grab" }}
       >
         <div
           style={{
@@ -218,6 +262,7 @@ function DishModal({ entry, onClose, isFavorite, onToggleFavorite }) {
   const { dish, have, missing, percent } = entry;
   const accent = dish.cuisine === "habesha" ? "#9E2B1B" : "#C98A2C";
   const haveSet = new Set(have);
+  const { image: dishPhoto, loading: dishPhotoLoading } = useDishPhoto(dish);
 
   return (
     <div
@@ -259,7 +304,7 @@ function DishModal({ entry, onClose, isFavorite, onToggleFavorite }) {
         </div>
 
         <div style={{ marginTop: 16 }}>
-          <TiltPhoto image={dish.image} alt={dish.name} accent={accent} />
+          <TiltPhoto image={dishPhoto} loading={dishPhotoLoading} alt={dish.name} accent={accent} />
         </div>
 
         <div style={{ marginTop: 20 }}>
@@ -507,6 +552,7 @@ export default function RecipeFinder() {
         input:focus { outline: none; }
         .rf-focus:focus-visible { outline: 2px solid #9E2B1B; outline-offset: 2px; }
         @keyframes rf-spin { to { transform: rotate(360deg); } }
+        @keyframes rf-shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
       `}</style>
 
       <div style={{ borderBottom: "1px solid #E7DAB8", padding: "40px 24px 32px" }}>

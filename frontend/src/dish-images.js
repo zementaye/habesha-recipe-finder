@@ -40,6 +40,16 @@ export const DISH_IMAGES = {
     "Wikimedia Commons, CC BY-SA 3.0",
     "https://commons.wikimedia.org/wiki/File:Ethiopian_Sambusa.jpg"
   ),
+  shiro_wat: commons(
+    "Taita and shiro.jpg",
+    "Wikimedia Commons, CC BY-SA 2.5",
+    "https://commons.wikimedia.org/wiki/File:Taita_and_shiro.jpg"
+  ),
+  buna: commons(
+    "Coffee ceremony of Ethiopia and Eritrea 5.jpg",
+    "Wikimedia Commons, CC BY-SA 4.0",
+    "https://commons.wikimedia.org/wiki/File:Coffee_ceremony_of_Ethiopia_and_Eritrea_5.jpg"
+  ),
 };
 
 export function getDishImage(id) {
