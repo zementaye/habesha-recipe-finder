@@ -1,0 +1,24 @@
+{
+  "name": "habesha-recipe-finder-frontend",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "predev": "node ../scripts/sync-dishes.js && node ../scripts/sync-shared.js",
+    "dev": "vite",
+    "prebuild": "node ../scripts/sync-dishes.js && node ../scripts/sync-shared.js",
+    "build": "vite build",
+    "preview": "vite preview",
+    "sync-dishes": "node ../scripts/sync-dishes.js",
+    "sync-shared": "node ../scripts/sync-shared.js"
+  },
+  "dependencies": {
+    "lucide-react": "^0.383.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.1",
+    "vite": "^5.4.0"
+  }
+}
