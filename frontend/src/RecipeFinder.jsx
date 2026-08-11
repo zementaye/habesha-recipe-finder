@@ -1,8 +1,7 @@
 import React, { useState, useMemo, useRef, useEffect } from "react";
-import { Plus, X, Search, Flame, Leaf, ChefHat, Clock, Users, SlidersHorizontal, WifiOff, ArrowLeft } from "lucide-react";
+import { Plus, X, Search, Flame, Leaf, ChefHat, Clock, Users, SlidersHorizontal, WifiOff, ArrowLeft, BookOpen, ListFilter } from "lucide-react";
 import { INGREDIENT_NAMES } from "./ingredient-names";
 import { scoreDish as sharedScoreDish } from "./matching";
-import { getDishImage } from "./dish-images";
 
 // Points at your deployed backend in production (set VITE_API_URL in your
 // hosting provider's env vars), falls back to localhost for local dev, and
@@ -42,7 +41,6 @@ function normalizeDish(d) {
     steps: d.steps || [],
     description: d.description || null,
     nutrition: d.nutrition || null,
-    image: getDishImage(d.id),
   };
 }
 
@@ -83,6 +81,25 @@ function MatchRing({ percent, size = 56, accent }) {
   );
 }
 
+/* ---------------------------------------------------------
+   Shown in place of MatchRing wherever there's no ingredient
+   list to score against yet (e.g. browsing/searching dishes by
+   name instead of by what's in your kitchen).
+--------------------------------------------------------- */
+function DishBadge({ size = 56, accent }) {
+  return (
+    <div
+      style={{
+        width: size, height: size, borderRadius: "50%", flexShrink: 0,
+        background: `${accent}14`, border: `1px solid ${accent}33`,
+        display: "flex", alignItems: "center", justifyContent: "center",
+      }}
+    >
+      <ChefHat size={size * 0.42} color={accent} />
+    </div>
+  );
+}
+
 function HeroSpiral() {
   const rings = [46, 37, 28, 19, 10];
   return (
@@ -100,66 +117,50 @@ function HeroSpiral() {
    how many ingredients the user has (full steps always shown).
 --------------------------------------------------------- */
 /* ---------------------------------------------------------
-   Lazy photo lookup for dishes that don't have a curated
-   image in dish-images.js. Hits the backend's Pexels-backed
-   /api/dish-image/:id, which does its own disk caching — this
-   in-memory cache just avoids refetching within the same
-   session (e.g. closing and reopening the same dish).
+   DishEmblem: a generated, layered "plate" scene instead of a
+   sourced photo. Real photos turned out to fight the tilt
+   interaction — every source photo has a different crop and
+   framing, so a fixed-size box either cut off the food or
+   showed mostly background. This is drawn from the dish's own
+   data (id, accent color, spice level) instead, so every one
+   of the 500 dishes gets a properly-composed, licensing-free
+   scene with zero lookups.
+
+   Each layer (plate, food mound, steam, flecks) moves by a
+   different amount as you tilt it — actual parallax depth,
+   which a flat photo can't give you — plus the same overall
+   perspective tilt as before for the "turning it in your
+   hands" feel.
 --------------------------------------------------------- */
-const photoLookupCache = new Map(); // dish id -> image object | null
-
-function useDishPhoto(dish) {
-  const [state, setState] = useState(() => {
-    if (dish.image) return { image: dish.image, loading: false };
-    if (photoLookupCache.has(dish.id)) return { image: photoLookupCache.get(dish.id), loading: false };
-    return { image: null, loading: true };
-  });
-
-  useEffect(() => {
-    if (dish.image) { setState({ image: dish.image, loading: false }); return; }
-    if (photoLookupCache.has(dish.id)) { setState({ image: photoLookupCache.get(dish.id), loading: false }); return; }
-
-    let cancelled = false;
-    setState({ image: null, loading: true });
-    fetch(`${API_BASE}/api/dish-image/${dish.id}`)
-      .then((res) => (res.ok ? res.json() : { image: null }))
-      .then((data) => {
-        photoLookupCache.set(dish.id, data.image || null);
-        if (!cancelled) setState({ image: data.image || null, loading: false });
-      })
-      .catch(() => {
-        // Backend unreachable, or the lookup isn't configured (no
-        // PEXELS_API_KEY) — either way, just fall back to the
-        // placeholder rather than surfacing an error.
-        if (!cancelled) setState({ image: null, loading: false });
-      });
-    return () => { cancelled = true; };
-  }, [dish.id, dish.image]);
-
-  return state;
+function hashSeed(str) {
+  let h = 0;
+  for (let i = 0; i < str.length; i++) h = (Math.imul(h, 31) + str.charCodeAt(i)) | 0;
+  return h;
+}
+// Deterministic 0..1 pseudo-random values derived from a dish's id, so
+// its emblem looks the same every time without storing anything.
+function seededRandoms(id, count) {
+  let s = hashSeed(id) || 1;
+  const out = [];
+  for (let i = 0; i < count; i++) {
+    s = (Math.imul(s, 48271) % 2147483647 + 2147483647) % 2147483647 || 1;
+    out.push((s % 10000) / 10000);
+  }
+  return out;
 }
 
-/* ---------------------------------------------------------
-   TiltPhoto: a real dish photo that responds to pointer
-   movement (or a finger drag on touch) with a perspective
-   tilt + moving highlight, so it reads as a physical object
-   you're turning in your hands rather than a flat picture.
---------------------------------------------------------- */
-function TiltPhoto({ image, loading, alt, accent }) {
+function DishEmblem({ dish, accent }) {
   const frameRef = useRef(null);
   const [tilt, setTilt] = useState({ rx: 0, ry: 0, mx: 50, my: 50 });
   const [active, setActive] = useState(false);
-  const [imgError, setImgError] = useState(false);
 
   const updateFromPoint = (clientX, clientY) => {
     const el = frameRef.current;
     if (!el) return;
     const rect = el.getBoundingClientRect();
-    const px = (clientX - rect.left) / rect.width; // 0..1
-    const py = (clientY - rect.top) / rect.height; // 0..1
-    const clampedX = Math.min(1, Math.max(0, px));
-    const clampedY = Math.min(1, Math.max(0, py));
-    const maxDeg = 14;
+    const clampedX = Math.min(1, Math.max(0, (clientX - rect.left) / rect.width));
+    const clampedY = Math.min(1, Math.max(0, (clientY - rect.top) / rect.height));
+    const maxDeg = 10;
     setTilt({
       rx: (0.5 - clampedY) * maxDeg * 2,
       ry: (clampedX - 0.5) * maxDeg * 2,
@@ -167,38 +168,31 @@ function TiltPhoto({ image, loading, alt, accent }) {
       my: clampedY * 100,
     });
   };
+  const reset = () => { setActive(false); setTilt({ rx: 0, ry: 0, mx: 50, my: 50 }); };
 
-  const reset = () => {
-    setActive(false);
-    setTilt({ rx: 0, ry: 0, mx: 50, my: 50 });
-  };
+  // Parallax offset for a layer: further-back layers barely move,
+  // foreground layers (flecks) swing further, selling the depth.
+  const parallax = (depth) => ({
+    x: (tilt.ry / 20) * depth,
+    y: (-tilt.rx / 20) * depth,
+  });
 
-  if (!image || imgError) {
-    // No sourced photo yet — a calm placeholder (or a soft shimmer while
-    // we're still asking the backend) instead of a broken image or gap.
-    return (
-      <div
-        style={{
-          height: 320,
-          borderRadius: 14,
-          marginBottom: 4,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          background: loading
-            ? `linear-gradient(100deg, #FBF3E3 30%, ${accent}18 50%, #FBF3E3 70%)`
-            : `linear-gradient(135deg, ${accent}22, #FBF3E3)`,
-          backgroundSize: loading ? "200% 100%" : undefined,
-          animation: loading ? "rf-shimmer 1.4s ease-in-out infinite" : undefined,
-          border: "1px solid #EFE6D0",
-          color: "#B9AB8E",
-          fontSize: 12.5,
-        }}
-      >
-        {loading ? "Finding a photo…" : "Photo coming soon"}
-      </div>
-    );
-  }
+  const r = seededRandoms(dish.id, 16);
+  const blobRadius = `${38 + r[0] * 24}% ${62 - r[0] * 24}% ${58 + r[1] * 20}% ${42 - r[1] * 20}% / ${44 + r[2] * 18}% ${40 + r[3] * 18}% ${60 - r[3] * 18}% ${56 - r[2] * 18}%`;
+  const blobRotate = -8 + r[4] * 16;
+  const gold = "#E8B84B";
+  const showSteam = dish.spice > 0 || dish.category === "non-fasting";
+  const fleckCount = 6;
+  const flecks = Array.from({ length: fleckCount }, (_, i) => ({
+    x: 28 + r[(5 + i) % 16] * 44,
+    y: 26 + r[(9 + i) % 16] * 48,
+    size: 3 + r[(2 + i) % 16] * 5,
+    color: i % 3 === 0 ? gold : i % 3 === 1 ? accent : "#FFF7E6",
+  }));
+
+  const plateP = parallax(3);
+  const blobP = parallax(7);
+  const fleckP = parallax(14);
 
   return (
     <div style={{ marginBottom: 6 }}>
@@ -206,11 +200,9 @@ function TiltPhoto({ image, loading, alt, accent }) {
         ref={frameRef}
         onMouseMove={(e) => { setActive(true); updateFromPoint(e.clientX, e.clientY); }}
         onMouseLeave={reset}
-        onTouchMove={(e) => {
-          if (e.touches[0]) { setActive(true); updateFromPoint(e.touches[0].clientX, e.touches[0].clientY); }
-        }}
+        onTouchMove={(e) => { if (e.touches[0]) { setActive(true); updateFromPoint(e.touches[0].clientX, e.touches[0].clientY); } }}
         onTouchEnd={reset}
-        style={{ perspective: 900, height: 320, borderRadius: 14, cursor: "grab" }}
+        style={{ perspective: 900, height: 260, borderRadius: 14, cursor: "grab" }}
       >
         <div
           style={{
@@ -219,41 +211,77 @@ function TiltPhoto({ image, loading, alt, accent }) {
             borderRadius: 14,
             position: "relative",
             overflow: "hidden",
-            transform: `rotateX(${tilt.rx}deg) rotateY(${tilt.ry}deg) scale(${active ? 1.02 : 1})`,
+            background: `radial-gradient(120% 100% at 30% 20%, ${accent}14, #FBF3E3 65%)`,
+            transform: `rotateX(${tilt.rx}deg) rotateY(${tilt.ry}deg) scale(${active ? 1.015 : 1})`,
             transition: active ? "transform 60ms linear" : "transform 350ms ease-out",
-            boxShadow: active
-              ? `0 20px 30px -12px rgba(42,27,18,0.35)`
-              : `0 8px 18px -8px rgba(42,27,18,0.25)`,
+            boxShadow: active ? "0 20px 30px -12px rgba(42,27,18,0.35)" : "0 8px 18px -8px rgba(42,27,18,0.25)",
             border: "1px solid #EFE6D0",
           }}
         >
-          <img
-            src={image.url}
-            alt={alt}
-            onError={() => setImgError(true)}
-            style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
-          />
-          {/* moving glare to sell the depth/rotation */}
+          {/* background spiral echo, reusing the app's mesob motif */}
           <div
             style={{
-              position: "absolute",
-              inset: 0,
-              pointerEvents: "none",
-              background: `radial-gradient(circle at ${tilt.mx}% ${tilt.my}%, rgba(255,255,255,0.35), rgba(255,255,255,0) 45%)`,
-              opacity: active ? 1 : 0.5,
+              position: "absolute", inset: 0, opacity: 0.25,
+              transform: `translate(${plateP.x}px, ${plateP.y}px)`,
+              backgroundImage: `repeating-radial-gradient(circle at 75% 30%, ${accent}22 0, ${accent}22 2px, transparent 2px, transparent 14px)`,
+            }}
+          />
+          {/* plate */}
+          <div
+            style={{
+              position: "absolute", left: "50%", top: "58%", width: "72%", height: "58%",
+              transform: `translate(-50%, -50%) translate(${plateP.x}px, ${plateP.y}px)`,
+              borderRadius: "50%",
+              background: "radial-gradient(circle at 35% 30%, #FFFDF7, #EFE1C0 70%, #DCCFA8)",
+              boxShadow: "0 10px 20px -8px rgba(42,27,18,0.25), inset 0 -6px 12px rgba(42,27,18,0.08)",
+            }}
+          />
+          {/* food mound */}
+          <div
+            style={{
+              position: "absolute", left: "50%", top: "56%", width: "50%", height: "42%",
+              transform: `translate(-50%, -50%) translate(${blobP.x}px, ${blobP.y}px) rotate(${blobRotate}deg)`,
+              borderRadius: blobRadius,
+              background: `radial-gradient(circle at 35% 30%, ${gold}, ${accent} 75%)`,
+              boxShadow: `0 8px 16px -6px ${accent}66`,
+            }}
+          >
+            {flecks.map((f, i) => (
+              <div
+                key={i}
+                style={{
+                  position: "absolute", left: `${f.x}%`, top: `${f.y}%`,
+                  width: f.size, height: f.size, borderRadius: "50%",
+                  background: f.color,
+                  transform: `translate(${fleckP.x}px, ${fleckP.y}px)`,
+                  boxShadow: "0 1px 2px rgba(42,27,18,0.3)",
+                }}
+              />
+            ))}
+          </div>
+          {/* steam, for hot/non-fasting dishes */}
+          {showSteam && [0, 1].map((i) => (
+            <div
+              key={i}
+              className="rf-steam"
+              style={{
+                position: "absolute", left: `${44 + i * 12}%`, top: "18%", width: 10, height: 60,
+                borderRadius: 999, background: "linear-gradient(rgba(255,255,255,0.55), rgba(255,255,255,0))",
+                filter: "blur(3px)", animationDelay: `${i * 0.6}s`,
+              }}
+            />
+          ))}
+          {/* moving glare, sells the tilt/rotation */}
+          <div
+            style={{
+              position: "absolute", inset: 0, pointerEvents: "none",
+              background: `radial-gradient(circle at ${tilt.mx}% ${tilt.my}%, rgba(255,255,255,0.3), rgba(255,255,255,0) 45%)`,
+              opacity: active ? 1 : 0.4,
               transition: "opacity 200ms ease-out",
             }}
           />
         </div>
       </div>
-      {image.credit && (
-        <div style={{ fontSize: 10, color: "#B9AB8E", marginTop: 4, textAlign: "right" }}>
-          Photo:{" "}
-          <a href={image.creditUrl} target="_blank" rel="noreferrer" style={{ color: "#B9AB8E" }}>
-            {image.credit}
-          </a>
-        </div>
-      )}
     </div>
   );
 }
@@ -262,7 +290,7 @@ function DishModal({ entry, onClose, isFavorite, onToggleFavorite }) {
   const { dish, have, missing, percent } = entry;
   const accent = dish.cuisine === "habesha" ? "#9E2B1B" : "#C98A2C";
   const haveSet = new Set(have);
-  const { image: dishPhoto, loading: dishPhotoLoading } = useDishPhoto(dish);
+  const hasMatchContext = percent !== null && percent !== undefined;
 
   return (
     <div
@@ -289,7 +317,7 @@ function DishModal({ entry, onClose, isFavorite, onToggleFavorite }) {
         </div>
 
         <div style={{ display: "flex", gap: 14, alignItems: "center" }}>
-          <MatchRing percent={percent} size={64} accent={accent} />
+          {hasMatchContext ? <MatchRing percent={percent} size={64} accent={accent} /> : <DishBadge size={64} accent={accent} />}
           <div>
             <div className="rf-display" style={{ fontSize: 22, fontWeight: 600 }}>{dish.name}</div>
             <div style={{ fontSize: 13, color: "#8A7A62", marginTop: 2 }}>{dish.subtitle}</div>
@@ -304,7 +332,7 @@ function DishModal({ entry, onClose, isFavorite, onToggleFavorite }) {
         </div>
 
         <div style={{ marginTop: 16 }}>
-          <TiltPhoto image={dishPhoto} loading={dishPhotoLoading} alt={dish.name} accent={accent} />
+          <DishEmblem dish={dish} accent={accent} />
         </div>
 
         <div style={{ marginTop: 20 }}>
@@ -327,7 +355,7 @@ function DishModal({ entry, onClose, isFavorite, onToggleFavorite }) {
               );
             })}
           </div>
-          {missing.length > 0 && (
+          {hasMatchContext && missing.length > 0 && (
             <div style={{ fontSize: 12, color: "#9C8D74", marginTop: 8 }}>
               You're missing {missing.length} ingredient{missing.length !== 1 ? "s" : ""} — the steps below still work, just pick these up first.
             </div>
@@ -404,12 +432,20 @@ function DishModal({ entry, onClose, isFavorite, onToggleFavorite }) {
    Main component
 --------------------------------------------------------- */
 export default function RecipeFinder() {
+  // "ingredients" = match against what you have on hand; "name" = browse/search
+  // the whole 500-dish database by name/cuisine, with no ingredient list required.
+  const [mode, setMode] = useState("ingredients");
   const [ingredients, setIngredients] = useState([]);
   const [inputValue, setInputValue] = useState("");
   const [cuisineFilter, setCuisineFilter] = useState("all");
   const [categoryFilter, setCategoryFilter] = useState("all");
   const [exactOnly, setExactOnly] = useState(false);
   const [apiResults, setApiResults] = useState(null);
+  const [nameQuery, setNameQuery] = useState("");
+  const [nameApiResults, setNameApiResults] = useState(null);
+  const [nameUsingFallback, setNameUsingFallback] = useState(false);
+  const [isNameSearching, setIsNameSearching] = useState(false);
+  const [nameVisibleCount, setNameVisibleCount] = useState(RESULTS_PAGE_SIZE);
   const [usingFallback, setUsingFallback] = useState(false);
   const [fallbackDishes, setFallbackDishes] = useState(null); // lazy-loaded, see fetch effect below
   const [isSearching, setIsSearching] = useState(false);
@@ -443,6 +479,10 @@ export default function RecipeFinder() {
   useEffect(() => {
     setVisibleCount(RESULTS_PAGE_SIZE);
   }, [ingredients, cuisineFilter, categoryFilter, exactOnly, showFavoritesOnly]);
+
+  useEffect(() => {
+    setNameVisibleCount(RESULTS_PAGE_SIZE);
+  }, [nameQuery, cuisineFilter, categoryFilter, showFavoritesOnly, mode]);
 
 
   // Every distinct ingredient across all 500 dishes, cleaned up,
@@ -534,9 +574,66 @@ export default function RecipeFinder() {
   }, [ingredients, cuisineFilter, categoryFilter, exactOnly, fallbackDishes]);
 
   const results = apiResults && !usingFallback ? apiResults : localResults;
-  const visibleResults = showFavoritesOnly ? results.filter((r) => favorites.has(r.dish.id)) : results;
-  const pagedResults = visibleResults.slice(0, visibleCount);
-  const loadingFallbackData = usingFallback && !fallbackDishes;
+
+  // Name/browse mode: search the whole database by dish name (and cuisine,
+  // country, type, description) with no ingredients required — the "find
+  // foods in general" search. Debounced against GET /api/search, same
+  // fallback-to-offline-dataset behavior as the ingredient matcher above.
+  useEffect(() => {
+    if (mode !== "name") return;
+    setIsNameSearching(true);
+    const timer = setTimeout(() => {
+      const params = new URLSearchParams();
+      if (nameQuery.trim()) params.set("q", nameQuery.trim());
+      if (cuisineFilter !== "all") params.set("cuisine", cuisineFilter);
+      if (categoryFilter !== "all") params.set("category", categoryFilter);
+      fetch(`${API_BASE}/api/search?${params.toString()}`)
+        .then((res) => { if (!res.ok) throw new Error("API error"); return res.json(); })
+        .then((data) => {
+          setNameApiResults(
+            data.dishes.map((d) => ({ dish: normalizeDish(d), have: [], missing: [], percent: null }))
+          );
+          setNameUsingFallback(false);
+        })
+        .catch(() => {
+          setNameApiResults(null);
+          setNameUsingFallback(true);
+          setFallbackDishes((prev) => {
+            if (prev) return prev; // already loaded, don't re-import
+            import("./dishes-fallback.js").then((mod) => setFallbackDishes(mod.DISHES));
+            return prev;
+          });
+        })
+        .finally(() => setIsNameSearching(false));
+    }, 300);
+    return () => clearTimeout(timer);
+  }, [mode, nameQuery, cuisineFilter, categoryFilter]);
+
+  const localNameResults = useMemo(() => {
+    if (!fallbackDishes) return [];
+    let pool = fallbackDishes.map(normalizeDish);
+    if (cuisineFilter !== "all") pool = pool.filter((d) => d.cuisine === cuisineFilter);
+    if (categoryFilter !== "all") pool = pool.filter((d) => d.category === categoryFilter);
+    const q = nameQuery.trim().toLowerCase();
+    if (q) {
+      pool = pool.filter((d) =>
+        [d.name, d.subtitle, d.cuisine].filter(Boolean).join(" ").toLowerCase().includes(q)
+      );
+    }
+    return pool.map((dish) => ({ dish, have: [], missing: [], percent: null }));
+  }, [nameQuery, cuisineFilter, categoryFilter, fallbackDishes]);
+
+  const nameResults = nameApiResults && !nameUsingFallback ? nameApiResults : localNameResults;
+
+  // Whichever mode is active drives what the results grid below renders.
+  const activeResults = mode === "name" ? nameResults : results;
+  const activeVisibleResults = showFavoritesOnly ? activeResults.filter((r) => favorites.has(r.dish.id)) : activeResults;
+  const activeVisibleCount = mode === "name" ? nameVisibleCount : visibleCount;
+  const setActiveVisibleCount = mode === "name" ? setNameVisibleCount : setVisibleCount;
+  const activePagedResults = activeVisibleResults.slice(0, activeVisibleCount);
+  const activeUsingFallback = mode === "name" ? nameUsingFallback : usingFallback;
+  const activeLoadingFallbackData = activeUsingFallback && !fallbackDishes;
+  const activeIsSearching = mode === "name" ? isNameSearching : isSearching;
 
   return (
     <div style={{ background: "#F6EFE0", minHeight: "100%", fontFamily: "'IBM Plex Sans', sans-serif", color: "#2A1B12" }}>
@@ -552,7 +649,12 @@ export default function RecipeFinder() {
         input:focus { outline: none; }
         .rf-focus:focus-visible { outline: 2px solid #9E2B1B; outline-offset: 2px; }
         @keyframes rf-spin { to { transform: rotate(360deg); } }
-        @keyframes rf-shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+        .rf-steam { animation: rf-steam-drift 3.2s ease-in-out infinite; }
+        @keyframes rf-steam-drift {
+          0% { transform: translateY(0) scaleY(0.9); opacity: 0; }
+          30% { opacity: 0.7; }
+          100% { transform: translateY(-38px) scaleY(1.2); opacity: 0; }
+        }
       `}</style>
 
       <div style={{ borderBottom: "1px solid #E7DAB8", padding: "40px 24px 32px" }}>
@@ -566,17 +668,51 @@ export default function RecipeFinder() {
               </span>
             </div>
             <h1 className="rf-display" style={{ fontSize: "clamp(28px, 4vw, 40px)", fontWeight: 600, lineHeight: 1.1, margin: 0 }}>
-              What's in your kitchen?
+              {mode === "ingredients" ? "What's in your kitchen?" : "Browse all 500 dishes"}
             </h1>
             <p style={{ marginTop: 8, color: "#5A4A3A", fontSize: 15.5, maxWidth: 520 }}>
-              Add what you have on hand — we'll match it against all 500 dishes, from doro wat to pad thai. Tap any dish to see the full recipe, even if you're missing a few things.
+              {mode === "ingredients"
+                ? "Add what you have on hand — we'll match it against all 500 dishes, from doro wat to pad thai. Tap any dish to see the full recipe, even if you're missing a few things."
+                : "Search by dish name, cuisine, or country — no ingredients required. Tap any dish for the full recipe."}
             </p>
           </div>
         </div>
       </div>
 
       <div style={{ maxWidth: 880, margin: "0 auto", padding: "28px 24px 64px" }}>
+        <div style={{ display: "inline-flex", gap: 4, background: "#EFE6D0", border: "1px solid #E7DAB8", borderRadius: 999, padding: 4, marginBottom: 16 }}>
+          <button
+            onClick={() => setMode("ingredients")}
+            className="rf-btn rf-focus"
+            style={{ display: "flex", alignItems: "center", gap: 6, border: "none", borderRadius: 999, padding: "8px 16px", fontSize: 13.5, fontWeight: 600, cursor: "pointer", background: mode === "ingredients" ? "#2A1B12" : "transparent", color: mode === "ingredients" ? "#FBF0E1" : "#5A4A3A" }}
+          >
+            <ListFilter size={14} /> By ingredient
+          </button>
+          <button
+            onClick={() => setMode("name")}
+            className="rf-btn rf-focus"
+            style={{ display: "flex", alignItems: "center", gap: 6, border: "none", borderRadius: 999, padding: "8px 16px", fontSize: 13.5, fontWeight: 600, cursor: "pointer", background: mode === "name" ? "#2A1B12" : "transparent", color: mode === "name" ? "#FBF0E1" : "#5A4A3A" }}
+          >
+            <BookOpen size={14} /> Browse / search dishes
+          </button>
+        </div>
+
         <div style={{ background: "#FFFDF7", border: "1px solid #E7DAB8", borderRadius: 16, padding: 20 }}>
+          {mode === "name" ? (
+            <div style={{ position: "relative" }}>
+              <Search size={16} color="#9C8D74" style={{ position: "absolute", left: 12, top: "50%", transform: "translateY(-50%)" }} />
+              <input
+                value={nameQuery}
+                onChange={(e) => setNameQuery(e.target.value)}
+                placeholder="Search by dish name, cuisine, or country, e.g. tibs, Thai, Ethiopia"
+                aria-label="Search dishes by name"
+                className="rf-focus"
+                autoComplete="off"
+                style={{ width: "100%", padding: "10px 12px 10px 36px", borderRadius: 10, border: "1px solid #DCCFB0", fontSize: 14.5, background: "#FBF7EE", boxSizing: "border-box" }}
+              />
+            </div>
+          ) : (
+          <>
           <div style={{ display: "flex", gap: 8 }}>
             <div style={{ position: "relative", flex: 1 }}>
               <Search size={16} color="#9C8D74" style={{ position: "absolute", left: 12, top: "50%", transform: "translateY(-50%)" }} />
@@ -668,6 +804,8 @@ export default function RecipeFinder() {
               ))}
             </div>
           )}
+          </>
+          )}
         </div>
 
         <div style={{ display: "flex", alignItems: "center", gap: 12, marginTop: 20, flexWrap: "wrap" }}>
@@ -686,15 +824,17 @@ export default function RecipeFinder() {
               ))}
             </div>
           ))}
-          <button onClick={() => setExactOnly(!exactOnly)} className="rf-btn" style={{ display: "flex", alignItems: "center", gap: 6, border: "1px solid #E7DAB8", borderRadius: 999, padding: "6px 12px", fontSize: 13, fontWeight: 500, cursor: "pointer", background: exactOnly ? "#4B6B3A" : "#FFFDF7", color: exactOnly ? "#F6EFE0" : "#5A4A3A" }}>
-            <Leaf size={13} /> Ready to cook now
-          </button>
-          {usingFallback && (
+          {mode === "ingredients" && (
+            <button onClick={() => setExactOnly(!exactOnly)} className="rf-btn" style={{ display: "flex", alignItems: "center", gap: 6, border: "1px solid #E7DAB8", borderRadius: 999, padding: "6px 12px", fontSize: 13, fontWeight: 500, cursor: "pointer", background: exactOnly ? "#4B6B3A" : "#FFFDF7", color: exactOnly ? "#F6EFE0" : "#5A4A3A" }}>
+              <Leaf size={13} /> Ready to cook now
+            </button>
+          )}
+          {activeUsingFallback && (
             <span style={{ display: "flex", alignItems: "center", gap: 5, fontSize: 12, color: "#9C8D74", marginLeft: "auto" }}>
               <WifiOff size={13} /> API unreachable — showing sample data
             </span>
           )}
-          {!usingFallback && isSearching && (
+          {!activeUsingFallback && activeIsSearching && (
             <span
               role="status"
               aria-live="polite"
@@ -706,23 +846,25 @@ export default function RecipeFinder() {
         </div>
 
         <div style={{ marginTop: 24 }}>
-          {ingredients.length === 0 ? (
+          {mode === "ingredients" && ingredients.length === 0 ? (
             <EmptyState text="Add a few ingredients above to see what you can cook." />
-          ) : loadingFallbackData ? (
+          ) : activeLoadingFallbackData ? (
             <EmptyState text="Loading offline recipe data…" icon={<Spinner size={28} />} />
-          ) : visibleResults.length === 0 ? (
+          ) : activeVisibleResults.length === 0 ? (
             <EmptyState
               text={
                 showFavoritesOnly
-                  ? "None of your favorites match these ingredients yet."
-                  : "No dishes match yet — try adding more ingredients or loosening a filter."
+                  ? "None of your favorites match yet."
+                  : mode === "ingredients"
+                  ? "No dishes match yet — try adding more ingredients or loosening a filter."
+                  : "No dishes match that search — try a different name, cuisine, or country."
               }
             />
           ) : (
             <>
               <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 8, marginBottom: 12 }}>
                 <div style={{ fontSize: 13, color: "#7A6A54" }}>
-                  {visibleResults.length} dish{visibleResults.length !== 1 ? "es" : ""} found — tap any card for the full recipe
+                  {activeVisibleResults.length} dish{activeVisibleResults.length !== 1 ? "es" : ""} found — tap any card for the full recipe
                 </div>
                 {favorites.size > 0 && (
                   <button
@@ -735,7 +877,7 @@ export default function RecipeFinder() {
                 )}
               </div>
               <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))", gap: 14 }}>
-                {pagedResults.map((entry) => (
+                {activePagedResults.map((entry) => (
                   <DishCard
                     key={entry.dish.id}
                     entry={entry}
@@ -745,14 +887,14 @@ export default function RecipeFinder() {
                   />
                 ))}
               </div>
-              {visibleCount < visibleResults.length && (
+              {activeVisibleCount < activeVisibleResults.length && (
                 <div style={{ textAlign: "center", marginTop: 18 }}>
                   <button
-                    onClick={() => setVisibleCount((c) => c + RESULTS_PAGE_SIZE)}
+                    onClick={() => setActiveVisibleCount((c) => c + RESULTS_PAGE_SIZE)}
                     className="rf-btn rf-focus"
                     style={{ border: "1px solid #DCCFB0", background: "#FFFDF7", borderRadius: 999, padding: "8px 20px", fontSize: 13.5, fontWeight: 600, color: "#5A4A3A", cursor: "pointer" }}
                   >
-                    Show more ({visibleResults.length - visibleCount} left)
+                    Show more ({activeVisibleResults.length - activeVisibleCount} left)
                   </button>
                 </div>
               )}
@@ -799,6 +941,7 @@ function Spinner({ size = 14 }) {
 function DishCard({ entry, onClick, isFavorite, onToggleFavorite }) {
   const { dish, have, missing, percent } = entry;
   const accent = dish.cuisine === "habesha" ? "#9E2B1B" : "#C98A2C";
+  const hasMatchContext = percent !== null && percent !== undefined;
   return (
     <div className="rf-card" onClick={onClick} style={{ position: "relative", background: "#FFFDF7", border: "1px solid #E7DAB8", borderRadius: 14, padding: 16 }}>
       <button
@@ -811,7 +954,7 @@ function DishCard({ entry, onClick, isFavorite, onToggleFavorite }) {
         {isFavorite ? "★" : "☆"}
       </button>
       <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
-        <MatchRing percent={percent} accent={accent} />
+        {hasMatchContext ? <MatchRing percent={percent} accent={accent} /> : <DishBadge accent={accent} />}
         <div style={{ flex: 1, minWidth: 0 }}>
           <div className="rf-display" style={{ fontSize: 17, fontWeight: 600, lineHeight: 1.2 }}>{dish.name}</div>
           <div style={{ fontSize: 12.5, color: "#8A7A62", marginTop: 2 }}>{dish.subtitle}</div>
@@ -836,14 +979,27 @@ function DishCard({ entry, onClick, isFavorite, onToggleFavorite }) {
       </div>
 
       <div style={{ marginTop: 12, display: "flex", flexWrap: "wrap", gap: 5 }}>
-        {have.slice(0, 4).map((i) => (
-          <span key={i} style={{ fontSize: 11, background: "#EAF0E3", color: "#4B6B3A", padding: "3px 8px", borderRadius: 999, fontWeight: 500 }}>{i}</span>
-        ))}
-        {missing.slice(0, 3).map((i) => (
-          <span key={i} style={{ fontSize: 11, background: "transparent", border: "1px solid #E7DAB8", color: "#9C8D74", padding: "2px 7px", borderRadius: 999 }}>{i}</span>
-        ))}
-        {missing.length > 3 && (
-          <span style={{ fontSize: 11, color: "#9C8D74", padding: "3px 4px" }}>+{missing.length - 3} more</span>
+        {hasMatchContext ? (
+          <>
+            {have.slice(0, 4).map((i) => (
+              <span key={i} style={{ fontSize: 11, background: "#EAF0E3", color: "#4B6B3A", padding: "3px 8px", borderRadius: 999, fontWeight: 500 }}>{i}</span>
+            ))}
+            {missing.slice(0, 3).map((i) => (
+              <span key={i} style={{ fontSize: 11, background: "transparent", border: "1px solid #E7DAB8", color: "#9C8D74", padding: "2px 7px", borderRadius: 999 }}>{i}</span>
+            ))}
+            {missing.length > 3 && (
+              <span style={{ fontSize: 11, color: "#9C8D74", padding: "3px 4px" }}>+{missing.length - 3} more</span>
+            )}
+          </>
+        ) : (
+          <>
+            {dish.ingredientNames.slice(0, 5).map((i) => (
+              <span key={i} style={{ fontSize: 11, background: "#F3EEDD", color: "#7A6A54", padding: "3px 8px", borderRadius: 999, fontWeight: 500 }}>{i}</span>
+            ))}
+            {dish.ingredientNames.length > 5 && (
+              <span style={{ fontSize: 11, color: "#9C8D74", padding: "3px 4px" }}>+{dish.ingredientNames.length - 5} more</span>
+            )}
+          </>
         )}
       </div>
     </div>
