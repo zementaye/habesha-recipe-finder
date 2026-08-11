@@ -144,10 +144,29 @@ app.get("/api/ingredients", (req, res) => {
   res.json({ count: results.length, ingredients: results });
 });
 
-// GET /api/search?q=wat  -> name search
+// GET /api/search?q=wat&cuisine=habesha&category=fasting  -> find dishes in
+// general, no ingredients required. Matches against name, Amharic name,
+// country, region, cuisine, dish type, and description. An empty/missing q
+// just returns the (optionally filtered) dish list, so this also powers
+// plain "browse everything" with no search term typed yet.
 app.get("/api/search", (req, res) => {
   const q = normalize(req.query.q || "");
-  const matches = DISHES.filter((d) => normalize(d.name).includes(q));
+  const { cuisine, category } = req.query;
+
+  let pool = DISHES;
+  if (cuisine && cuisine !== "all") pool = pool.filter((d) => d.cuisine === cuisine);
+  if (category && category !== "all") pool = pool.filter((d) => d.category === category);
+
+  const matches = q
+    ? pool.filter((d) => {
+        const haystack = [d.name, d.name_amharic, d.country, d.region, d.cuisine, d.type, d.description]
+          .filter(Boolean)
+          .map(normalize)
+          .join(" ");
+        return haystack.includes(q);
+      })
+    : pool;
+
   res.json({ count: matches.length, dishes: matches });
 });
 

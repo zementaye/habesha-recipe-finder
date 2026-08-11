@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useRef, useEffect } from "react";
-import { Plus, X, Search, Flame, Leaf, ChefHat, Clock, Users, SlidersHorizontal, WifiOff, ArrowLeft } from "lucide-react";
+import { Plus, X, Search, Flame, Leaf, ChefHat, Clock, Users, SlidersHorizontal, WifiOff, ArrowLeft, BookOpen, ListFilter } from "lucide-react";
 import { INGREDIENT_NAMES } from "./ingredient-names";
 import { scoreDish as sharedScoreDish } from "./matching";
 
@@ -78,6 +78,25 @@ function MatchRing({ percent, size = 56, accent }) {
         {percent}%
       </text>
     </svg>
+  );
+}
+
+/* ---------------------------------------------------------
+   Shown in place of MatchRing wherever there's no ingredient
+   list to score against yet (e.g. browsing/searching dishes by
+   name instead of by what's in your kitchen).
+--------------------------------------------------------- */
+function DishBadge({ size = 56, accent }) {
+  return (
+    <div
+      style={{
+        width: size, height: size, borderRadius: "50%", flexShrink: 0,
+        background: `${accent}14`, border: `1px solid ${accent}33`,
+        display: "flex", alignItems: "center", justifyContent: "center",
+      }}
+    >
+      <ChefHat size={size * 0.42} color={accent} />
+    </div>
   );
 }
 
@@ -271,6 +290,7 @@ function DishModal({ entry, onClose, isFavorite, onToggleFavorite }) {
   const { dish, have, missing, percent } = entry;
   const accent = dish.cuisine === "habesha" ? "#9E2B1B" : "#C98A2C";
   const haveSet = new Set(have);
+  const hasMatchContext = percent !== null && percent !== undefined;
 
   return (
     <div
@@ -297,7 +317,7 @@ function DishModal({ entry, onClose, isFavorite, onToggleFavorite }) {
         </div>
 
         <div style={{ display: "flex", gap: 14, alignItems: "center" }}>
-          <MatchRing percent={percent} size={64} accent={accent} />
+          {hasMatchContext ? <MatchRing percent={percent} size={64} accent={accent} /> : <DishBadge size={64} accent={accent} />}
           <div>
             <div className="rf-display" style={{ fontSize: 22, fontWeight: 600 }}>{dish.name}</div>
             <div style={{ fontSize: 13, color: "#8A7A62", marginTop: 2 }}>{dish.subtitle}</div>
@@ -335,7 +355,7 @@ function DishModal({ entry, onClose, isFavorite, onToggleFavorite }) {
               );
             })}
           </div>
-          {missing.length > 0 && (
+          {hasMatchContext && missing.length > 0 && (
             <div style={{ fontSize: 12, color: "#9C8D74", marginTop: 8 }}>
               You're missing {missing.length} ingredient{missing.length !== 1 ? "s" : ""} — the steps below still work, just pick these up first.
             </div>
@@ -412,12 +432,20 @@ function DishModal({ entry, onClose, isFavorite, onToggleFavorite }) {
    Main component
 --------------------------------------------------------- */
 export default function RecipeFinder() {
+  // "ingredients" = match against what you have on hand; "name" = browse/search
+  // the whole 500-dish database by name/cuisine, with no ingredient list required.
+  const [mode, setMode] = useState("ingredients");
   const [ingredients, setIngredients] = useState([]);
   const [inputValue, setInputValue] = useState("");
   const [cuisineFilter, setCuisineFilter] = useState("all");
   const [categoryFilter, setCategoryFilter] = useState("all");
   const [exactOnly, setExactOnly] = useState(false);
   const [apiResults, setApiResults] = useState(null);
+  const [nameQuery, setNameQuery] = useState("");
+  const [nameApiResults, setNameApiResults] = useState(null);
+  const [nameUsingFallback, setNameUsingFallback] = useState(false);
+  const [isNameSearching, setIsNameSearching] = useState(false);
+  const [nameVisibleCount, setNameVisibleCount] = useState(RESULTS_PAGE_SIZE);
   const [usingFallback, setUsingFallback] = useState(false);
   const [fallbackDishes, setFallbackDishes] = useState(null); // lazy-loaded, see fetch effect below
   const [isSearching, setIsSearching] = useState(false);
@@ -451,6 +479,10 @@ export default function RecipeFinder() {
   useEffect(() => {
     setVisibleCount(RESULTS_PAGE_SIZE);
   }, [ingredients, cuisineFilter, categoryFilter, exactOnly, showFavoritesOnly]);
+
+  useEffect(() => {
+    setNameVisibleCount(RESULTS_PAGE_SIZE);
+  }, [nameQuery, cuisineFilter, categoryFilter, showFavoritesOnly, mode]);
 
 
   // Every distinct ingredient across all 500 dishes, cleaned up,
@@ -542,9 +574,66 @@ export default function RecipeFinder() {
   }, [ingredients, cuisineFilter, categoryFilter, exactOnly, fallbackDishes]);
 
   const results = apiResults && !usingFallback ? apiResults : localResults;
-  const visibleResults = showFavoritesOnly ? results.filter((r) => favorites.has(r.dish.id)) : results;
-  const pagedResults = visibleResults.slice(0, visibleCount);
-  const loadingFallbackData = usingFallback && !fallbackDishes;
+
+  // Name/browse mode: search the whole database by dish name (and cuisine,
+  // country, type, description) with no ingredients required — the "find
+  // foods in general" search. Debounced against GET /api/search, same
+  // fallback-to-offline-dataset behavior as the ingredient matcher above.
+  useEffect(() => {
+    if (mode !== "name") return;
+    setIsNameSearching(true);
+    const timer = setTimeout(() => {
+      const params = new URLSearchParams();
+      if (nameQuery.trim()) params.set("q", nameQuery.trim());
+      if (cuisineFilter !== "all") params.set("cuisine", cuisineFilter);
+      if (categoryFilter !== "all") params.set("category", categoryFilter);
+      fetch(`${API_BASE}/api/search?${params.toString()}`)
+        .then((res) => { if (!res.ok) throw new Error("API error"); return res.json(); })
+        .then((data) => {
+          setNameApiResults(
+            data.dishes.map((d) => ({ dish: normalizeDish(d), have: [], missing: [], percent: null }))
+          );
+          setNameUsingFallback(false);
+        })
+        .catch(() => {
+          setNameApiResults(null);
+          setNameUsingFallback(true);
+          setFallbackDishes((prev) => {
+            if (prev) return prev; // already loaded, don't re-import
+            import("./dishes-fallback.js").then((mod) => setFallbackDishes(mod.DISHES));
+            return prev;
+          });
+        })
+        .finally(() => setIsNameSearching(false));
+    }, 300);
+    return () => clearTimeout(timer);
+  }, [mode, nameQuery, cuisineFilter, categoryFilter]);
+
+  const localNameResults = useMemo(() => {
+    if (!fallbackDishes) return [];
+    let pool = fallbackDishes.map(normalizeDish);
+    if (cuisineFilter !== "all") pool = pool.filter((d) => d.cuisine === cuisineFilter);
+    if (categoryFilter !== "all") pool = pool.filter((d) => d.category === categoryFilter);
+    const q = nameQuery.trim().toLowerCase();
+    if (q) {
+      pool = pool.filter((d) =>
+        [d.name, d.subtitle, d.cuisine].filter(Boolean).join(" ").toLowerCase().includes(q)
+      );
+    }
+    return pool.map((dish) => ({ dish, have: [], missing: [], percent: null }));
+  }, [nameQuery, cuisineFilter, categoryFilter, fallbackDishes]);
+
+  const nameResults = nameApiResults && !nameUsingFallback ? nameApiResults : localNameResults;
+
+  // Whichever mode is active drives what the results grid below renders.
+  const activeResults = mode === "name" ? nameResults : results;
+  const activeVisibleResults = showFavoritesOnly ? activeResults.filter((r) => favorites.has(r.dish.id)) : activeResults;
+  const activeVisibleCount = mode === "name" ? nameVisibleCount : visibleCount;
+  const setActiveVisibleCount = mode === "name" ? setNameVisibleCount : setVisibleCount;
+  const activePagedResults = activeVisibleResults.slice(0, activeVisibleCount);
+  const activeUsingFallback = mode === "name" ? nameUsingFallback : usingFallback;
+  const activeLoadingFallbackData = activeUsingFallback && !fallbackDishes;
+  const activeIsSearching = mode === "name" ? isNameSearching : isSearching;
 
   return (
     <div style={{ background: "#F6EFE0", minHeight: "100%", fontFamily: "'IBM Plex Sans', sans-serif", color: "#2A1B12" }}>
@@ -579,17 +668,51 @@ export default function RecipeFinder() {
               </span>
             </div>
             <h1 className="rf-display" style={{ fontSize: "clamp(28px, 4vw, 40px)", fontWeight: 600, lineHeight: 1.1, margin: 0 }}>
-              What's in your kitchen?
+              {mode === "ingredients" ? "What's in your kitchen?" : "Browse all 500 dishes"}
             </h1>
             <p style={{ marginTop: 8, color: "#5A4A3A", fontSize: 15.5, maxWidth: 520 }}>
-              Add what you have on hand — we'll match it against all 500 dishes, from doro wat to pad thai. Tap any dish to see the full recipe, even if you're missing a few things.
+              {mode === "ingredients"
+                ? "Add what you have on hand — we'll match it against all 500 dishes, from doro wat to pad thai. Tap any dish to see the full recipe, even if you're missing a few things."
+                : "Search by dish name, cuisine, or country — no ingredients required. Tap any dish for the full recipe."}
             </p>
           </div>
         </div>
       </div>
 
       <div style={{ maxWidth: 880, margin: "0 auto", padding: "28px 24px 64px" }}>
+        <div style={{ display: "inline-flex", gap: 4, background: "#EFE6D0", border: "1px solid #E7DAB8", borderRadius: 999, padding: 4, marginBottom: 16 }}>
+          <button
+            onClick={() => setMode("ingredients")}
+            className="rf-btn rf-focus"
+            style={{ display: "flex", alignItems: "center", gap: 6, border: "none", borderRadius: 999, padding: "8px 16px", fontSize: 13.5, fontWeight: 600, cursor: "pointer", background: mode === "ingredients" ? "#2A1B12" : "transparent", color: mode === "ingredients" ? "#FBF0E1" : "#5A4A3A" }}
+          >
+            <ListFilter size={14} /> By ingredient
+          </button>
+          <button
+            onClick={() => setMode("name")}
+            className="rf-btn rf-focus"
+            style={{ display: "flex", alignItems: "center", gap: 6, border: "none", borderRadius: 999, padding: "8px 16px", fontSize: 13.5, fontWeight: 600, cursor: "pointer", background: mode === "name" ? "#2A1B12" : "transparent", color: mode === "name" ? "#FBF0E1" : "#5A4A3A" }}
+          >
+            <BookOpen size={14} /> Browse / search dishes
+          </button>
+        </div>
+
         <div style={{ background: "#FFFDF7", border: "1px solid #E7DAB8", borderRadius: 16, padding: 20 }}>
+          {mode === "name" ? (
+            <div style={{ position: "relative" }}>
+              <Search size={16} color="#9C8D74" style={{ position: "absolute", left: 12, top: "50%", transform: "translateY(-50%)" }} />
+              <input
+                value={nameQuery}
+                onChange={(e) => setNameQuery(e.target.value)}
+                placeholder="Search by dish name, cuisine, or country, e.g. tibs, Thai, Ethiopia"
+                aria-label="Search dishes by name"
+                className="rf-focus"
+                autoComplete="off"
+                style={{ width: "100%", padding: "10px 12px 10px 36px", borderRadius: 10, border: "1px solid #DCCFB0", fontSize: 14.5, background: "#FBF7EE", boxSizing: "border-box" }}
+              />
+            </div>
+          ) : (
+          <>
           <div style={{ display: "flex", gap: 8 }}>
             <div style={{ position: "relative", flex: 1 }}>
               <Search size={16} color="#9C8D74" style={{ position: "absolute", left: 12, top: "50%", transform: "translateY(-50%)" }} />
@@ -681,6 +804,8 @@ export default function RecipeFinder() {
               ))}
             </div>
           )}
+          </>
+          )}
         </div>
 
         <div style={{ display: "flex", alignItems: "center", gap: 12, marginTop: 20, flexWrap: "wrap" }}>
@@ -699,15 +824,17 @@ export default function RecipeFinder() {
               ))}
             </div>
           ))}
-          <button onClick={() => setExactOnly(!exactOnly)} className="rf-btn" style={{ display: "flex", alignItems: "center", gap: 6, border: "1px solid #E7DAB8", borderRadius: 999, padding: "6px 12px", fontSize: 13, fontWeight: 500, cursor: "pointer", background: exactOnly ? "#4B6B3A" : "#FFFDF7", color: exactOnly ? "#F6EFE0" : "#5A4A3A" }}>
-            <Leaf size={13} /> Ready to cook now
-          </button>
-          {usingFallback && (
+          {mode === "ingredients" && (
+            <button onClick={() => setExactOnly(!exactOnly)} className="rf-btn" style={{ display: "flex", alignItems: "center", gap: 6, border: "1px solid #E7DAB8", borderRadius: 999, padding: "6px 12px", fontSize: 13, fontWeight: 500, cursor: "pointer", background: exactOnly ? "#4B6B3A" : "#FFFDF7", color: exactOnly ? "#F6EFE0" : "#5A4A3A" }}>
+              <Leaf size={13} /> Ready to cook now
+            </button>
+          )}
+          {activeUsingFallback && (
             <span style={{ display: "flex", alignItems: "center", gap: 5, fontSize: 12, color: "#9C8D74", marginLeft: "auto" }}>
               <WifiOff size={13} /> API unreachable — showing sample data
             </span>
           )}
-          {!usingFallback && isSearching && (
+          {!activeUsingFallback && activeIsSearching && (
             <span
               role="status"
               aria-live="polite"
@@ -719,23 +846,25 @@ export default function RecipeFinder() {
         </div>
 
         <div style={{ marginTop: 24 }}>
-          {ingredients.length === 0 ? (
+          {mode === "ingredients" && ingredients.length === 0 ? (
             <EmptyState text="Add a few ingredients above to see what you can cook." />
-          ) : loadingFallbackData ? (
+          ) : activeLoadingFallbackData ? (
             <EmptyState text="Loading offline recipe data…" icon={<Spinner size={28} />} />
-          ) : visibleResults.length === 0 ? (
+          ) : activeVisibleResults.length === 0 ? (
             <EmptyState
               text={
                 showFavoritesOnly
-                  ? "None of your favorites match these ingredients yet."
-                  : "No dishes match yet — try adding more ingredients or loosening a filter."
+                  ? "None of your favorites match yet."
+                  : mode === "ingredients"
+                  ? "No dishes match yet — try adding more ingredients or loosening a filter."
+                  : "No dishes match that search — try a different name, cuisine, or country."
               }
             />
           ) : (
             <>
               <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 8, marginBottom: 12 }}>
                 <div style={{ fontSize: 13, color: "#7A6A54" }}>
-                  {visibleResults.length} dish{visibleResults.length !== 1 ? "es" : ""} found — tap any card for the full recipe
+                  {activeVisibleResults.length} dish{activeVisibleResults.length !== 1 ? "es" : ""} found — tap any card for the full recipe
                 </div>
                 {favorites.size > 0 && (
                   <button
@@ -748,7 +877,7 @@ export default function RecipeFinder() {
                 )}
               </div>
               <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))", gap: 14 }}>
-                {pagedResults.map((entry) => (
+                {activePagedResults.map((entry) => (
                   <DishCard
                     key={entry.dish.id}
                     entry={entry}
@@ -758,14 +887,14 @@ export default function RecipeFinder() {
                   />
                 ))}
               </div>
-              {visibleCount < visibleResults.length && (
+              {activeVisibleCount < activeVisibleResults.length && (
                 <div style={{ textAlign: "center", marginTop: 18 }}>
                   <button
-                    onClick={() => setVisibleCount((c) => c + RESULTS_PAGE_SIZE)}
+                    onClick={() => setActiveVisibleCount((c) => c + RESULTS_PAGE_SIZE)}
                     className="rf-btn rf-focus"
                     style={{ border: "1px solid #DCCFB0", background: "#FFFDF7", borderRadius: 999, padding: "8px 20px", fontSize: 13.5, fontWeight: 600, color: "#5A4A3A", cursor: "pointer" }}
                   >
-                    Show more ({visibleResults.length - visibleCount} left)
+                    Show more ({activeVisibleResults.length - activeVisibleCount} left)
                   </button>
                 </div>
               )}
@@ -812,6 +941,7 @@ function Spinner({ size = 14 }) {
 function DishCard({ entry, onClick, isFavorite, onToggleFavorite }) {
   const { dish, have, missing, percent } = entry;
   const accent = dish.cuisine === "habesha" ? "#9E2B1B" : "#C98A2C";
+  const hasMatchContext = percent !== null && percent !== undefined;
   return (
     <div className="rf-card" onClick={onClick} style={{ position: "relative", background: "#FFFDF7", border: "1px solid #E7DAB8", borderRadius: 14, padding: 16 }}>
       <button
@@ -824,7 +954,7 @@ function DishCard({ entry, onClick, isFavorite, onToggleFavorite }) {
         {isFavorite ? "★" : "☆"}
       </button>
       <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
-        <MatchRing percent={percent} accent={accent} />
+        {hasMatchContext ? <MatchRing percent={percent} accent={accent} /> : <DishBadge accent={accent} />}
         <div style={{ flex: 1, minWidth: 0 }}>
           <div className="rf-display" style={{ fontSize: 17, fontWeight: 600, lineHeight: 1.2 }}>{dish.name}</div>
           <div style={{ fontSize: 12.5, color: "#8A7A62", marginTop: 2 }}>{dish.subtitle}</div>
@@ -849,14 +979,27 @@ function DishCard({ entry, onClick, isFavorite, onToggleFavorite }) {
       </div>
 
       <div style={{ marginTop: 12, display: "flex", flexWrap: "wrap", gap: 5 }}>
-        {have.slice(0, 4).map((i) => (
-          <span key={i} style={{ fontSize: 11, background: "#EAF0E3", color: "#4B6B3A", padding: "3px 8px", borderRadius: 999, fontWeight: 500 }}>{i}</span>
-        ))}
-        {missing.slice(0, 3).map((i) => (
-          <span key={i} style={{ fontSize: 11, background: "transparent", border: "1px solid #E7DAB8", color: "#9C8D74", padding: "2px 7px", borderRadius: 999 }}>{i}</span>
-        ))}
-        {missing.length > 3 && (
-          <span style={{ fontSize: 11, color: "#9C8D74", padding: "3px 4px" }}>+{missing.length - 3} more</span>
+        {hasMatchContext ? (
+          <>
+            {have.slice(0, 4).map((i) => (
+              <span key={i} style={{ fontSize: 11, background: "#EAF0E3", color: "#4B6B3A", padding: "3px 8px", borderRadius: 999, fontWeight: 500 }}>{i}</span>
+            ))}
+            {missing.slice(0, 3).map((i) => (
+              <span key={i} style={{ fontSize: 11, background: "transparent", border: "1px solid #E7DAB8", color: "#9C8D74", padding: "2px 7px", borderRadius: 999 }}>{i}</span>
+            ))}
+            {missing.length > 3 && (
+              <span style={{ fontSize: 11, color: "#9C8D74", padding: "3px 4px" }}>+{missing.length - 3} more</span>
+            )}
+          </>
+        ) : (
+          <>
+            {dish.ingredientNames.slice(0, 5).map((i) => (
+              <span key={i} style={{ fontSize: 11, background: "#F3EEDD", color: "#7A6A54", padding: "3px 8px", borderRadius: 999, fontWeight: 500 }}>{i}</span>
+            ))}
+            {dish.ingredientNames.length > 5 && (
+              <span style={{ fontSize: 11, color: "#9C8D74", padding: "3px 4px" }}>+{dish.ingredientNames.length - 5} more</span>
+            )}
+          </>
         )}
       </div>
     </div>
