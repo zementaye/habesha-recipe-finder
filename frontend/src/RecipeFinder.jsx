@@ -16,6 +16,26 @@ const RESULTS_PAGE_SIZE = 24; // cards shown at once before "Show more" — keep
 const FAVORITES_STORAGE_KEY = "habesha-recipe-finder:favorites";
 
 /* ---------------------------------------------------------
+   A "looks real" food photo per dish, generated on the fly via
+   Pollinations' free, keyless image API (image.pollinations.ai)
+   — no signup, no API key, nothing for us to store or host.
+   Seeded from the dish id so the same dish always gets the same
+   photo instead of a new one on every render/reload.
+--------------------------------------------------------- */
+function seedFromId(id) {
+  let hash = 0;
+  const str = String(id);
+  for (let i = 0; i < str.length; i++) hash = (hash * 31 + str.charCodeAt(i)) | 0;
+  return Math.abs(hash) % 100000;
+}
+
+function dishImageUrl(d, { width = 640, height = 420 } = {}) {
+  const origin = [d.region, d.country].filter(Boolean).join(", ") || d.cuisine || "";
+  const prompt = `${d.name}, ${origin} cuisine, appetizing overhead food photography, natural light, plated, shallow depth of field, no text`;
+  return `https://image.pollinations.ai/prompt/${encodeURIComponent(prompt)}?width=${width}&height=${height}&seed=${seedFromId(d.id)}&nologo=true`;
+}
+
+/* ---------------------------------------------------------
    Normalize a raw dish record (same shape whether it came
    from the embedded array or the API) into what the UI needs.
 --------------------------------------------------------- */
@@ -41,6 +61,7 @@ function normalizeDish(d) {
     steps: d.steps || [],
     description: d.description || null,
     nutrition: d.nutrition || null,
+    image: dishImageUrl(d),
   };
 }
 
@@ -96,6 +117,36 @@ function DishBadge({ size = 56, accent }) {
       }}
     >
       <ChefHat size={size * 0.42} color={accent} />
+    </div>
+  );
+}
+
+/* ---------------------------------------------------------
+   Photo banner used on cards and in the modal. Generated images
+   occasionally fail to load (rate limits, flaky connection) —
+   fall back to a plain warm placeholder rather than a broken-
+   image icon so the layout never looks broken.
+--------------------------------------------------------- */
+function DishPhoto({ dish, height = 140, radius = "14px 14px 0 0" }) {
+  const [failed, setFailed] = useState(false);
+  const [loaded, setLoaded] = useState(false);
+  return (
+    <div style={{ position: "relative", width: "100%", height, borderRadius: radius, overflow: "hidden", background: "linear-gradient(135deg, #F3EEDD, #E7DAB8)" }}>
+      {!failed && (
+        <img
+          src={dish.image}
+          alt={dish.name}
+          loading="lazy"
+          onError={() => setFailed(true)}
+          onLoad={() => setLoaded(true)}
+          style={{ width: "100%", height: "100%", objectFit: "cover", display: "block", opacity: loaded ? 1 : 0, transition: "opacity 0.35s ease" }}
+        />
+      )}
+      {(failed || !loaded) && (
+        <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center" }}>
+          <ChefHat size={Math.round(height * 0.28)} color="#C9B98D" />
+        </div>
+      )}
     </div>
   );
 }
@@ -301,6 +352,9 @@ function DishModal({ entry, onClose, isFavorite, onToggleFavorite }) {
         onClick={(e) => e.stopPropagation()}
         style={{ background: "#FFFDF7", borderRadius: 18, maxWidth: 560, width: "100%", maxHeight: "88vh", overflowY: "auto", padding: 24, border: "1px solid #E7DAB8" }}
       >
+        <div style={{ margin: "-24px -24px 16px" }}>
+          <DishPhoto dish={dish} height={200} radius="18px 18px 0 0" />
+        </div>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 14 }}>
           <button onClick={onClose} className="rf-btn rf-focus" style={{ display: "flex", alignItems: "center", gap: 6, background: "none", border: "none", color: "#7A6A54", fontSize: 13, padding: 0, cursor: "pointer" }}>
             <ArrowLeft size={15} /> Back to results
@@ -943,16 +997,18 @@ function DishCard({ entry, onClick, isFavorite, onToggleFavorite }) {
   const accent = dish.cuisine === "habesha" ? "#9E2B1B" : "#C98A2C";
   const hasMatchContext = percent !== null && percent !== undefined;
   return (
-    <div className="rf-card" onClick={onClick} style={{ position: "relative", background: "#FFFDF7", border: "1px solid #E7DAB8", borderRadius: 14, padding: 16 }}>
+    <div className="rf-card" onClick={onClick} style={{ position: "relative", background: "#FFFDF7", border: "1px solid #E7DAB8", borderRadius: 14, overflow: "hidden" }}>
+      <DishPhoto dish={dish} height={132} radius="0" />
       <button
         onClick={(e) => { e.stopPropagation(); onToggleFavorite(); }}
         aria-label={isFavorite ? `Remove ${dish.name} from favorites` : `Add ${dish.name} to favorites`}
         aria-pressed={isFavorite}
         className="rf-btn rf-focus"
-        style={{ position: "absolute", top: 10, right: 10, border: "none", background: "transparent", cursor: "pointer", fontSize: 18, lineHeight: 1, color: isFavorite ? "#C98A2C" : "#DCCFB0" }}
+        style={{ position: "absolute", top: 10, right: 10, border: "none", background: "rgba(42,27,18,0.55)", borderRadius: "50%", width: 28, height: 28, display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", fontSize: 16, lineHeight: 1, color: isFavorite ? "#F2C879" : "#FFF9EF" }}
       >
         {isFavorite ? "★" : "☆"}
       </button>
+      <div style={{ padding: 16 }}>
       <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
         {hasMatchContext ? <MatchRing percent={percent} accent={accent} /> : <DishBadge accent={accent} />}
         <div style={{ flex: 1, minWidth: 0 }}>
@@ -1001,6 +1057,7 @@ function DishCard({ entry, onClick, isFavorite, onToggleFavorite }) {
             )}
           </>
         )}
+      </div>
       </div>
     </div>
   );
