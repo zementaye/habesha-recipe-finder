@@ -9,6 +9,12 @@ import { scoreDish as sharedScoreDish } from "./matching";
 // ./dishes-fallback.js, see the fetch effect below) if neither is reachable.
 const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:3001";
 
+// If the backend is unreachable — or just slow to wake up, e.g. a cold-start
+// on free hosting — we don't want the UI stuck on "Searching…" for ages.
+// Give it this long to respond, then abort and fall back to the offline
+// dataset instead of waiting indefinitely.
+const FETCH_TIMEOUT_MS = 5000;
+
 const SPICE_LABELS = ["None", "Mild", "Medium", "Hot"];
 const SPICE_MAP = { none: 0, mild: 1, medium: 2, hot: 3 };
 const QUICK_ADD = ["onion","garlic","tomato","berbere","chicken","lentils","ginger","potato","rice","olive oil","egg","beef","cabbage","chickpeas"];
@@ -577,10 +583,14 @@ export default function RecipeFinder() {
       return;
     }
     setIsSearching(true);
+    const controller = new AbortController();
+    let timedOut = false;
+    const abortTimer = setTimeout(() => { timedOut = true; controller.abort(); }, FETCH_TIMEOUT_MS);
     const timer = setTimeout(() => {
       fetch(`${API_BASE}/api/match`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
+        signal: controller.signal,
         body: JSON.stringify({
           ingredients,
           cuisine: cuisineFilter,
@@ -600,7 +610,11 @@ export default function RecipeFinder() {
           );
           setUsingFallback(false);
         })
-        .catch(() => {
+        .catch((err) => {
+          // A newer keystroke cancelling this stale request isn't a real
+          // failure — the effect it triggered will handle everything, so
+          // only fall back here for an actual error or our own timeout.
+          if (err.name === "AbortError" && !timedOut) return;
           setApiResults(null);
           setUsingFallback(true);
           setFallbackDishes((prev) => {
@@ -609,9 +623,9 @@ export default function RecipeFinder() {
             return prev;
           });
         })
-        .finally(() => setIsSearching(false));
+        .finally(() => { clearTimeout(abortTimer); setIsSearching(false); });
     }, 350);
-    return () => clearTimeout(timer);
+    return () => { clearTimeout(timer); clearTimeout(abortTimer); controller.abort(); };
   }, [ingredients, cuisineFilter, categoryFilter, exactOnly]);
 
   const localResults = useMemo(() => {
@@ -636,12 +650,15 @@ export default function RecipeFinder() {
   useEffect(() => {
     if (mode !== "name") return;
     setIsNameSearching(true);
+    const controller = new AbortController();
+    let timedOut = false;
+    const abortTimer = setTimeout(() => { timedOut = true; controller.abort(); }, FETCH_TIMEOUT_MS);
     const timer = setTimeout(() => {
       const params = new URLSearchParams();
       if (nameQuery.trim()) params.set("q", nameQuery.trim());
       if (cuisineFilter !== "all") params.set("cuisine", cuisineFilter);
       if (categoryFilter !== "all") params.set("category", categoryFilter);
-      fetch(`${API_BASE}/api/search?${params.toString()}`)
+      fetch(`${API_BASE}/api/search?${params.toString()}`, { signal: controller.signal })
         .then((res) => { if (!res.ok) throw new Error("API error"); return res.json(); })
         .then((data) => {
           setNameApiResults(
@@ -649,7 +666,8 @@ export default function RecipeFinder() {
           );
           setNameUsingFallback(false);
         })
-        .catch(() => {
+        .catch((err) => {
+          if (err.name === "AbortError" && !timedOut) return;
           setNameApiResults(null);
           setNameUsingFallback(true);
           setFallbackDishes((prev) => {
@@ -658,9 +676,9 @@ export default function RecipeFinder() {
             return prev;
           });
         })
-        .finally(() => setIsNameSearching(false));
+        .finally(() => { clearTimeout(abortTimer); setIsNameSearching(false); });
     }, 300);
-    return () => clearTimeout(timer);
+    return () => { clearTimeout(timer); clearTimeout(abortTimer); controller.abort(); };
   }, [mode, nameQuery, cuisineFilter, categoryFilter]);
 
   const localNameResults = useMemo(() => {
@@ -904,6 +922,8 @@ export default function RecipeFinder() {
             <EmptyState text="Add a few ingredients above to see what you can cook." />
           ) : activeLoadingFallbackData ? (
             <EmptyState text="Loading offline recipe data…" icon={<Spinner size={28} />} />
+          ) : activeVisibleResults.length === 0 && activeIsSearching ? (
+            <EmptyState text="Searching…" icon={<Spinner size={28} />} />
           ) : activeVisibleResults.length === 0 ? (
             <EmptyState
               text={
