@@ -22,24 +22,15 @@ const RESULTS_PAGE_SIZE = 24; // cards shown at once before "Show more" — keep
 const FAVORITES_STORAGE_KEY = "habesha-recipe-finder:favorites";
 
 /* ---------------------------------------------------------
-   A "looks real" food photo per dish, generated on the fly via
-   Pollinations' free, keyless image API (image.pollinations.ai)
-   — no signup, no API key, nothing for us to store or host.
-   Seeded from the dish id so the same dish always gets the same
-   photo instead of a new one on every render/reload.
+   Real, user-supplied dish photos live in
+   frontend/public/dish-photos/<dish-id>.<ext> — dropped in
+   manually rather than generated. Vite serves everything under
+   public/ from the site root, so the path is just /dish-photos/….
+   We don't know the extension in advance, so DishPhoto (below)
+   tries a few common ones and falls back to a plain placeholder
+   for any dish that doesn't have a photo yet.
 --------------------------------------------------------- */
-function seedFromId(id) {
-  let hash = 0;
-  const str = String(id);
-  for (let i = 0; i < str.length; i++) hash = (hash * 31 + str.charCodeAt(i)) | 0;
-  return Math.abs(hash) % 100000;
-}
-
-function dishImageUrl(d, { width = 640, height = 420 } = {}) {
-  const origin = [d.region, d.country].filter(Boolean).join(", ") || d.cuisine || "";
-  const prompt = `${d.name}, ${origin} cuisine, appetizing overhead food photography, natural light, plated, shallow depth of field, no text`;
-  return `https://image.pollinations.ai/prompt/${encodeURIComponent(prompt)}?width=${width}&height=${height}&seed=${seedFromId(d.id)}&nologo=true`;
-}
+const PHOTO_EXTENSIONS = ["jpg", "jpeg", "png", "webp"];
 
 /* ---------------------------------------------------------
    Normalize a raw dish record (same shape whether it came
@@ -67,7 +58,6 @@ function normalizeDish(d) {
     steps: d.steps || [],
     description: d.description || null,
     nutrition: d.nutrition || null,
-    image: dishImageUrl(d),
   };
 }
 
@@ -128,22 +118,25 @@ function DishBadge({ size = 56, accent }) {
 }
 
 /* ---------------------------------------------------------
-   Photo banner used on cards and in the modal. Generated images
-   occasionally fail to load (rate limits, flaky connection) —
-   fall back to a plain warm placeholder rather than a broken-
-   image icon so the layout never looks broken.
+   Photo banner used on cards and in the modal. Tries each known
+   extension for this dish's id in turn; if none exist (no photo
+   supplied yet) it settles on a plain warm placeholder instead
+   of a broken-image icon, so the layout never looks broken.
 --------------------------------------------------------- */
 function DishPhoto({ dish, height = 140, radius = "14px 14px 0 0" }) {
-  const [failed, setFailed] = useState(false);
+  const [extIndex, setExtIndex] = useState(0);
   const [loaded, setLoaded] = useState(false);
+  useEffect(() => { setExtIndex(0); setLoaded(false); }, [dish.id]);
+  const failed = extIndex >= PHOTO_EXTENSIONS.length;
+  const src = failed ? null : `/dish-photos/${dish.id}.${PHOTO_EXTENSIONS[extIndex]}`;
   return (
     <div style={{ position: "relative", width: "100%", height, borderRadius: radius, overflow: "hidden", background: "linear-gradient(135deg, #F3EEDD, #E7DAB8)" }}>
       {!failed && (
         <img
-          src={dish.image}
+          src={src}
           alt={dish.name}
           loading="lazy"
-          onError={() => setFailed(true)}
+          onError={() => setExtIndex((i) => i + 1)}
           onLoad={() => setLoaded(true)}
           style={{ width: "100%", height: "100%", objectFit: "cover", display: "block", opacity: loaded ? 1 : 0, transition: "opacity 0.35s ease" }}
         />
@@ -166,180 +159,6 @@ function HeroSpiral() {
       ))}
       <circle cx="60" cy="60" r="4" fill="#4B6B3A" />
     </svg>
-  );
-}
-
-/* ---------------------------------------------------------
-   Detail modal — shown on card click, works regardless of
-   how many ingredients the user has (full steps always shown).
---------------------------------------------------------- */
-/* ---------------------------------------------------------
-   DishEmblem: a generated, layered "plate" scene instead of a
-   sourced photo. Real photos turned out to fight the tilt
-   interaction — every source photo has a different crop and
-   framing, so a fixed-size box either cut off the food or
-   showed mostly background. This is drawn from the dish's own
-   data (id, accent color, spice level) instead, so every one
-   of the 500 dishes gets a properly-composed, licensing-free
-   scene with zero lookups.
-
-   Each layer (plate, food mound, steam, flecks) moves by a
-   different amount as you tilt it — actual parallax depth,
-   which a flat photo can't give you — plus the same overall
-   perspective tilt as before for the "turning it in your
-   hands" feel.
---------------------------------------------------------- */
-function hashSeed(str) {
-  let h = 0;
-  for (let i = 0; i < str.length; i++) h = (Math.imul(h, 31) + str.charCodeAt(i)) | 0;
-  return h;
-}
-// Deterministic 0..1 pseudo-random values derived from a dish's id, so
-// its emblem looks the same every time without storing anything.
-function seededRandoms(id, count) {
-  let s = hashSeed(id) || 1;
-  const out = [];
-  for (let i = 0; i < count; i++) {
-    s = (Math.imul(s, 48271) % 2147483647 + 2147483647) % 2147483647 || 1;
-    out.push((s % 10000) / 10000);
-  }
-  return out;
-}
-
-function DishEmblem({ dish, accent }) {
-  const frameRef = useRef(null);
-  const [tilt, setTilt] = useState({ rx: 0, ry: 0, mx: 50, my: 50 });
-  const [active, setActive] = useState(false);
-
-  const updateFromPoint = (clientX, clientY) => {
-    const el = frameRef.current;
-    if (!el) return;
-    const rect = el.getBoundingClientRect();
-    const clampedX = Math.min(1, Math.max(0, (clientX - rect.left) / rect.width));
-    const clampedY = Math.min(1, Math.max(0, (clientY - rect.top) / rect.height));
-    const maxDeg = 10;
-    setTilt({
-      rx: (0.5 - clampedY) * maxDeg * 2,
-      ry: (clampedX - 0.5) * maxDeg * 2,
-      mx: clampedX * 100,
-      my: clampedY * 100,
-    });
-  };
-  const reset = () => { setActive(false); setTilt({ rx: 0, ry: 0, mx: 50, my: 50 }); };
-
-  // Parallax offset for a layer: further-back layers barely move,
-  // foreground layers (flecks) swing further, selling the depth.
-  const parallax = (depth) => ({
-    x: (tilt.ry / 20) * depth,
-    y: (-tilt.rx / 20) * depth,
-  });
-
-  const r = seededRandoms(dish.id, 16);
-  const blobRadius = `${38 + r[0] * 24}% ${62 - r[0] * 24}% ${58 + r[1] * 20}% ${42 - r[1] * 20}% / ${44 + r[2] * 18}% ${40 + r[3] * 18}% ${60 - r[3] * 18}% ${56 - r[2] * 18}%`;
-  const blobRotate = -8 + r[4] * 16;
-  const gold = "#E8B84B";
-  const showSteam = dish.spice > 0 || dish.category === "non-fasting";
-  const fleckCount = 6;
-  const flecks = Array.from({ length: fleckCount }, (_, i) => ({
-    x: 28 + r[(5 + i) % 16] * 44,
-    y: 26 + r[(9 + i) % 16] * 48,
-    size: 3 + r[(2 + i) % 16] * 5,
-    color: i % 3 === 0 ? gold : i % 3 === 1 ? accent : "#FFF7E6",
-  }));
-
-  const plateP = parallax(3);
-  const blobP = parallax(7);
-  const fleckP = parallax(14);
-
-  return (
-    <div style={{ marginBottom: 6 }}>
-      <div
-        ref={frameRef}
-        onMouseMove={(e) => { setActive(true); updateFromPoint(e.clientX, e.clientY); }}
-        onMouseLeave={reset}
-        onTouchMove={(e) => { if (e.touches[0]) { setActive(true); updateFromPoint(e.touches[0].clientX, e.touches[0].clientY); } }}
-        onTouchEnd={reset}
-        style={{ perspective: 900, height: 260, borderRadius: 14, cursor: "grab" }}
-      >
-        <div
-          style={{
-            width: "100%",
-            height: "100%",
-            borderRadius: 14,
-            position: "relative",
-            overflow: "hidden",
-            background: `radial-gradient(120% 100% at 30% 20%, ${accent}14, #FBF3E3 65%)`,
-            transform: `rotateX(${tilt.rx}deg) rotateY(${tilt.ry}deg) scale(${active ? 1.015 : 1})`,
-            transition: active ? "transform 60ms linear" : "transform 350ms ease-out",
-            boxShadow: active ? "0 20px 30px -12px rgba(42,27,18,0.35)" : "0 8px 18px -8px rgba(42,27,18,0.25)",
-            border: "1px solid #EFE6D0",
-          }}
-        >
-          {/* background spiral echo, reusing the app's mesob motif */}
-          <div
-            style={{
-              position: "absolute", inset: 0, opacity: 0.25,
-              transform: `translate(${plateP.x}px, ${plateP.y}px)`,
-              backgroundImage: `repeating-radial-gradient(circle at 75% 30%, ${accent}22 0, ${accent}22 2px, transparent 2px, transparent 14px)`,
-            }}
-          />
-          {/* plate */}
-          <div
-            style={{
-              position: "absolute", left: "50%", top: "58%", width: "72%", height: "58%",
-              transform: `translate(-50%, -50%) translate(${plateP.x}px, ${plateP.y}px)`,
-              borderRadius: "50%",
-              background: "radial-gradient(circle at 35% 30%, #FFFDF7, #EFE1C0 70%, #DCCFA8)",
-              boxShadow: "0 10px 20px -8px rgba(42,27,18,0.25), inset 0 -6px 12px rgba(42,27,18,0.08)",
-            }}
-          />
-          {/* food mound */}
-          <div
-            style={{
-              position: "absolute", left: "50%", top: "56%", width: "50%", height: "42%",
-              transform: `translate(-50%, -50%) translate(${blobP.x}px, ${blobP.y}px) rotate(${blobRotate}deg)`,
-              borderRadius: blobRadius,
-              background: `radial-gradient(circle at 35% 30%, ${gold}, ${accent} 75%)`,
-              boxShadow: `0 8px 16px -6px ${accent}66`,
-            }}
-          >
-            {flecks.map((f, i) => (
-              <div
-                key={i}
-                style={{
-                  position: "absolute", left: `${f.x}%`, top: `${f.y}%`,
-                  width: f.size, height: f.size, borderRadius: "50%",
-                  background: f.color,
-                  transform: `translate(${fleckP.x}px, ${fleckP.y}px)`,
-                  boxShadow: "0 1px 2px rgba(42,27,18,0.3)",
-                }}
-              />
-            ))}
-          </div>
-          {/* steam, for hot/non-fasting dishes */}
-          {showSteam && [0, 1].map((i) => (
-            <div
-              key={i}
-              className="rf-steam"
-              style={{
-                position: "absolute", left: `${44 + i * 12}%`, top: "18%", width: 10, height: 60,
-                borderRadius: 999, background: "linear-gradient(rgba(255,255,255,0.55), rgba(255,255,255,0))",
-                filter: "blur(3px)", animationDelay: `${i * 0.6}s`,
-              }}
-            />
-          ))}
-          {/* moving glare, sells the tilt/rotation */}
-          <div
-            style={{
-              position: "absolute", inset: 0, pointerEvents: "none",
-              background: `radial-gradient(circle at ${tilt.mx}% ${tilt.my}%, rgba(255,255,255,0.3), rgba(255,255,255,0) 45%)`,
-              opacity: active ? 1 : 0.4,
-              transition: "opacity 200ms ease-out",
-            }}
-          />
-        </div>
-      </div>
-    </div>
   );
 }
 
@@ -389,10 +208,6 @@ function DishModal({ entry, onClose, isFavorite, onToggleFavorite }) {
           {(dish.prep || dish.cook) && <span className="rf-mono" style={{ display: "flex", alignItems: "center", gap: 4 }}><Clock size={13} />{(dish.prep || 0) + (dish.cook || 0)}m</span>}
           {dish.serves && <span className="rf-mono" style={{ display: "flex", alignItems: "center", gap: 4 }}><Users size={13} />{dish.serves}</span>}
           <span style={{ textTransform: "capitalize" }}>{dish.category}</span>
-        </div>
-
-        <div style={{ marginTop: 16 }}>
-          <DishEmblem dish={dish} accent={accent} />
         </div>
 
         <div style={{ marginTop: 20 }}>
