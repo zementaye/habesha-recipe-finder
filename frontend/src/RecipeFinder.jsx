@@ -178,7 +178,7 @@ function DishModal({ entry, onClose, isFavorite, onToggleFavorite }) {
         style={{ background: "#FFFDF7", borderRadius: 18, maxWidth: 560, width: "100%", maxHeight: "88vh", overflowY: "auto", padding: 24, border: "1px solid #E7DAB8" }}
       >
         <div style={{ margin: "-24px -24px 16px" }}>
-          <DishPhoto dish={dish} height={200} radius="18px 18px 0 0" />
+          <DishPhoto dish={dish} height={300} radius="18px 18px 0 0" />
         </div>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 14 }}>
           <button onClick={onClose} className="rf-btn rf-focus" style={{ display: "flex", alignItems: "center", gap: 6, background: "none", border: "none", color: "#7A6A54", fontSize: 13, padding: 0, cursor: "pointer" }}>
@@ -833,7 +833,7 @@ function DishCard({ entry, onClick, isFavorite, onToggleFavorite }) {
   const hasMatchContext = percent !== null && percent !== undefined;
   return (
     <div className="rf-card" onClick={onClick} style={{ position: "relative", background: "#FFFDF7", border: "1px solid #E7DAB8", borderRadius: 14, overflow: "hidden" }}>
-      <DishPhoto dish={dish} height={132} radius="0" />
+      <DishPhoto dish={dish} height={170} radius="0" />
       <button
         onClick={(e) => { e.stopPropagation(); onToggleFavorite(); }}
         aria-label={isFavorite ? `Remove ${dish.name} from favorites` : `Add ${dish.name} to favorites`}
